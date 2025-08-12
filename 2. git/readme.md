@@ -227,6 +227,7 @@ git push
 
 #### 작성방법
 1. 저장소로 이동 -> 상단에 Issues 탭 클릭
+![image](img/issues1.png)
 2. 새 이슈 만들기
 3. 제목(Title)입력(한 줄로 문제나 요청의 핵심을 작성)
 4. 내용(Description)작성 -> 구체적인 내용, 발생 상황, 기대 결과등을 작성
@@ -234,3 +235,4 @@ git push
    - 라벨(Label) : 이슈의 성격, 우선순위 지정
    - 담당자(Assignees) : 해당 이슈를 처리할 사람 지정
    - 마일스톤(Milestone) : 이슈 완료 목표 시점 설정
+![image](img/isuues2.png)
