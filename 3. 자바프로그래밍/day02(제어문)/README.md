@@ -1,8 +1,11 @@
 # 제어문
-- 일반적으로 프로그램에 포함된 실행문은 순차적으로 실행이 된다.
-- 하지만 순차적으로만 실행한다면 프로그램이 매우 길어지거나 표현하기 어려운 상황이 발생할 수 있다.
-- 예를 들어, 어떤 변수에 10을 더하는 명령을 1,000번 수행해야 하는 경우, 순차적으로만 실행하면 실행문을 1,000번 적어야 한다.
-- 또한 선택의 개념을 구현하기가 힘듭니다.
+- 프로그램의 실행 흐름을 조절하는 문법이다.
+- 기본적으로 자바 프로그램은 위에서 아래로 한 줄씩 실행된다.
+- 제어문을 사용하면 특정 조건에 따라 실행할 코드의 순서나 횟수를 바꿀 수 있다.
+
+![image](img/조건문.png)
+
+
 ## 조건문
 - 조건식에 따라서 프로그램의 흐름을 제어할 수 있는 문법이다.
 - 삼항연산자에서 미리 살펴봤듯이, 조건식의 true 또는 false라는 결과에 따라서 어떤 구문을 실행할지 결정한다.
@@ -143,6 +146,7 @@ if(조건식1){
 - else - if문의 개수에는 제한이 없습니다.
 - 하지만 너무 많은 else - if문을 사용한다면 프로그램의 실행 속도가 현저히 느려질 수 있기 때문에 다른 방법을 함께 고려해야 한다.
 - if - else if문의 가장 마지막에 작성하는 else블록은 필요없다면 생략이 가능하다.
+
 ### if_elseif01클래스 생성하기
 ```java
 int favorite = 7;
@@ -157,6 +161,7 @@ if(favorite < 5) {//1번 조건문
 ```
 - 1번 조건식이 true라면 2번 조건식이 아무리 true여도, 실행되지 않고 프로그램은 바로 if-else if문을 빠져나간다.
 - 코드를 아래와 같이 수정하고 실행을 해보겠습니다.
+
 ### if_elseif02클래스 생성하기
 ```java
 int favorite = 7;
@@ -228,6 +233,7 @@ if(num <=10){
   }
 }
 ```
+- 중첩의 단계에는 제한이 없습니다.
 
 ## switch문
 - if문과 비슷하지만 if문은 괄호안에 인자값이 true, 혹은 false로 결정되는 조건식이 들어가야 한다.
@@ -381,52 +387,73 @@ public class Test {
 	}
 }
 ```
+- 화살표 표현식을 사용하면 스위치된 값을 변수에 바로 대입할 수도 있다.
+- 단일 값일 경우에는 화살표 오른쪽에 값을 기술하면 되고, 중괄호를 사용할 경우에는 yield키워드로 값을 지정하면 된다.
+- 단, 이 경우에는 default가 반드시 존재해야 한다.
 
-### Switch05클래스 생성하기
-- 기존의 방식에서는 다음과 같이 변수에 값을 대입할 수 있다.
-- 하지만 중복되는 코드가 많이 만들어지게 된다.
 ```java
-package test2;
-
-public class Test {
-	public static void main(String[] args) {
-		int number = 3;
-		
-		String result = "";
-		
-		switch(number) {
-		case 1:
-		case 3:
-		case 5:
-			result = "홀수";
-			break;
-		case 2:
-		case 4:
-		case 6:
-			result = "홀수";
-			break;
-		default:
-			result = "6이하의 정수만 입력하세요";
-			break;
-		}
-		System.out.println(result);
-			
+타입 변수 = switch(grade) {
+	case "값1" -> 변수값;
+	case "값2" -> {
+		...;
+		yield 변수값;
 	}
-
-	//자바 12이상
-	String result2 = switch(number) {
-		case 1,3,5 -> "홀수";
-		case 2,4,6 -> "짝수";
-		default -> "6이하의 정수만 입력하세요"; // 값을 리턴할 경우 default 문장이 반드시 있어야 한다.
-		};
-		
-		System.out.println(result2);
+	default -> 변수값;
 }
-
 ```
 
+### SwitchValueExample.java
+```java
+package ch04.sec03;
+
+public class SwitchValueExample {
+	public static void main(String[] args) {
+		String grade = "B";
+		
+		//Java 11 이전 문법
+		int score1 = 0;
+		switch(grade) {
+		    case "A":
+		    	score1 = 100;
+		    	break;
+		    case "B":
+		    	int result = 100 - 20;
+		    	score1 = result;
+		    	break;
+		    default:
+		    	score1 = 60;
+		}
+		System.out.println("score1: " + score1);
+		
+		//Java 12부터 가능
+		int score2 = switch(grade) {
+			case "A" -> 100;
+			case "B" -> {
+				int result = 100 - 20;
+				//Java 13부터 가능
+				yield result;
+			}
+			default -> 60;
+		};
+		System.out.println("score2: " + score2);
+	}
+}
+```
+
+
 # 반복문
-- 특정수행문을 원하는만큼 반복하여 실행하는 제어문
+- 프로그램을 작성하다 보면 똑같은 실행문을 반복적으로 실행해야 할 경우가 많이 발생한다.
+```java
+int sum = 0;
+sum = sum + 1;
+sum = sum + 2;
+sum = sum + 3;
+sum = sum + 4;
+sum = sum + 5;
+System.out.println("1~5까지의 합 : " + sum);
+```
+- 만약 1부터 100까지 합을 구하는 코드를 같은 방법으로 작성한다면 코드의 양이 엄청 늘어날 것이다.
+- 이런경우 반복문을 사용하면 코드를 획기적으로 줄일 수 있다.
 ### 반복문의 종류
 - for, while
 
@@ -437,9 +464,15 @@ for(초기식; 조건식; 증감식){
 	조건식에 해당할때 반복할 명령
 }
 ```
-- 초기식 : 반복을 하기 위한 시작값으로 변수를 하나 초기화 한다.
-- 조건식 : 반복을 하기 위한 종료값으로 비교연산자를 많이 사용한다.
-- 증감식 : 변수의 값을 증감시켜주는 역할을 한다 증감연산자를 많이 사용한다.
+### 초기식
+- 조건식과 실행문에서 사용할 변수를 초기화 하는 역할을 한다.
+- 어떤 경우에는 초기식이 둘 이상 있을 수도 있고, 증감식도 둘 이상 있을 수 있다.
+### 조건식
+- 조건을 평가하여 true면 실행문을 실행시키고, false면 for문을 종료하고 블록을 건너뛴다.
+### 증감식
+- 조건이 true일 때 안에 있는 명령들이 모두 실행되면 증감식이 실행된다.
+
+<br>
 
 ※후행증감이나 선행증감이나 영향은 없지만 개발자들이 다들 후행증감을 사용하므로 후행증감으로 사용하도록 하자.<br>
 
@@ -450,6 +483,33 @@ for(int i = 0; i <= 3; i++){
 ```
 
 ![image](https://user-images.githubusercontent.com/54658614/215010183-dceb4e66-811e-46ba-a8b6-e3e902446b3d.png)
+
+
+### for문을 작성할 때 주의할 점
+- 부동 소수점을 쓰는 float타입을 사용하지 말아야 한다.
+```java
+package ch04.sec04;
+
+public class FloatCounterExample {
+	public static void main(String[] args) {
+		for(float x=0.1f; x<=1.0f; x+=0.1f) {
+			System.out.println(x);
+		}
+	}
+}
+
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.70000005
+0.8000001
+0.9000001
+```
+- 부동 소수점 방식의 float타입은 연산 과정에서 정확히 0.1을 표현하지 못하기 때문에 증감식에서 x에 더해지는 실제 값은 0.1보다 약간 클 수 있다.
+- 따라서 최종 반복 횟수는 9번이 된다.
 
 ## 다중 for문
 - for문안에 또 다른 for문을 사용하는 경우를 말한다.
@@ -463,7 +523,7 @@ for(초기식;조건식;증감식){
 ```
 
 # while문
-- for무ㄴ은 정해진 횟수만큼 반복하는 문법이다.
+- for문은 정해진 횟수만큼 반복하는 문법이다.
 - 반면 while문은 반복 횟수가 정해져 있지 않고, 조건식이 true일 경우 계속해서 반복하는 문법이다.
 - 부여된 조건식이 true이면 반복문이 실행되고 false면 종료된다.
 - **주의하지 않으면 무한루프에 빠질수 있다.**

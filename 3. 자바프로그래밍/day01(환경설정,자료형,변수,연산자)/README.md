@@ -282,17 +282,6 @@ public class Hello { // 클래스 선언 시작
     }
 } // 클래스 선언 끝
 ```
-
-## 12. 클래스 내용 작성하기
-- 다음과 같은 코드를 작성한다.
-```java
-public class Test {
-	public static void main(String[] args) {
-		
-	}
-}
-```
-
 ### main 메서드
 - main 메서드는 자바 프로그램의 시작점이다.
 - JVM이 프로그램을 실행할 때 가장 먼저 찾는 메서드이며, main 메서드가 없으면 자바 프로그램은 실행되지 않는다.
@@ -307,19 +296,12 @@ void : 결과를 반환하지 않는다는 키워드
 main : 메서드의 이름
 String[] args : 외부에서 전달받는 값을 저장하는 공간
 ```
-### System.out.println("hello world"); 작성해보기
+```java
+System.out.println("hello world"); 
+```
 - 항상 명령이 끝난 뒤에는 세미콜론(;)를 붙혀야 한다.
 - 세미콜론(;)이 나올 때 까지 한 문장의 실행문으로 인식하기 때문이다.
 - 실행을 하기 전에는 ctrl + s를 눌러 꼭 저장을 해주도록 합시다!
-
-```java
-public class Test {
-	public static void main(String[] args) {
-		System.out.println("hello world");
-	}
-}
-```
-
 - 실행단추 Run을 클릭하거나 Ctrl + f11을 누르면 작성한 프로그램을 실행할 수 있다.
 
 ![image](https://user-images.githubusercontent.com/54658614/212241733-b89dbf5a-ae42-4ebd-b28c-53d89afbc2af.png)
@@ -519,31 +501,15 @@ System.out.println();
 System.out.printf("%.5f",1.1234567);
 ```
 # 자료형(기본자료형)
-- 현실에서는 물을 종이컵에다 마시든, 플라스틱 컵에다 마시든, 유리컵에다 마시든 전혀 문제가 되지 않습니다.
-- 하지만 프로그래밍에서는 '물은 종이컵에 담아먹겠다' 라고 약속을 했으면 무조건 지켜야 합니다.
 - 프로그래밍에서 자료형은 데이터를 담을 컵의 크기와 재질이라고 비유를 들 수 있습니다.
 - 자료형(data type)은 자바가 처리할 수 있는 데이터의 종류를 의미한다.
+
+![image](img/자료형.png)
 
 ## 1. 기본자료형
 - 실제 데이터 값을 저장할 수 있게 해줍니다. 정수,실수,문자,논리 타입으로 분류된 8개의 자료형이 존재한다.
 - 각 타입에 저장되는 값의 허용 범위를 모두 외울 필요는 없지만 메모리 할당 크기는 알고있는것이 좋다.
 
-|자료형|키워드|메모리 크기|표현 범위|
-|------|------|----------|-----------|
-|논리형|boolean|1bit|true, false(기본값 false)|
-|문자형|char|2byte|기본값 \u0000 or 0|
-|정수형|byte<br>short<br>int<br>long<br> |1byte<br>2byte<br>4byte<br>8byte |-128 ~ 127<br>-32,768 ~ 32,767<br>-21,4748,3648 ~ 21,4748,3647<br>-9,223,372,036,854,775,808 ~ (900경)|
-|실수형|float<br>double<br>|4byte<br>8byte<br>|기본값 0.0|
-
-```diff
-float
-메모리를 덜 사용하면서 소수점을 포함한 숫자를 다룰 때 적합
-하지만 정확도가 제한적이기 때문에 금융 계산이나 높은 정밀도가 필요한 작업에 부적합
-
-double
-훨씬 더 넓은 범위와 높은 정확도를 제공
-과학적 계산, 통계, 시뮬레이션 등에서 사용
-```
 ### 1-1. 논리형(boolean)
 - 참(true) 또는 거짓(false)만 저장하는 자료형
 - 메모리 크기 : 1bit
@@ -558,10 +524,69 @@ double
 - 표현 범위 : 0 ~ 65,535(유니코드 값)
 - 특징 : 문자뿐 아니라 정수 값(유니코드)도 저장 가능
 
+
+#### <span style="color:red">유니코드</span>
+- 전 세계 모든 문자를 컴퓨터에서 통일된 방식으로 표현하기 위해 만든 문자 인코딩 표준이다.
+- 영어,한글,일본어,중국어 뿐만 아니라 기호, 이모지까지 모두 코드값으로 관리한다.
+
+#### <span style="color:red">인코딩</span>
+- 문자를 컴퓨터가 이해할 수 있는 코드값으로 변환하는 과정
+#### <span style="color:red">디코딩</span>
+- 코드값을 다시 문자로 변환하는 과정
+
+### 1-3. 정수형(byte)
+- 작은 범위의 정수를 저장, 주로 파일 네트워크 데이터 전송에 사용
+- 메모리 크기 : 1byte
+- 기본값 : 0
+- 표현 범위 : -128 ~ 127
+- 특징 : 메모리 절약 가능, 큰 범위 연산 시 자동 형변환(int)
+
+### 1-4. 정수형(short)
+- 개념: 중간 크기의 정수를 저장
+- 메모리 크기: 2byte
+- 기본값: 0
+- 표현 범위: -32,768 ~ 32,767
+- 특징: C언어 호환을 위해 존재, 실제 사용 빈도 낮음
+
+### 1-5. 정수형(int)
+- 개념: 가장 많이 쓰이는 기본 정수형
+- 메모리 크기: 4byte
+- 기본값: 0
+- 표현 범위: -2,147,483,648 ~ 2,147,483,647
+- 특징: 정수 연산의 기본 타입, 대부분의 연산은 int로 처리
+
+### 1-6. 정수형(long)
+- 개념: 아주 큰 정수 저장
+- 메모리 크기: 8byte
+- 기본값: 0L
+- 표현 범위: -9,223,372,036,854,775,808 ~ 9,223,372,036,854,775,807
+- 특징: 리터럴 뒤에 L 또는 l을 붙여야 함
+
+### 1-7. 실수형(float)
+- 개념 : 부동소수점 방식의 실수 저장
+- 메모리 크기 : 4byte
+- 기본값 : 0.0f
+- 표현 범위 : 약 ±3.4E38 (소수점 7자리 정밀도)
+- 특징 : 실수 리터럴 뒤에 f 또는 F필수
+
+### 1-8. 실수형(double)
+- 개념 : 부동소수점 방식의 실수 저장
+- 메모리 크기 : 8byte
+- 기본값 : 0.0d
+- 표현 범위 : 약 ±1.7E308 (소수점 15자리 정밀도)
+- 특징: 실수 연산의 기본 타입, d 생략 가능
+
+#### <span style="color:red">리터럴</span>
+- 프로그램 코드에서 고정된 값 자체를 의미한다.
+- 계산이나 해석 없이 있는 그대로를 의미한다.
+- 자바에서 정수 타입의 리터럴값은 기본적으로 int 타입으로 인식된다.
+- 실수 리터럴은 기본적으로 double타입으로 인식된다.
+- 그래서 long 또는 float 타입의 값을 만들 때는 l이나 f같은 접미사를 붙여서 자료형을 명확하게 지정해야 한다.
+
 ### 주의점
 - 정수의 경우 해당 자료형이 표현할 수 있는 범위를 벗어난 데이터를 저장하면, 오버플로우(overflow)가 발생해 전혀 다른 값이 저장될 수 있다.
 
-#### 오버플로우 / 언더플로우
+#### <span style="color:red">오버플로우 / 언더플로우</span>
 - 오버플로우는 해당 자료형이 표현할 수 있는 최대 범위보다 큰 수를 저장할 때 발생하는 현상으로 잘못된 결과를 얻을 수 있다.
 - 언더플로우는 해당 자료형이 표현할 수 있는 최소 범위보다 작은 수를 저장할 때 발생하는 현상이다.
 
@@ -614,11 +639,10 @@ public class Test {
 ```
 
 # 변수
-- 컴퓨터는 프로그램을 실행하는 데 필요한 것들을 미리 올려놓고 사용하는 저장공간이 있다.
-- 우리는 그 공간을 메모리라고 부른다.
-- 개발자는 프로그램을 만들고 실행하는 데 필요한 값들을 메모리에 저장해두고, 필요할 때마다 꺼내서 사용한다.
-- 저장하고자 하는 값을 무질서하게 저장하는 것이 아닌, 메모리의 규칙 속에서 일부 공간을 할당받아야 한다.
-- 메모리에 값을 저장하기 위해 할당해 놓은 특정 공간을 변수라고 한다.
+- 내가 넣으려는 데이터의 자료형을 정했다면, 변수는 실제로 데이터를 저장하는 것이다.
+
+![image](img/variable.png)
+
 
 ## 1. 변수의 선언
 - 변수를 사용하기 위해서는 변수를 선언해야 한다.
@@ -628,7 +652,11 @@ public class Test {
 
 ```java
 자료형 변수명;
+
+int age;
 ```
+
+- 컵이 준비가 됐고, 아직 내용물은 담기지 않은 상태라고 볼 수 있다.
 
 ## 2. 변수명 명명 규칙
 - 사용 용도를 최대한 명확하게 보여줄 수 있는 이름이라면, 개발자가 마음대로 지정할 수 있지만 다음과 같은 규칙을 지켜야 한다.
@@ -642,7 +670,7 @@ public class Test {
 ```
 - 변수명은 문자 수의 제한이 없으므로 최대한 변수의 의미를 쉽게 파악할 수 있도록 구체적으로 명명하는것이 좋다.
 
-### 표기법
+### 2-1. 표기법
 - 변수명은 문자 수의 제한 이 없으므로 최대한 변수의 의미를 쉽게 파악할 수 있도록 구체적으로 명명하는 것이 좋다.
 
 #### 카멜 표기법(camel case)
@@ -662,11 +690,16 @@ phone_number
 ## 3. 변수에 데이터 입력하기
 - 개발자가 데이터 값이 필요할 때 데이터의 값을 직접 사용하는 대신, 데이터를 변수에 저장해두고 변수의 이름을 호출하여 그 값을 사용할 수 있게 해준다.
 
-### 변수에 데이터를 저장하는 방법
-- = 기호를 사용하면 된다.
+### 3-1. 대입하기
+- 선언된 변수에 값을 저장하는 것
 - 수학에서는 좌변과 우변이 같다는 의미이지만 프로그래밍에서는 우변에 값을 좌변에 대입하겠다는 의미를 가지고 있다.
 
-### Variable02 클래스 생성하기
+```java
+age = 25;
+```
+- 대입을 할 때는 자료형을 쓰지 않고 변수명만 이용한다.
+
+### Variable02클래스 생성하기
 ```java
 public class Variable02{
 	public static void main(String[] args){
@@ -677,22 +710,29 @@ public class Variable02{
 	}
 }
 ```
-- 위처럼 변수를 선언하고 처음으로 값을 대입하는 것을 '초기화'라고 한다.
-- 초기 + 화 (initialization)이라는 뜻이다.
-- 변수를 선언하고 초기화를 하는 작업을 한 줄로 쓸 수 있다.
 
-### Variable03 클래스 생성하기
+
+### 3-2. 초기화(initialization)
+- 컵을 만들고 처음 내용물을 넣는 방식
+- 변수의 선언과 동시에 값을 대입하는것이다.
 ```java
 public class Variable02{
 	public static void main(String[] args){
+
+		...
+
 		String myCity = "Seoul"; //도시를 저장할 수 있는 변수를 선언하고, 변수에 "Seoul"을 대입했다.
 
 		System.out.println("I am from " + myCity);
 	}
 }
 ```
+- 위처럼 변수를 선언하고 처음으로 값을 대입하는 것을 '초기화'라고 한다.
+- 초기 + 화 (initialization)이라는 뜻이다.
+- 변수를 선언하고 초기화를 하는 작업을 한 줄로 쓸 수 있다.
 
 ### Variable04 클래스 생성하기
+- 다양한 자료형의 변수를 만들어보자.
 ```java
 ----------------------------------------------------------------
 논리형
@@ -800,13 +840,15 @@ public class Casting01{
 - 형 변환은 숫자를 담을 수 있는 기본 자료형간에만 가능하다.
 - 즉, 정수인 byte,short,int,long,float,double형 간에만 가능하며, 문자형인 char역시 문자형인 동시에 정수이기도 하므로 형 변환을 할 수 있다.
 
-## Promotion(자동형변환)
+## 1. Promotion(자동형변환)
 - 서로 다른 자료형간의 대입이나 연산을 할 때 형 변환으로 자료형을 일치시켜야 하지만 다음과 같은 경우 자바의 컴파일러가 자동으로 형 변환을 해주기 때문에 생략할 수 있다.
+
 ### 작은 자료형에서 큰 자료형으로 변환할 때
   - ### 정수형
     - byte -> short -> int -> long
   - ### 실수형
     - float(4바이트) -> double(8바이트)
+
 ### 정수형이 실수형으로 변환 될 때
 
 ### Casting02클래스 생성하기
@@ -921,7 +963,7 @@ public class Casting06 {
 		int i1 = (int)f1;
 		System.out.println("[float -> int] f1의 값 : " + f1+", i1의 값 : " + i1);
 		
-		//float -> int 강제 형변환
+		//double -> int 강제 형변환
 		double d1 = 12345.67;
 		int i2 = (int)d1;
 		System.out.println("[double -> int] d1의 값 : " + d1+", i2의 값 : " + i2);	
@@ -930,25 +972,145 @@ public class Casting06 {
 
 ```
 
-## 자바의 특징
-```java
-짚고 넘어갈 자바의 장점(신기함)
-byte b1 = 100;
-byte b2 = 20;
-byte b3 = b1 + b2; //오류남.
 
-int b3 = b1 + b2; //이렇게 수정
+### + 연산자의 기능
+- 자바에서 + 연산자는 두 가지 기능을 가지고 있다.
+- 피연산자가 모두 숫자일 경우에는 덧셈 연산을 수행하고, 피연산자 중 하나가 문자열일 경우에는 나머지 피연산자도 문자열로 자동 변환되어 문자열 결합 연산을 수행한다.
+```java
+int value = 3 + 7 -> int value = 10;
+String str = "3" + 7 -> String str = "3" + "7"; -> String str= "37";
+
+String str = 3 + "7" -> String str = "3" + "7"; -> String str= "37";
 ```
-- byte의 표현 범위가 127까지 밖에 되지 않다보니, byte끼리의 연산은 127을 넘어가버릴 가능성이 높다.
-- 이런 상황을 대비하여 java개발자들은 byte끼리의 연산이 수행될 때, int형 변수로 값을 받도록 만든다.
+- 연산식에서 + 연산자가 연이어 나오면 왼쪽에서 오른쪽으로 + 연산을 수행한다.
+- 먼저 수행된 연산이 덧셈 연산이라면 덧셈 결과를 가지고 그 다음 + 연산을 수행한다.
+- 만약 먼저 수행된 연산이 결합 연산이라면 이후 + 연산은 모두 결합 연산이 된다.
+
+```java
+int value = 1 + 2 + 3; -> int value = 3 + 3; -> int value = 6;
+String str = 1 + 2 + "3" -> String str = 3 + "3" -> String str = "33"
+String str = 1 + "2" + 3 -> String str = "12" + 3 -> String str = "123"
+String str = "1" + 2 + 3 -> String str = "12" + 3 -> String str = "123"
+```
+- 앞에서 순차적으로 + 연산을 수행하지 않고 특정 부분을 우선 연산하고 싶다면 해당 부분을 괄호{}로 감싸면 된다.
+- 괄호는 항상 최우선으로 영산을 수행한다.
+```java
+String str = "1" + (2+3); -> String str = "1" + 5; -> String str="15";
+```
+### StringConcatExample.java
+```java
+package ch02.sec09;
+
+public class StringConcatExample {
+	public static void main(String[] args) {
+		//숫자 연산
+		int result1 = 10 + 2 + 8;
+		System.out.println("result1: " + result1);
+
+		//결합 연산
+		String result2 = 10 + 2 + "8";
+		System.out.println("result2: " + result2);
+
+		String result3 = 10 + "2" + 8;
+		System.out.println("result3: " + result3);
+
+		String result4 = "10" + 2 + 8;
+		System.out.println("result4: " + result4);
+
+		String result5 = "10" + (2 + 8);
+		System.out.println("result5: " + result5);
+	}
+}
+```
+
+### 문자열을 기본 타입으로 변환
+- 자바에서 문자열을 기본 타입으로 변환하는 방법은 다음과 같다.
+
+|변환 타입|사용 예|
+|------|-------|
+|String -> byte|String str = "10";<br>byte value= Byte.parseByte(str);|
+|String -> short|String str = "200";<br>short value= Short.parseShort(str);|
+|String -> int|String str = "300000";<br>int value= Int.parseInt(str);|
+|String -> long|String str = "400000000";<br>long value= Long.parseLong(str);|
+|String -> float|String str = "12.345";<br>float value= Float.parseFloat(str);|
+|String -> double|String str = "12.345";<br>double value= Double.parseDouble(str);|
+|String -> boolean|String str = "true";<br>boolean value= Byte.parseBoolean(str);|
+
+- 반대로 기본 타입의 값을 문자열로 변경하는 경우에는 String.valueOf()메서드를 사용하면 된다.
+
+```java
+String str = String.valueOf(기본타입값);
+```
+
+### PrimitiveAndStringConversionExample.java
+```java
+package ch02.sec10;
+
+public class PrimitiveAndStringConversionExample {
+	public static void main(String[] args) {
+		int value1 = Integer.parseInt("10");
+		double value2 = Double.parseDouble("3.14");
+		boolean value3 = Boolean.parseBoolean("true");
+		
+		System.out.println("value1: " + value1);
+		System.out.println("value2: " + value2);
+		System.out.println("value3: " + value3);
+		
+		String str1 = String.valueOf(10);
+		String str2 = String.valueOf(3.14);
+		String str3 = String.valueOf(true);		
+		
+		System.out.println("str1: " + str1);
+		System.out.println("str2: " + str2);
+		System.out.println("str3: " + str3);
+	}
+}
+```
+
+## 변수 사용 범위
+- main() 메서드 블록에는 다른 중괄호 {} 블록들이 작성될 수 있다.
+- 조건문에 해당하는 if, 반복문에 해당하는 for, while 등이 중괄호 {} 블록을 가질 수 있는데, 이러한 중괄호 {} 블록 내에서 선언된 변수는 해당 중괄호 {} 블록 내에서만 사용이 가능하고 밖에서는 사용할 수 없다.
+
+```java
+public static void main(String[] args){
+	int var1; //main()메소드 영역에서 변수의 선언
+
+	if(...){
+		int var2; //if블록에서 선언
+
+		//현재 위치에서는 var1, var2 사용이 가능하다.
+	}
+
+	for(...){
+		int var3; //for블록에서 선언
+
+		//현재 위치에서는 var1,var3는 사용할 수 있다.
+		//var2는 사용할 수 없다.
+	}
+
+	//var1 사용 가능
+	//var2,var3는 사용할 수 없다.
+
+}
+
+```
 
 # 데이터의 입력
 - 키보드를 통해 다양한 데이터를 자유롭게 입력하는 방법이 있다.
 - 키보드를 통해 입력하는 데이터를 문자열로 얻기 위해서는 'java.util'패키지에 있는 Scanner클래스를 이용해야 한다.
+
+#### <span style="color:red">import </span>
+- 다른 패키지에 있는 클래스나 인터페이스를 불러오는 명령어 키워드이다.
+- 자바에서 클래스를 사용하려면 같은 패키지에 있거나 import를 통해 경로를 알려줘야 한다.
+```java
+import 패키지명.클래스명; //특정 클래스만 불러오기
+import 패키지명.*; //패키지 안의 모든 클래스 불러오기
+```
+
 ```java
 import java.util.Scanner; //Scanner클래스 호출
 Scanner 객체명 = new Scanner(System.in); //Scanner 객체 선언
-int 변수명 = 객체명.nextInt(); //정수 입력받기
+int 변수명 = 객체명.메서드(); //입력받기
 ```
 <table>
 <tr>
@@ -1330,7 +1492,7 @@ System.out.println("result2 : " + result2);
 
 |연산자|논리식|연산내용|
 |-----|-----|--------|
-|&|논리곱(AND)|두 항이 모두 참이면 true, 아니면 false)|
+|&|논리곱(AND)|두 항이 모두 참이면 true, 아니면 false|
 |\||논리합(OR)|두 항 중 하나라도 참이면 true, 아니면 false|
 |^|배타적논리합(XOR)|두 항이 다르면 true, 같으면 false|
 | ~ | 부정(not) | 참을 거짓으로, 거짓을 참으로 연산|
@@ -1436,7 +1598,4 @@ System.out.println("~x : " + ~x); //-8
 		<td>←</td>
 	</tr>
 </table>
-
-
-```
 

@@ -1,5 +1,329 @@
+# 데이터 타입 분류
+- 기본 타입으로 선언된 변수는 값 자체를 저장하고 있지만, 참조타입으로 선언된 변수는 객체가 생성된 메모리 번지(주소)를 저장한다.
+
+![image](img/참조타입.png)
+
+```java
+[기본타입변수]
+int age = 25;
+double price = 100.5;
+
+[참조타입변수]
+String name = "신용권";
+String hobby = "독서";
+```
+
+![image](img/메모리참조.png)
+
+- 변수들은 모두 스택(stack)메모리 영역에 생성된다.
+- 기본타입 변수인 age와 price는 직접 값을 저장하고 있지만, 참조 타입 변수인 name과 hobby는 힙 메모리 영역의 String 객체 주소를 저장하고 이 주소를 통해 String 객체를 참조한다.
+
+## 메모리 영역
+- java 명령어로 JVM이 구동되면 운영체제에서 할당받은 메모리 영역을 다음과 같이 구분해서 사용한다.
+
+![image](img/메모리영역.png)
+
+
+### 메소드 영역
+- 바이트코드 파일을 읽은 내용이 저장되는 영역으로 클래스별로 상수, 정적 필드, 메소드 코드, 생성자 코드 등이 저장된다.
+- 어렵다고 생각이 되면 바이트코드 파일의 내용이 저장되는 영역이라고 알고 있자.
+
+### 힙 영역
+- 객체가 생성되는 영역이다. 객체의 번지는 메서드 영역과 스택 영역의 상수와 변수에서 참조할 수 있다.
+
+### 스택 영역
+- 변수들이 만들어지면 저장되는 영역이다.
+- 기본 타입의 변수들은 값을 저장하고 있고, 참조 타입 변수들은 주소값을 가지고 있다.
+
+## null
+- 참조 타입 변수는 아직 주소를 저장하고 있지 않다는 뜻으로 null(널)값을 가질 수 있다.
+- null은 아무것도 참조하지 않는 상태를 나타내는 값이다.
+- 참조형 변수에서만 사용이 가능하다.
+
+## 문자열(String)타입
+- 자바의 문자열은 String 객체로 생성된다.
+```java
+String name;
+name = "홍길동";
+String hobby = "여행";
+```
+![image](img/문자열참조.png)
+
+- name, hobby 변수에 문자열 리터럴이 대입되면 문자열은 String 객체로 생성되고, 객체의 번지가 변수의 값으로 들어가게 된다.
+
+### 문자열의 비교
+- 자바는 문자열 리터럴이 동일하다면 String 객체를 공유하도록 설계되어 있다.
+```java
+String name1 = "홍길동";
+String name2 = "홍길동";
+```
+
+![image](img/문자열참조2.png)
+
+- String 변수에 문자열 리터럴을 대입하는 것이 일반적이지만, new 연산자로 직접 String 객체를 생성하고 대입할 수도 있다. new 연산자는 새로운 객체를 만드는 객체 생성 연산자라고 생각하면 된다.
+
+```java
+String name1 = new String("홍길동");
+String name2 = new String("홍길동");
+```
+
+![image](img/문자열참조3.png)
+
+- 문자열 리터럴로 생성하느냐 new 연산자로 생성하느냐에 따라 비교 연산자의 결과가 달라질 수 있다.
+
+```java
+String name1 = "홍길동";
+String name2 = "홍길동";
+String name3 = new String("홍길동");
+
+name1 == name2; //true
+name1 == name3; //false
+```
+- 동일한 String 객체든 다른 String 객체든 상관없이 내부 문자열만 비교할 경우에는 String 객체의 equals()메서드를 사용한다.
+
+```java
+boolean result = str1.equals(str2); //문자열 값이 같은지 검사
+```
+
+#### <span style="color:red">메소드</span>
+- 클래스 안에서 특정 기능을 수행하는 코드 묶음이다.
+- 여러 줄의 코드를 하나의 이름으로 묶어서 필요할 때마다 실행할 수 있다.
+- 메서드는 값을 입력받을 수 있고, 결과값을 반환할 수도 있다.
+
+#### EqualsExample.java
+```java
+package ch05.sec05;
+
+public class EqualsExample {
+	public static void main(String[] args) {
+		String strVar1 = "홍길동";
+		String strVar2 = "홍길동";
+
+		if(strVar1 == strVar2) {
+			System.out.println("strVar1과 strVar2는 참조가 같음");
+		} else {
+			System.out.println("strVar1과 strVar2는 참조가 다름");
+		}
+
+		if(strVar1.equals(strVar2)) {
+			System.out.println("strVar1과 strVar2는 문자열이 같음");
+		}
+			
+		String strVar3 = new String("홍길동");
+		String strVar4 = new String("홍길동");
+
+		if(strVar3 == strVar4) {
+			System.out.println("strVar3과 strVar4는 참조가 같음");
+		} else {
+			System.out.println("strVar3과 strVar4는 참조가 다름");
+		}
+
+		if(strVar3.equals(strVar4)) {
+			System.out.println("strVar3과 strVar4는 문자열이 같음");
+		}
+	}
+}
+```
+
+### 문자 추출
+- 문자열에서 특정 위치의 문자를 얻고 싶다면 charAt()메서드를 이용할 수 있다.
+- charAt()메서드는 매개값으로 주어진 인덱스의 문자를 반환한다.
+- 여기서 인덱스란 0에서부터 순차적으로 증가하는 숫자를 말한다.
+```java
+String subject = "자바 프로그래밍";
+char charValue = subject.charAt(3);
+```
+- "자바 프로그래밍"이라는 문자열은 다음과 같이 인덱스를 매길 수 있다.
+```
+자바  프로그래밍
+0 1 2 34 5 6 7
+```
+- 3번은 프에 해당한다.
+
+#### CharAtExample.java
+```java
+package ch05.sec05;
+
+public class CharAtExample {
+	public static void main(String[] args) {
+		String ssn = "9506241230123";
+		char sex = ssn.charAt(6);
+		switch (sex) {
+			case '1':
+			case '3':
+				System.out.println("남자입니다.");
+				break;
+			case '2':
+			case '4':
+				System.out.println("여자입니다.");
+				break;
+		}
+	}
+}
+```
+
+### 문자열 길이
+- 문자열에서 문자의 개수를 얻고 싶다면 length() 메소드를 사용한다.
+```java
+String subject = "자바 프로그래밍";
+int length = subject.length();
+```
+- 문자열의 길이는 공백을 포함하기 때문에 길이는 8이된다.
+
+#### LengthExample.java
+```java
+package ch05.sec05;
+
+public class LengthExample {
+	public static void main(String[] args) {
+		String ssn = "9506241230123";
+		int length = ssn.length();
+		if(length == 13) {
+			System.out.println("주민등록번호 자릿수가 맞습니다.");
+		} else {
+			System.out.println("주민등록번호 자릿수가 틀립니다.");
+		}
+	}
+}
+```
+
+### 문자열 대체
+- 특정 문자열을 다른 문자열로 교체하고 싶다면 replace()메소드를 사용한다.
+- replace() 메소드는 기존 문자열은 그대로 두고, 대체한 새로운 문자열을 반환한다.
+
+```java
+String oldStr = "자바 프로그래밍";
+String newStr = oldStr.replace("자바","JAVA");
+```
+- 문자열은 수정이 일어나면 새롭게 생성을 합니다.
+
+![image](img/불변.png)
+
+#### ReplaceExample.java
+```java
+package ch05.sec05;
+
+public class ReplaceExample {
+	public static void main(String[] args) {
+		String oldStr = "자바 문자열은 불변입니다. 자바 문자열은 String입니다.";
+		String newStr = oldStr.replace("자바", "JAVA");
+
+		System.out.println(oldStr);
+		System.out.println(newStr);
+	}
+}
+```
+
+### 문자열 잘라내기
+- 문자열에서 특정 위치의 문자열을 잘라내어 가져오고 싶다면 substring()메소드를 사용한다.
+
+|메소드|설명|
+|----|----|
+|substring(int beginIndex) | beginIndex부터 끝까지 잘라내기|
+|substring(int beginIndex, int endIndex) | beginIndex부터 endIndex앞까지 잘라내기|
+
+```java
+String ssn = "880815-1234567";
+String firstNum = ssn.substring(0,6);
+String secondNum = ssn.substring(7);
+```
+
+#### SubStringExample.java
+```java
+package ch05.sec05;
+
+public class SubStringExample {
+	public static void main(String[] args) {
+		String ssn = "880815-1234567";
+			
+		String firstNum = ssn.substring(0, 6);
+		System.out.println(firstNum);
+
+		String secondNum = ssn.substring(7);
+		System.out.println(secondNum);
+	}
+}
+```
+
+### 문자열 찾기
+- 문자열에서 특정 문자열의 위치를 찾고자 할 때 indexOf()메서드를 사용한다.
+```java
+String subject = "자바 프로그래밍";
+int index = subject.indexOf("프로그래밍");
+
+결과 : 3
+```
+- 만약 주어진 문자열이 포함되어 있지 않으면 indexOf() 메소드는 -1을 리턴한다.
+
+#### IndexOfContainsExample.java
+```java
+package ch05.sec05;
+
+public class IndexOfContainsExample {
+	public static void main(String[] args) {
+		String subject = "자바 프로그래밍";
+
+		int location = subject.indexOf("프로그래밍");
+		System.out.println(location);
+		String substring = subject.substring(location);
+		System.out.println(substring);
+
+		location = subject.indexOf("자바");
+		if(location != -1) {
+			System.out.println("자바와 관련된 책이군요.");
+		} else {
+			System.out.println("자바와 관련 없는 책이군요.");
+		}
+
+		boolean result = subject.contains("자바");
+		if(result) {
+			System.out.println("자바와 관련된 책이군요.");
+		} else {
+			System.out.println("자바와 관련 없는 책이군요.");
+		}
+	}
+}
+```
+
+### 문자열 분리
+- 문자열이 구분자를 사용하여 여러 개의 문자열로 구성되어 있을 경우, 이를 따로 분리해서 얻고 싶다면 split()메소드를 사용한다.
+```java
+String board = "번호,제목,내용,성명";
+String[] arr = board.split(",");
+
+결과 : ["번호","제목","내용","성명"];
+```
+
+#### SplitExample.java
+```java
+package ch05.sec05;
+
+public class SplitExample {
+	public static void main(String[] args) {
+		String board = "1,자바 학습,참조 타입 String을 학습합니다.,홍길동";
+
+		//문자열 분리
+		String[] tokens = board.split(",");
+
+		//인덱스별로 읽기
+		System.out.println("번호: " + tokens[0]);
+		System.out.println("제목: " + tokens[1]);
+		System.out.println("내용: " + tokens[2]);
+		System.out.println("성명: " + tokens[3]);
+		System.out.println();
+			
+		//for 문을 이용한 읽기
+		for(int i=0; i<tokens.length; i++) {
+			System.out.println(tokens[i]);
+		}
+	}
+}
+```
+
 # 배열(Array)
-- 같은 자료형의 변수를 지정하여 여러 데이터를 저장할 수 있는 저장공간을 의미한다.
+- 변수는 하나의 값만 저장할 수 있다.
+- 따라서 저장해야 할 값의 수가 많아지면 그만큼 많은 변수가 필요하다.
+- ```배열```은 같은 자료형의 변수를 지정하여 여러 데이터를 저장할 수 있는 저장공간을 의미한다.
 - 이렇게 여러 데이터를 담을 수 있는 구조를 자료구조(data structure)라고 한다.
 - 배열을 사용하면 같은 자료형의 데이터를 효율적으로 다룰 수 있다.
 
@@ -17,23 +341,6 @@
 - 자료형 뒤에 붙이거나 변수명 뒤에 붙이면 해당 자료형은 배열이라는 의미로 선언된다.
 - 자료형 뒤에 붙이는것이 가독성이 좋아 자주 사용된다.
 
-## null
-```java
-int num;
-```
-- 해당 변수는 어떤 값을 가질지 알 수 없다.
-- 만약 변수를 만들 때 값을 부여하지 않으면 시스템이 타입에 맞는 불특정 값을 부여하게 된다.
-- 따라서 변수를 만들 때, 어떤 값이 부여되는지 쉽게 알기 위해 다음과 같이 초기값을 부여하면서 선언하도록 했다
-```java
-int num = 0;
-```
-
-- 배열의 경우는 여러 개의 데이터를 저장하기 위한 별도의 공간이 필요하다.
-- 배열을 선언만 하고 생성하지 않을 경우, 시스템은 배열을 만들 때 null 이라는 키워드를 부여한다.
-- null의 의미는 "없다"라는 의미를 가진다.
-- 배열 변수는 만들어졌지만 그 안에 값을 담을 공간들이 생성되지 않았다는 뜻이다.
-- 신차를 만들 때 이름은 정해서 발표했지만, 실제로 자동차는 아직 생산되지 않은 상태이다.
-
 ## 배열의 생성
 - 배열을 선언한 후에는 배열을 생성해야 한다.
 - 배열을 선언한 것은 집을 짓는것과 같다. 안에 방을 만들어야 입주가 가능하듯이, 배열에 데이터를 넣어줄 수 있는 공간을 생성해줘야 한다.
@@ -44,6 +351,11 @@ int num = 0;
 new int[4]
 ```
 - 메모리에 배열의 데이터를 저장하기 위한 4개의 공간을 만들어라 라는 명령이다.
+
+#### <span style="color:red">new</span>
+- new는 객체를 생성할 때 사용하는 키워드이다.
+- new 연산자는 메모리에 공간을 만들고, 주소를 반환한다.
+- 클래스에 속한 변수나 메소드를 사용하려면 객체가 먼저 필요하다.
 
 ## 선언과 생성을 동시에 하는것도 가능하다.
 ```
