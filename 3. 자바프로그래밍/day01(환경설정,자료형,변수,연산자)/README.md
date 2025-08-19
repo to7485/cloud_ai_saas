@@ -17,13 +17,58 @@
 - **생태계** : Spring, Android 등 실무에서 필수적인 프레임워크와 플랫폼 지원
 - **확장성** : 대규모 시스템과 분산 환경에서도 적용 가능
 
+## 2. 자바의 특징
 
-## 2. 자바 설치하기
+### 2-1. 운영체제 독립성
+- 자바프로그램은 JVM위에서 실행되기 때문에, 윈도우,리눅스,macOS등 어떤 운영체제에서도 동일하게 동작한다.
 
-### 2-1. JDK(Java Development Kit)
+![image](https://user-images.githubusercontent.com/54658614/211973993-8e9d86f8-5251-48b8-9e10-4567dde3ef49.png)
+
+### 2-2. 객체 지향 언어(Object-Oriented Programming OOP)
+- 프로그램을 <b>객체(Object)</b>라는 단위로 나누어 만들고, 객체들끼리 서로 데이터를 주고받으며 동작한다.
+
+#### ※ 객체
+- 객체라는 개념이 앞으로 자주 나오게 될 것이다.
+- 현실 세계의 사물의 상태(속성)와 행동(기능) 데이터화 시킨것이다.
+- 즉, 현실 세계의 대상을 프로그래밍적으로 모델링한 결과물이라고 생각하면된다.
+
+![image](img/object.png)
+
+### 2-3. 자동 메모리 관리(Garbage Collection)
+- 자바는 사용하지 않는 **메모리**를 자동으로 해제해준다.
+- 개발자가 직접 메모리 **주소**를 다룰 필요가 없어 안전하다.
+
+#### ※ 메모리(Memory)
+- 컴퓨터가 데이터를 저장하고, 프로그램을 실행하는 공간이다.
+- 사람이 글을 쓰기 위해 종이가 필요하듯, 컴퓨터가 프로그램을 실행하려면 메모리가 필요하다.
+- RAM(Random Access Memory)라고도 부르며, 프로그램이 실행되는 동안만 데이터를 저장한다.
+- 전원을 끄면 RAM에 있던 데이터는 모두 사라진다.
+
+![image](img/memory.png)
+
+
+#### ※ 주소(Address)
+- 메모리는 칸으로 나눠져 있고, 각 칸에는 고유한 번호가 있다.
+- 이 번호를 메모리 주소라고 한다.
+- 변수나 객체를 사용할 때, 실제 데이터는 메모리의 특정 주소에 저장된다.
+
+![image](img/address.png)
+
+### 2-4. 간결성과 안전성
+- C/C++에서 제공하는 복잡하고 위험한 기능(포인터 연산 등)을 제거하여 코드 작성이 단순하고, 오류 가능성을 줄였다.
+
+### 2-5. 풍부한 라이브러리와 API
+- 자바는 표준 라이브러리를 통해 문자열 처리, 파일 입출력, 네트워크, 데이터베이스 연결 등 다양한 기능을 제공한다.
+
+
+## 3. 자바 설치하기
+
+### 3-1. JDK(Java Development Kit)
 - 자바 개발 도구 모음이다.
 - 자바 프로그램을 개발하고 실행하는 데 필요한 모든 구성 요소를 포함한다.
 	https://www.oracle.com/java/technologies/downloads
+
+![image](img/jdk설치.png)
 
 ```
 JDK 구성요소
@@ -40,7 +85,7 @@ JDK
        └── jdb (디버거)
 ```
 
-### 2-2. JDK에 포함되는 내용
+### 3-2. JDK에 포함되는 내용
 
 #### 1. JRE(Java Runtime Environment)
 - JRE는 말 그대로 자바 실행 환경을 의미한다.
@@ -66,7 +111,7 @@ JDK
 - CPU가 직접 이해하고 실행할 수 있는 언어이다.
 - 0과 1로 구성된 이진수 명령어 형태이며, 운영체제와 CPU구조에 따라 다르게 구성된다.
 
-### 2-3. JDK의 버전
+### 3-3. JDK의 버전
 - JDK의 버전은 자바 개발 도구의 기능 업데이트와 개선 사항을 반영한다.
 - 6개월 주기로 새로운 버전을 출시하지만, 장기간 지원(LTS, Long-Term Support)버전은 3년 주기로 제공된다.
 - 실무에서는 LTS버전이 안정성과 호환성 때문에 주로 사용된다.
@@ -84,7 +129,7 @@ JDK
 1. 신규 프로젝트 : 최신 LTS버전(17,21)우선 고려
 2. 기존 프로젝트 유지보수 : 기존 버전 유지 → 필요 시 안정된 LTS로 업그레이드
 
-### 2-4. JDK 벤더사(Vendor)
+### 3-4. JDK 벤더사(Vendor)
 - JDK는 오픈소스(OpenJDK)기반으로 여러 회사(벤더)가 자신들의 빌드를 배포한다.
 - 기능은 거의 동일하지만 지원 기간, 보안 패치 주기, 추가 기능이 다를 수 있다.
 
@@ -107,11 +152,11 @@ JDK
 
 
 
-## 3. 환경 변수 설정
+## 4. 환경 변수 설정
 - 환경 변수 : 운영체제에서 프로그램의 실행 방식에 영향을 주는 동적인 값이다.
 - 운영체제가 프로그램을 실행할 때 참조하는 전역 설정값으로, 경로, 언어, 메모리 설정 등 다양한 정보를 담을 수 있다.
 
-### 3-1. 전역 설정(Global Setting)
+### 4-1. 전역 설정(Global Setting)
 - 운영체제 전체 또는 모든 프로그램에서 공통으로 적용되는 설정을 말한다.
 - 즉, 한 번만 설정하면 컴퓨터 안의 여러 프로그램에서 값을 동일하게 쓸 수 있도록 하는 설정이다.
 
@@ -131,55 +176,75 @@ JDK
 
 ![image](img/환경변수5.png)
 
+### 가장 위로 올리는 이유 
+- Path 환경 변수에 등록된 순서대로 명령어를 찾기 때문이다.
+- 만약 '%JAVA_HOME%\\bin보다 위쪽에 위치한 java 명령어가 있다면 다른 버전의 java 명령어가 사용될 수 있으므로 주의해야 한다.
+
 ## 자바가 잘 설치되어있는지 확인하는법
 
 win + r -> 실행창에 cmd -> java -version 입력
 
 ![image](https://user-images.githubusercontent.com/54658614/211975334-e2287139-5269-4218-8dd0-1167fd62eea4.png)
 
+## 소스 작성부터 실행까지
+### 1. 윈도우 탐색기에서 다음과 같은 구조를 구성한다.
+```
+c:\temp
+	|-- src
+	|	|-- ch01
+	|		|-- sec06
+	|			|-- Hello.java
+	|
+	|-- bin		
+```
+- Hello.java라는 파일을 생성한다.
+### 2. Hello.java를 텍스트 에디터로 열고 다음과 같이 작성한다.
+```java
+package ch01.sec06;
 
-## 4. 자바의 특징
+public class Hello {
+	public static void main(String[] args){
+		System.out.println("Hello, Java");
+	}
+}
+```
+### 3. 소스파일 컴파일해보기
+- javac 명령어로 컴파일을 해보자.
+- 명령 프롬프트에서 cd 명령어로 c:\temp 디렉토리로 이동하고 다음과 같이 javac 명령어를 실행한다.
 
-### 4-1. 운영체제 독립성
-- 자바프로그램은 JVM위에서 실행되기 때문에, 윈도우,리눅스,macOS등 어떤 운영체제에서도 동일하게 동작한다.
+<table border="1">
+  <tr>
+    <td rowspan="2" width="60">컴파일</td>
+    <td>javac -d [바이트코드파일저장위치][소스경로/*.java]</td>
+  </tr>
+  <tr>
+    <td>C:\...> cd C:\temp<br>C:\temp javac -d bin src/ch01/sec06/Hello.java</td>
+  </tr>
+  <tr>
+	<td>결과</td>
+	<td>C:\temp\bin에 패키지 디렉토리와 바이트코드 파일(ch01/sec06/Hello.class)이 생성
+  </tr>
+</table>
 
-![image](https://user-images.githubusercontent.com/54658614/211973993-8e9d86f8-5251-48b8-9e10-4567dde3ef49.png)
+### 4. java 명령어로 바이트코드 파일 실행하기
+- 여전히 명령 프롬프트의 현재 위치는 C:\temp 디렉토리이다.
+- 주의할 점은 패키지 구분자는 .을 사용해야 하고, 클래스명은 .class를 제외한 Hello만 입력해야 한다는 점이다.
 
-### 4-2. 객체 지향 언어(Object-Oriented Programming OOP)
-- 프로그램을 <b>객체(Object)</b>라는 단위로 나누어 만들고, 객체들끼리 서로 데이터를 주고받으며 동작한다.
-
-#### ※ 객체
-- 객체라는 개념이 앞으로 자주 나오게 될 것이다.
-- 현실 세계의 사물의 상태(속성)와 행동(기능) 데이터화 시킨것이다.
-- 즉, 현실 세계의 대상을 프로그래밍적으로 모델링한 결과물이라고 생각하면된다.
-
-![image](img/object.png)
-
-### 4-3. 자동 메모리 관리(Garbage Collection)
-- 자바는 사용하지 않는 **메모리**를 자동으로 해제해준다.
-- 개발자가 직접 메모리 **주소**를 다룰 필요가 없어 안전하다.
-
-#### ※ 메모리(Memory)
-- 컴퓨터가 데이터를 저장하고, 프로그램을 실행하는 공간이다.
-- 사람이 글을 쓰기 위해 종이가 필요하듯, 컴퓨터가 프로그램을 실행하려면 메모리가 필요하다.
-- RAM(Random Access Memory)라고도 부르며, 프로그램이 실행되는 동안만 데이터를 저장한다.
-- 전원을 끄면 RAM에 있던 데이터는 모두 사라진다.
-
-![image](img/memory.png)
+<table border="1">
+  <tr>
+    <td rowspan="2" width="60">실행</td>
+    <td>java -cp [바이트코드파일저장위치][패키지...클래스명]</td>
+  </tr>
+  <tr>
+    <td>C:\temp> java -cp bin ch01.sec06.Hello</td>
+  </tr>
+  <tr>
+	<td>결과</td>
+	<td>콘솔에 Hello, Java가 출력</td>
+  </tr>
+</table>
 
 
-#### ※ 주소(Address)
-- 메모리는 칸으로 나눠져 있고, 각 칸에는 고유한 번호가 있다.
-- 이 번호를 메모리 주소라고 한다.
-- 변수나 객체를 사용할 때, 실제 데이터는 메모리의 특정 주소에 저장된다.
-
-![image](img/address.png)
-
-### 4-4. 간결성과 안전성
-- C/C++에서 제공하는 복잡하고 위험한 기능(포인터 연산 등)을 제거하여 코드 작성이 단순하고, 오류 가능성을 줄였다.
-
-### 4-5. 풍부한 라이브러리와 API
-- 자바는 표준 라이브러리를 통해 문자열 처리, 파일 입출력, 네트워크, 데이터베이스 연결 등 다양한 기능을 제공한다.
 
 ## 5. 통합 개발환경
 통합 개발 환경(統合開發環境, Integrated Development Environment, IDE)은 코딩, 디버그, 컴파일, 배포 등 프로그램 개발에 관련된 모든 작업을 하나의 프로그램 안에서 처리하는 환경을 제공하는 소프트웨어이다.
@@ -227,6 +292,19 @@ win + r -> 실행창에 cmd -> java -version 입력
 
 ![image](https://user-images.githubusercontent.com/54658614/212238858-e61b8d78-c9a4-45ee-9480-ad523f1589ad.png)
 
+### JRE 옵션
+- Use an execution environment JRE
+  - 이클립스는 선택된 Java SE 버전 기준으로 소스 파일을 컴파일하고 실행한다.
+  - 빌드 번호와 상관없이 Java SE버전에 중점을 둘 때 선택한다.
+  - ※ [Configure JREs]링크를 클릭하면 선택한 Java SE버전에 해당하는 JDK가 등록되어 있어야 한다.
+- Use a project specific JRE
+  - 이클립스는 선택된 JDK 기준으로 소스파일을 컴파일하고 실행한다.
+  - 빌드 번호별로 JDK를 선택할 때 유용하다.
+  - ※ [Configure JREs]링크를 클릭하면 빌드 번호에 해당하는 JDK가 등록되어 있어야 한다.
+- Use default JRE 'jdk-21' and workspace compiler preferences
+  - 이클립스의 기본 자바 버전을 사용해서 소스 파일을 컴파일하고 실행한다.
+  - ※ [Configure JREs]링크를 클릭했을 때 기본으로 등록되어 있는 자바 버전을 말한다.
+
 ![image](https://user-images.githubusercontent.com/54658614/212238952-7869b3bd-a2ea-4eeb-a94a-5081bedc8ecc.png)
 
 ## 10. 폴더에 해당하는 패키지 생성하기
@@ -234,7 +312,7 @@ win + r -> 실행창에 cmd -> java -version 입력
 ![image](https://user-images.githubusercontent.com/54658614/212239071-7dea18ab-2129-470a-b383-ae8a81c6a9d6.png)
 
 ### 패키지 이름을 적고 finish를 누릅니다.
-- section01 이라는 이름으로 패키지를 만들어보자
+- ch01.sec08라고 입력해보자.
 
 ![image](https://user-images.githubusercontent.com/54658614/212239347-bc640c8d-266a-4e4a-b1cf-6ca13aad557b.png)
 
@@ -242,7 +320,11 @@ win + r -> 실행창에 cmd -> java -version 입력
 
 ![image](https://user-images.githubusercontent.com/54658614/212239455-3f18af92-83b4-4f2f-8c43-276e56506204.png)
 
+- ch01.sec10 이름을 가진 패키지를 하나 더 만들어보자.
+- 이클립스는 기본적으로 패키지를 Flat(한 줄)로 표시한다.
+
 ## 11. 코드를 작성하는 공간인 클래스 생성하기
+- sec08패키지를 우클릭하여 클래스를 생성해보자.
 
 ![image](https://user-images.githubusercontent.com/54658614/212239571-0380fc1a-b15c-4f17-aacd-036e5e6d9b05.png)
 
@@ -251,6 +333,8 @@ win + r -> 실행창에 cmd -> java -version 입력
 - Hello라는 이름으로 클래스를 생성해보자.
 
 ![image](https://user-images.githubusercontent.com/54658614/212239611-d741c393-40b5-430b-8b43-3b8e62956724.png)
+
+- public static void main(String[] args) 체크박스를 체크하면 main()메소드가 추가된 채로 클래스가 만들어진다.
 
 ![image](https://user-images.githubusercontent.com/54658614/212239789-91e1818d-fb55-4fba-83b5-c727a4cbae4c.png)
 
@@ -276,7 +360,7 @@ win + r -> 실행창에 cmd -> java -version 입력
 
 ```java
 // Hello.java
-public class Hello { // 클래스 선언 시작
+public class Hello { // 클래스명 = 소스파일명 -> Hello.java
     public static void main(String[] args) { // 프로그램 시작점
         System.out.println("Hello, Java!");
     }
@@ -321,23 +405,6 @@ System.out.println("hello world");
 ### 자바 컴파일러(Java Compiler)
 - 자바 소스 파일을 JVM이  해석할 수 있는 자바 바이트코드(.class)파일로 번역한다.
 
-## 자바 프로그램의 기본 구조
-```JAVA
-//class : 클래스를 정의하는 키워드
-//Hello : 클래스 이름
-public class Hello{
-	//main : 메서드 이름
-	public static void main(String[] args){
-		System.out.println("Hello JAVA!!"); //실행문
-	}
-}
-```
-### 메서드
-- 수행할 작업을 나열한 코드의 묶음
-- 자바 프로그램의 시작 위치인 main()메서드를 포함하는 클래스가 반드시 있어야 한다.
-
-### 실행문
-- 작업을 지시하는 것으로 변수나 상수의 선언, 값 저장, 메서드 호출 등 다양한 명령어와 연산자로 구성된다.
 
 ## 주석
 - 프로그램의 소스코드에 프로그래머의 의견이나 설명을 적을 수 있는데 이런 것을 주석(Comment)라고 합니다.
@@ -350,25 +417,27 @@ public class Hello{
 - //부터 그 줄의 끝까지 주석으로 처리, 주석 내용이 한줄일 때 사용
 #### /* \*/ (범위 주석)
 -  /* 와 */ 사이의 내용을 모두 주석으로 처리, 여러 줄의 주석이 필요할 때 사용
+#### /** \*/(도큐먼트 주석)
+- javadoc 명령어로 API 도큐먼트를 생성하는데 사용한다.
 
+#### sec10 패키지에 Hello.java 소스파일 만들기
 ```java
-public class Test {
+package ch01.sec11;
+/**
+ * @author 여러분 이름
+ */
+/*
+장제목: 1장 자바 시작하기
+작성일: 2025.09.24
+*/
+public class Hello {
+	//프로그램 실행 진입점
 	public static void main(String[] args) {
-	    //한줄 주석 : //
-	    /*
-	    여
-	    러
-	    줄
-	    주
-	    석
-	    */
-	    //주석을 사용하는 이유 : 코드에 설명을 달아주기 위해
-	    //sysout 적고 ctrl + spacebar 자동완성
-		System.out.println("hello world");
-	}
-}
+		//콘솔에 출력하는 실행문
+		System.out.println("Hello, Java");
+	} 
+} 
 ```
-
 #### // TODO
 - 아직 해결되지 않은 작업이나 구현해야할 부분을 나타내는 주석 태그
 ```java
@@ -393,255 +462,18 @@ public class Test {
 
 ![image](img/주석1.png)
 
-#### /** 주석문 */
-- 줄 수 와 상관없이 /** 시작과 */ 사이의 내용을 모두 주석으로 간주한다. 이 주석은 소스를 라이브러리로 만들 때 공식 문서용으로 뽑아 사용할 수 있다. javadoc 시스템을 사용하여 API 문서나 도움말 등에 이용된다.
-
-# 프로그램의 구성
-- 컴퓨터 프로그램은 데이터(data)와 명령어(instruction)의 결합으로 구성된다.
-
-## 1. 데이터
-- 실제적인 값을 의미한다.
-- 숫자,문자와 같은 단순한 데이터부터 사진,영상등의 복합적인 데이터가 있다.
-- 데이터는 언제든지 수정할 수 있어야 하며, 사용목적에 따라 다른 형태로 가공할 수 있어야 한다.
-- 이러한 데이터는 컴퓨터의 메모리에 저장된다.
-
-## 2. 데이터의 출력
-```java
-System.out.print() : 괄호안의 내용을 출력한다.
-System.out.println() : 괄호안의 내용을 출력하고 줄을 바꿔준다(개행)
-```
-- System.out.print(),System.out.println() 출력문은 모든 데이터를 문자열로 인식하여 있는 그대로 출력하는 메서드이다.
-
-### 2-1. System.out.print()
-```java
-package test;
-
-public class Test{
-	public static void main(String[] args) {
-		//괄호()안의 데이터를 콘솔창에 출력
-		System.out.print("Welcome");
-		//"Welcome"문자열 옆에 "Java World"문자열 출력
-		System.out.print("Java World");
-	}
-}
-```
-### 2-2. System.out.println()
-```java
-package test;
-
-public class Test{
-	public static void main(String[] args) {
-		//괄호()안의 데이터를 콘솔창에 출력
-		System.out.println("Welcome");
-		//"Welcome"문자열 아래 "Java World"문자열 출력
-		System.out.println("Java World");
-	}
-}
-```
-
-### 2-3. System.out.printf() 
-```java
-System.out.printf()
-```
-- System.out.printf() 출력문은 값의 자료형에 따라 서식문자를 이용해 문자열속에서 데이터를 출력할 수 있다.
-
-|서식문자|출력형태|
-|-----|------|
-|%d|정수(10진수)|
-|%o|정수(8진수)|
-|%x|정수(16진수)|
-|%f|실수|
-|%s|문자열|
-|%c|문자형|
-|%b|논리형|
-
-### Printf01 클래스 생성하기
-```java
-package test;
-
-public class Printf01{
-	public static void main(String[] args) {
-		System.out.printf("저는 대학교 %d학년에 재학중입니다.",3);
-		
-		//서식문자를 한번에 여러개를 넣을 수 있다.
-		System.out.printf("%d은 첫 번째, %f은 두 번째, %s은 세 번째.",1,2.0,"셋");
-	}
-}
-```
-### 2-4. 출력값의 정렬
-- 정수의 정렬
-```java
-%3d, %5d //주어진 숫자 칸 만큼 확보한후, 오른쪽 정렬하여 출력
-예) (%5d,1) -> XXXX1
-
-System.out.printf("%5d",1);
-System.out.println();
-System.out.printf("%5d",12);
-System.out.println();
-System.out.printf("%5d",123);
-System.out.println();
-System.out.printf("%5d",1234);
-System.out.println();
-System.out.printf("%5d",12345);
-System.out.println();
-```
-- 실수의 정렬
-
-```java
-%.2f //소수점 아래 정수번째 자리까지 출력(반올림)
-
-System.out.printf("%.1f",1.1234567);
-System.out.println();
-System.out.printf("%.2f",1.1234567);
-System.out.println();
-System.out.printf("%.3f",1.1234567);
-System.out.println();
-System.out.printf("%.4f",1.1234567);
-System.out.println();
-System.out.printf("%.5f",1.1234567);
-```
-# 자료형(기본자료형)
-- 프로그래밍에서 자료형은 데이터를 담을 컵의 크기와 재질이라고 비유를 들 수 있습니다.
-- 자료형(data type)은 자바가 처리할 수 있는 데이터의 종류를 의미한다.
-
-![image](img/자료형.png)
-
-## 1. 기본자료형
-- 실제 데이터 값을 저장할 수 있게 해줍니다. 정수,실수,문자,논리 타입으로 분류된 8개의 자료형이 존재한다.
-- 각 타입에 저장되는 값의 허용 범위를 모두 외울 필요는 없지만 메모리 할당 크기는 알고있는것이 좋다.
-
-### 1-1. 논리형(boolean)
-- 참(true) 또는 거짓(false)만 저장하는 자료형
-- 메모리 크기 : 1bit
-- 기본값 : false
-- 표현범위 : true, false
-- 특징 : 조건을 판별할 때 많이 사용한다.
-
-### 1-2. 문자형
-- 하나의 문자를 저장하는 자료형. 유니코드(Unicode)사용
-- 메모리 크기 : 2byte
-- 기본값 : \u0000 (유니코드 값 0, null 문자)
-- 표현 범위 : 0 ~ 65,535(유니코드 값)
-- 특징 : 문자뿐 아니라 정수 값(유니코드)도 저장 가능
-
-
-#### <span style="color:red">유니코드</span>
-- 전 세계 모든 문자를 컴퓨터에서 통일된 방식으로 표현하기 위해 만든 문자 인코딩 표준이다.
-- 영어,한글,일본어,중국어 뿐만 아니라 기호, 이모지까지 모두 코드값으로 관리한다.
-
-#### <span style="color:red">인코딩</span>
-- 문자를 컴퓨터가 이해할 수 있는 코드값으로 변환하는 과정
-#### <span style="color:red">디코딩</span>
-- 코드값을 다시 문자로 변환하는 과정
-
-### 1-3. 정수형(byte)
-- 작은 범위의 정수를 저장, 주로 파일 네트워크 데이터 전송에 사용
-- 메모리 크기 : 1byte
-- 기본값 : 0
-- 표현 범위 : -128 ~ 127
-- 특징 : 메모리 절약 가능, 큰 범위 연산 시 자동 형변환(int)
-
-### 1-4. 정수형(short)
-- 개념: 중간 크기의 정수를 저장
-- 메모리 크기: 2byte
-- 기본값: 0
-- 표현 범위: -32,768 ~ 32,767
-- 특징: C언어 호환을 위해 존재, 실제 사용 빈도 낮음
-
-### 1-5. 정수형(int)
-- 개념: 가장 많이 쓰이는 기본 정수형
-- 메모리 크기: 4byte
-- 기본값: 0
-- 표현 범위: -2,147,483,648 ~ 2,147,483,647
-- 특징: 정수 연산의 기본 타입, 대부분의 연산은 int로 처리
-
-### 1-6. 정수형(long)
-- 개념: 아주 큰 정수 저장
-- 메모리 크기: 8byte
-- 기본값: 0L
-- 표현 범위: -9,223,372,036,854,775,808 ~ 9,223,372,036,854,775,807
-- 특징: 리터럴 뒤에 L 또는 l을 붙여야 함
-
-### 1-7. 실수형(float)
-- 개념 : 부동소수점 방식의 실수 저장
-- 메모리 크기 : 4byte
-- 기본값 : 0.0f
-- 표현 범위 : 약 ±3.4E38 (소수점 7자리 정밀도)
-- 특징 : 실수 리터럴 뒤에 f 또는 F필수
-
-### 1-8. 실수형(double)
-- 개념 : 부동소수점 방식의 실수 저장
-- 메모리 크기 : 8byte
-- 기본값 : 0.0d
-- 표현 범위 : 약 ±1.7E308 (소수점 15자리 정밀도)
-- 특징: 실수 연산의 기본 타입, d 생략 가능
-
-#### <span style="color:red">리터럴</span>
-- 프로그램 코드에서 고정된 값 자체를 의미한다.
-- 계산이나 해석 없이 있는 그대로를 의미한다.
-- 자바에서 정수 타입의 리터럴값은 기본적으로 int 타입으로 인식된다.
-- 실수 리터럴은 기본적으로 double타입으로 인식된다.
-- 그래서 long 또는 float 타입의 값을 만들 때는 l이나 f같은 접미사를 붙여서 자료형을 명확하게 지정해야 한다.
-
-### 주의점
-- 정수의 경우 해당 자료형이 표현할 수 있는 범위를 벗어난 데이터를 저장하면, 오버플로우(overflow)가 발생해 전혀 다른 값이 저장될 수 있다.
-
-#### <span style="color:red">오버플로우 / 언더플로우</span>
-- 오버플로우는 해당 자료형이 표현할 수 있는 최대 범위보다 큰 수를 저장할 때 발생하는 현상으로 잘못된 결과를 얻을 수 있다.
-- 언더플로우는 해당 자료형이 표현할 수 있는 최소 범위보다 작은 수를 저장할 때 발생하는 현상이다.
-
-## 참조자료형
-- 메모리상에 데이터가 저장된 주소를 저장하기 위한 공간으로, 대표적으로 문자열을 저장하는 String이라는 자료형을 예로 들 수 있다.
-- 참조 자료형은 개발자가 직접만들어 추가할 수 있는 자료형으로 그 수가 정해져 있지 않다.
-
-![image](img/참조자료형1.png)
-
-- 프로그램을 실행할 때 필요한 메모리는 Stack과 Heap으로 나뉘어져있다.
-- 기본 자료형은 Stack이라는 공간에 자리를 할당받고 데이터를 저장한다.
-- 참조 자료형은 Heap이라는 공간에 데이터를 저장하고, 그 주소를 Stack에 저장한다.
-- 주소를 참조하여 저장한다고 하여 참조 자료형이라고 한다.
-
-|자료형|키워드|
-|------|-----|
-|문자열|String|
-
-## 여러가지 형태의 데이터 출력해보기
-
-```java
-public class Test {
-	public static void main(String[] args) {
-		    //한줄 주석 : //
-		    /*
-		    여
-		    러
-		    줄
-		    주
-		    석
-		    */
-		    //주석을 사용하는 이유 : 코드에 설명을 달아주기 위해
-		    //sysout 적고 ctrl + spacebar 자동완성
-		System.out.println("hello world");
-		System.out.println(100);
-		System.out.println(100+50);
-		
-		//문장뒤에 숫자를 더하면 문장 뒤에 붙는구나
-		System.out.println("안녕하세요"+10);
-		
-		//코드는 항상 위에서 아래로, 좌에서 우로 진행이 되기 때문에 15:15가 나옵니다.
-		System.out.println(5+10+":"+(5+10));
-		
-		// "2 + 2 = "가 숫자 처럼 보이지만 ""안에 묶여있으면 문장 취급을 받고
-		//문장에 숫자를 더했기 때문에 22가 됩니다.
-		System.out.println("2 + 2 = " + 2 + 2);
-		System.out.println("2 + 2 = " + (2 + 2));	 
-	}
-}
-```
+## 실행문과 세미콜론
+- main()메소드 블록 내부에는 다양한 실행문이 작성된다.
+- System.out.println("Hello, Java");은 괄호()안의 내용을 출력하는 실행문이다.
+- 실행문은 변수 선언, 변수값 저장, 메소드 호출에 해당하는 코드를 말한다.
 
 # 변수
-- 내가 넣으려는 데이터의 자료형을 정했다면, 변수는 실제로 데이터를 저장하는 것이다.
+- 하나의 값을 저장할 수 있는 메모리 번지에 붙여진 이름이다.
+- 변수를 통해 프로그램은 메모리 번지에 값을 저장하고 읽을 수 있다.
 
 ![image](img/variable.png)
+
+- 자바의 변수는 다양한 타입의 값을 저장할 수 없다.
 
 
 ## 1. 변수의 선언
@@ -657,6 +489,11 @@ int age;
 ```
 
 - 컵이 준비가 됐고, 아직 내용물은 담기지 않은 상태라고 볼 수 있다.
+- 변수에 최초로 값을 대입하는 행위를 초기화라고 하고, 이때의 값을 초기값이라고 한다.
+- 초기값은 변수를 선언함과 동시에 대입할 수도 있다.
+```java
+int age = 25;
+```
 
 ## 2. 변수명 명명 규칙
 - 사용 용도를 최대한 명확하게 보여줄 수 있는 이름이라면, 개발자가 마음대로 지정할 수 있지만 다음과 같은 규칙을 지켜야 한다.
@@ -687,6 +524,22 @@ phoneNumber
 user_name
 phone_number
 ```
+
+### 2-2. 네이밍 컨벤션
+- 실무에서는 코드의 가독성과 유지보수를 위해 약속을 만들어서 사용하는 편이다.
+
+#### 1. 의미 있는 이름
+- 추상적인 이름 대신 목적을 드러내는 이름 사용하기
+- userAge, totalPrice, isLoggedIn
+
+#### 2. 소문자 시작
+- 변수명은 소문자로 시작하는 게 일반적
+
+#### 3. 접두사
+- 상태를 나타내는 변수일 때 is, has, can, should같은 접두사를 자주 사용
+- isActive, hasPermission, canUpload
+
+
 ## 3. 변수에 데이터 입력하기
 - 개발자가 데이터 값이 필요할 때 데이터의 값을 직접 사용하는 대신, 데이터를 변수에 저장해두고 변수의 이름을 호출하여 그 값을 사용할 수 있게 해준다.
 
@@ -699,147 +552,383 @@ age = 25;
 ```
 - 대입을 할 때는 자료형을 쓰지 않고 변수명만 이용한다.
 
-### Variable02클래스 생성하기
+### VariableInitializationExample 클래스 생성하기
 ```java
-public class Variable02{
-	public static void main(String[] args){
-		int studentAge; //학생의 나이를 저장할 수 있는 변수의 선언
-		studentAge = 20; //변수에 값을 대입(저장)
+package ch02.sec01;
 
-		System.out.println(studentAge);
+public class VariableInitializationExample {
+	public static void main(String[] args) {
+		//변수 value 선언
+		int value;    
+		
+		//연산 결과를 변수 result의 초기값으로 대입
+		int result = value + 10;
+		
+		//변수 result 값을 읽고 콘솔에 출력
+		System.out.println(result);
+	}
+}
+```
+- 변수는 출력문이나 연산식에 사용되어 변수값을 활용한다.
+
+### VariableUseExample 클래스 생성하기
+```java
+package ch02.sec01;
+
+public class VariableUseExample {
+	public static void main(String[] args) {
+		int hour = 3;
+		int minute = 5;
+		System.out.println(hour + "시간 " + minute + "분");
+
+		int totalMinute = (hour*60) + minute;
+		System.out.println("총 " + totalMinute + "분");
+	}
+}
+
+결과
+3시간 5분
+총 185분
+```
+- 변수는 또 다른 변수에 대입되어 메모리 간에 값을 복사할 수 있다.
+```java
+int x = 10;
+int y = x;
+
+x 10 -> y 10
+```
+### VariableExchangeExample클래스 생성하기
+```java
+package ch02.sec01;
+
+public class VariableExchangeExample {
+	public static void main(String[] args) {
+		int x = 3;
+		int y = 5;
+		System.out.println("x:" + x + ", y:" + y);
+		
+		int temp = x;
+		x = y;
+		y = temp;
+		System.out.println("x:" + x + ", y:" + y);
+	}
+}
+
+x:3, y:5
+x:5, y:3
+```
+# 자료형(기본자료형)
+- 프로그래밍에서 자료형은 데이터를 담을 컵의 크기와 재질이라고 비유를 들 수 있습니다.
+- 자료형(data type)은 자바가 처리할 수 있는 데이터의 종류를 의미한다.
+
+![image](img/자료형.png)
+
+## 1. 기본자료형
+- 실제 데이터 값을 저장할 수 있게 해줍니다. 정수,실수,문자,논리 타입으로 분류된 8개의 자료형이 존재한다.
+- 각 타입에 저장되는 값의 허용 범위를 모두 외울 필요는 없지만 메모리 할당 크기는 알고있는것이 좋다.
+
+### 1-1. 정수형(byte)
+- 작은 범위의 정수를 저장, 주로 파일 네트워크 데이터 전송에 사용
+- 메모리 크기 : 1byte
+- 기본값 : 0
+- 표현 범위 : -128 ~ 127
+- 특징 : 메모리 절약 가능, 큰 범위 연산 시 자동 형변환(int)
+
+### 1-2. 정수형(short)
+- 개념: 중간 크기의 정수를 저장
+- 메모리 크기: 2byte
+- 기본값: 0
+- 표현 범위: -32,768 ~ 32,767
+- 특징: C언어 호환을 위해 존재, 실제 사용 빈도 낮음
+
+### 1-3. 정수형(int)
+- 개념: 가장 많이 쓰이는 기본 정수형
+- 메모리 크기: 4byte
+- 기본값: 0
+- 표현 범위: -2,147,483,648 ~ 2,147,483,647
+- 특징: 정수 연산의 기본 타입, 대부분의 연산은 int로 처리
+
+### 2진수로 음수 표현하는법
+- byte,short,int,long은 모두 부호 있는(signed) 정수 타입이므로 최상위 bit는 부호 bit로 사용되고, 나머지는 bit는 값의 범위를 결정한다.
+
+![image](img/2의보수.png)
+
+
+
+#### <span style="color:red">리터럴</span>
+- 코드에서 개발자가 직접 입력한 값을 의미한다.
+- 변수에 대입할 정수 리터럴은 진수에 다라 작성하는 방법이 다르다.
+
+```java
+package ch02.sec02;
+
+public class IntegerLiteralExample {
+	public static void main(String[] args) {
+		int var1 = 0b1011; //2진수
+		int var2 = 0206; //8진수
+		int var3 = 365; //10진수
+		int var4 = 0xB3; //16진수
+
+		System.out.println("var1: " + var1);
+		System.out.println("var2: " + var2);
+		System.out.println("var3: " + var3);
+		System.out.println("var4: " + var4);
+	}
+}
+```
+### 주의점
+- 정수의 경우 해당 자료형이 표현할 수 있는 범위를 벗어난 데이터를 저장하면, 오버플로우(overflow)가 발생해 전혀 다른 값이 저장될 수 있다.
+
+#### <span style="color:red">오버플로우 / 언더플로우</span>
+- 오버플로우는 해당 자료형이 표현할 수 있는 최대 범위보다 큰 수를 저장할 때 발생하는 현상으로 잘못된 결과를 얻을 수 있다.
+- 언더플로우는 해당 자료형이 표현할 수 있는 최소 범위보다 작은 수를 저장할 때 발생하는 현상이다.
+
+```java
+package ch02.sec02;
+
+public class ByteExample {
+	public static void main(String[] args) {
+		byte var1 = -128;
+		byte var2 = -30;
+		byte var3 = 0;
+		byte var4 = 30;
+		byte var5 = 127;
+		//byte var6 = 128; //컴파일 에러(Type mismatch: cannot convert from int byte)
+
+		System.out.println(var1);
+		System.out.println(var2);
+		System.out.println(var3);
+		System.out.println(var4);
+		System.out.println(var5);
 	}
 }
 ```
 
+### 1-4. 정수형(long)
+- 개념: 수치가 큰 데이터를 다루는 프로그램에서 사용된다.
+- ex) 금융, 과학 분야
+- 메모리 크기: 8byte
+- 기본값: 0L
+- 표현 범위: -9,223,372,036,854,775,808 ~ 9,223,372,036,854,775,807
+- 특징: 리터럴 뒤에 L 또는 l을 붙여야 한다.
 
-### 3-2. 초기화(initialization)
-- 컵을 만들고 처음 내용물을 넣는 방식
-- 변수의 선언과 동시에 값을 대입하는것이다.
 ```java
-public class Variable02{
-	public static void main(String[] args){
+package ch02.sec02;
 
-		...
+public class LongExample {
+	public static void main(String[] args) {
+		long var1 = 10;
+		long var2 = 20L;
+		//long var3 = 1000000000000; //컴파일러는 int로 간주하기 때문에 에러 발생
+		long var4 = 1000000000000L;
 
-		String myCity = "Seoul"; //도시를 저장할 수 있는 변수를 선언하고, 변수에 "Seoul"을 대입했다.
-
-		System.out.println("I am from " + myCity);
+		System.out.println(var1);
+		System.out.println(var2);
+		System.out.println(var4);
 	}
 }
 ```
-- 위처럼 변수를 선언하고 처음으로 값을 대입하는 것을 '초기화'라고 한다.
-- 초기 + 화 (initialization)이라는 뜻이다.
-- 변수를 선언하고 초기화를 하는 작업을 한 줄로 쓸 수 있다.
 
-### Variable04 클래스 생성하기
-- 다양한 자료형의 변수를 만들어보자.
+### 1-5. 문자형
+- 하나의 문자를 저장하는 자료형. 유니코드(Unicode)사용
+- 메모리 크기 : 2byte
+- 기본값 : \u0000 (유니코드 값 0, null 문자)
+- 표현 범위 : 0 ~ 65,535(유니코드 값)
+- 특징 : 문자뿐 아니라 정수 값(유니코드)도 저장 가능
+
+#### <span style="color:red">유니코드</span>
+- 전 세계 모든 문자를 컴퓨터에서 통일된 방식으로 표현하기 위해 만든 문자 인코딩 표준이다.
+- 영어,한글,일본어,중국어 뿐만 아니라 기호, 이모지까지 모두 코드값으로 관리한다.
+
+#### <span style="color:red">인코딩</span>
+- 문자를 컴퓨터가 이해할 수 있는 코드값으로 변환하는 과정
+#### <span style="color:red">디코딩</span>
+- 코드값을 다시 문자로 변환하는 과정
+
 ```java
-----------------------------------------------------------------
-논리형
-논리형은 true, false 즉, 사실이다와 사실이 아니다의 두 가지 값만을 가진다.
-boolean b = true;
-System.out.println("b의 값 : " + b); //+기호는 더한다는 의미가 아닌 이어붙인다의 의미.
-//단, 숫자 사이의 + 기호는 더하기를 의미.
-boolean b = 1;//자료형의 값이 올바르지 않아 오류
------------------------------------------------------------------
+package ch02.sec03;
 
-문자형
-char ch = 'A'; //문자형은 홑따옴표 안에 넣어야 하며 한글자이상 넣을 수 없다.
-System.out.println("ch = " + ch); //결과 : A
-
-char ch3 = 65 + 1; //아스키코드 65에 + 1
-System.out.println("ch3 = " + ch3); //결과 : B
-
-
------------------------------------------------------------------
-
-정수형
-//byte b = 128; byte자료형의 표현범위를 벗어나므로 오류가 난다.
-
-byte b1 = 127;
-short s = 32767;
-int n = 550;
-
-System.out.println("b1 = " + b1); //결과 127
-System.out.println("s = " + s); //결과 32767
-System.out.println("n = " + n); //결과 550
------------------------------------------------------------------
-실수형(소수)
-//float f = 3.14;
-//java에서 실수는 기본적으로 double형으로 인식하기 때문에 float자료형을 사용한다는 것을 명시해줘야 한다. (3.14f)
-
-float f1, f2;
-f1 = 3.14f;
-
-System.out.println("f1 = " + f1); //결과 3.14 
-System.out.println("f2 = " + f2); //결과 150.0
-----------------------------------------------------------------
-//변수를 이용해 다른 변수에 복사하기
-
-int myAge = 20; //myAge에 20을 저장
-int yourAge = myAge; //myAge에 저장된 20이 복사되어 yourAge에 저장된다.
-
-----------------------------------------------------------------
-//두 변수에 들어있는 값을 바꾸려면 어떻게 해야할까??
-int su1 = 20;
-int su2 = 30;
-
-System.out.println("변경전");
-System.out.println("su1 : " + su1);
-System.out.println("su2 : " + su2);
-
-//컵 두개에 들어있는 내용물을 서로 교환한다고 생각을 해보자.
-//컵 두개로는 서로 바꾸는게 불가능하다.
-//내용물을 임시로 담아놓을 컵이 하나 필요하다.
-int temp;
-temp = su1;
-su1 = su2;
-su2 = temp;
-
-System.out.println("변경후");
-System.out.println("su1 : " + su1);
-System.out.println("su2 : " + su2);
-
-```
-
-## 5. 변수의 사용 범위
-- 모든 변수는 만들어진 중괄호 안에서만 사용할 수 있다.
-
-### Variable05클래스 생성
-```java
-public class Variable05{
-	public static void main(String[] args){
-		String favoriteFood;
+public class CharExample {
+	public static void main(String[] args) {
+		char c1 = 'A';          	//문자 저장
+		char c2 = 65;          	//유니코드 직접 저장
+		
+		char c3 = '가';         	//문자 저장
+		char c4 = 44032;      	//유니코드 직접 저장
+				
+		System.out.println(c1);
+		System.out.println(c2);
+		System.out.println(c3);
+		System.out.println(c4);
 	}
-
-	favoriteFood = "돈까스"; //오류 발생
 }
 ```
+### 1-6. 실수형(float)
+- 개념 : 부동소수점 방식의 실수 저장
+- 메모리 크기 : 4byte
+- 기본값 : 0.0f
+- 표현 범위 : 약 ±3.4E38 (소수점 7자리 정밀도)
+- 특징 : 실수 리터럴 뒤에 f 또는 F필수
+
+### 1-7. 실수형(double)
+- 개념 : 부동소수점 방식의 실수 저장
+- 메모리 크기 : 8byte
+- 기본값 : 0.0d
+- 표현 범위 : 약 ±1.7E308 (소수점 15자리 정밀도)
+- 특징: 실수 연산의 기본 타입, d 생략 가능
+
+#### <span style="color:red">부동소수점</span>
+- 컴퓨터가 매우 큰 수나 아주 작은 수를 표현하기 위해 사용하는 방식이다.
+- 즉, 숫자를 가수(유효 숫자 부분)과 지수(10의 몇제곱인지)로 나눠서 저장하는 방식이다.
+
+```123.45``` → ```1.2345 × 10^2```
+
+```0.0000123``` → ```1.23 × 10^-5```
 
 
+```java
+package ch02.sec04;
+
+public class FloatDoubleExample {
+	public static void main(String[] args) {
+		//정밀도 확인
+		float var1 = 0.1234567890123456789f;
+		double var2 = 0.1234567890123456789;
+		System.out.println("var1: " + var1);
+		System.out.println("var2: " + var2);
+
+		//10의 거듭제곱 리터럴
+		double var3 = 3e6;
+		float var4 = 3e6F;
+		double var5 = 2e-3;
+		System.out.println("var3: " + var3);
+		System.out.println("var4: " + var4);
+		System.out.println("var5: " + var5);
+	}
+ }
+```
+
+### 1-8. 논리형(boolean)
+- 참(true) 또는 거짓(false)만 저장하는 자료형
+- 메모리 크기 : 1bit
+- 기본값 : false
+- 표현범위 : true, false
+- 특징 : 조건을 판별할 때 많이 사용한다.
+
+```java
+package ch02.sec05;
+
+public class BooleanExample {
+	public static void main(String[] args) {
+		// 논리 자료형 변수 선언
+        boolean isOn = true;     // 전등이 켜져 있다
+        boolean isStudent = false; // 학생이 아니다
+
+        // boolean 값 출력하기
+        System.out.println("전등 상태: " + isOn);
+        System.out.println("학생 여부: " + isStudent);
+
+        // boolean 변수를 다른 변수에 대입 가능
+        boolean copy = isOn;
+        System.out.println("복사한 값: " + copy);
+
+        // boolean은 true/false만 올 수 있다
+        isOn = false;  // 전등을 껐다고 표현
+        System.out.println("전등 상태 바뀜: " + isOn);
+	 }
+ }
+ ```
+
+ ## 2. 참조자료형
+ ### 2-1. 문자열타입(String)
+ - 작은따옴표(')로 감싼 한 개의 문자는 char타입이지만, 큰따옴표(")로 감싼 여러 개의 문자들은 유니코드로 변환되지 않는다.
+```java
+char var1 = "A"; //컴파일 에러
+char var2 = "홍길동"; //컴파일 에러
+```
+- 큰따옴표(")로 감싼 문자들을 문자열이라고 부르는데, 문자열을 변수에 저장하고 싶다면 다음과 같이 String 타입을 사용해야 한다.
+
+```java
+String var1 = "A";
+String var2 = "홍길동";
+```
+- 문자열 내부에 역슬래쉬(\\)가 붙은 문자를 사용할 수가 있는데, 이것을 이스케이프문자라고 한다.
+- 이스케이프 문자를 사용하면 특정 문자를 포함할 수 있고, 출력에 영향을 미치기도 한다.
+
+|이스케이프 문자| |
+|----------|----|
+|\\" |"문자 포함|
+|\\' |'문자 포함|
+|\\  |\\문자 포함|
+|\\u16진수 |16진수 유니코드에 해당하는 문자 포함|
+|\\t |출력시 탭만큼 띄움|
+|\\n |출력 시 줄바꿈|
+|\\r |출력 시 캐리지 리턴|
+
+```java
+package ch02.sec06;
+
+public class StringExample {
+	public static void main(String[] args) {
+		String name = "홍길동";
+		String job = "프로그래머";
+		System.out.println(name);
+		System.out.println(job);
+
+		String str = "나는 \"자바\"를 배웁니다.";
+		System.out.println(str);
+		
+		str = "번호\t이름\t직업 ";
+		System.out.println(str);
+		
+		System.out.print("나는\n");
+		System.out.print("자바를\n");
+		System.out.print("배웁니다.");
+	}
+}
+```
+- Java 13부터는 다음과 같은 텍스트 블록 문법을 제공한다.
+```java
+String str = """
+...
+
+""";
+```
+- 큰따옴표 3개로 감싸면 이스케이프하거나 라인피드를 할 필요가 없이 작성된 그대로 문자열로 저장된다.
+
+```java
+package ch02.sec06;
+
+public class TextBlockExample {
+	public static void main(String[] args) {
+		String str1 = "" +
+		"{\n" +
+		"\t\"id\":\"winter\",\n" +
+		"\t\"name\":\"눈송이\"\n" +
+		"}";
+
+		String str2 = """
+		{
+			"id":"winter",
+			"name":"눈송이"
+		}
+		""";
+
+		System.out.println(str1);
+		System.out.println("------------------------------------");
+		System.out.println(str2);
+		System.out.println("------------------------------------");
+		String str = """
+		나는 자바를 \
+		학습합니다.
+		나는 자바 고수가 될 겁니다.
+		""";
+		System.out.println(str);
+	}
+}
+```
 
 # 형변환
-- 자료형을 다른 자료형으로 변환하는 것을 말한다.
-- 모든 연산은 기본적으로 같은 자료형들끼리만 수행할 수 있다.
-- 따라서 서로 다른 자료형의 연산을 수행하기 위해서는 같은 자료형으로 변환해야 한다.
-
-### Casting01 클래스 생성하기
-```java
-public class Casting01{
-	public static void main(String[] args){
-		int num1 = 11;
-		double num2 = 3.14;
-		double num1Change = (double)num1;
-
-		System.out.println("num1 : " + num1);
-		System.out.println("num1Change : " + num1Change);
-		System.out.println((int)1.23);
-	}
-}
-```
-- 형 변환은 숫자를 담을 수 있는 기본 자료형간에만 가능하다.
-- 즉, 정수인 byte,short,int,long,float,double형 간에만 가능하며, 문자형인 char역시 문자형인 동시에 정수이기도 하므로 형 변환을 할 수 있다.
-
 ## 1. Promotion(자동형변환)
 - 서로 다른 자료형간의 대입이나 연산을 할 때 형 변환으로 자료형을 일치시켜야 하지만 다음과 같은 경우 자바의 컴파일러가 자동으로 형 변환을 해주기 때문에 생략할 수 있다.
 
@@ -849,42 +938,34 @@ public class Casting01{
   - ### 실수형
     - float(4바이트) -> double(8바이트)
 
-### 정수형이 실수형으로 변환 될 때
 
-### Casting02클래스 생성하기
 ```java
-package test2;
+package ch02.sec07;
 
-public class Casting02 {
+public class PromotionExample {
 	public static void main(String[] args) {
-		int num1 = 14;
-		double num2 = 3.14;
-		
-		double num4 = num1;//num1을 자동으로 double로 형 변환 해줌
-		
-		//int num3 = (double)num2;//자동 형 변환을 할 수 없는 역방향! 컴파일에러 발생
-		int num3 = (int)num2;
-		
-		System.out.println(num4);
-	}
-}
-```
-### Casting03클래스 생성하기
-```java
+		//자동 타입 변환
+		byte byteValue = 10;
+		int intValue = byteValue;
+		System.out.println("intValue: " + intValue);
 
-package test2;
-
-public class Casting03 {
-	public static void main(String[] args) {
-		int i = 100;
-		char c = 'a';
-		int j = c; //char형에서 int형으로 자동 변환
-		double d = i; //int형에서 double형으로 자동 변환
+		char charValue = '가';
+		intValue = charValue;
+		System.out.println("가의 유니코드: " + intValue);
+			
+		intValue = 50;
+		long longValue = intValue;
+		System.out.println("longValue: " + longValue);
 		
-		System.out.println("int형 변수 j의 값 : " + j);
-		System.out.println("double형 변수 d의 값 : " + d);
+		longValue = 100;
+		float floatValue = longValue;
+		System.out.println("floatValue: " + floatValue);
+			
+		floatValue = 100.5F;
+		double doubleValue = floatValue;
+		System.out.println("doubleValue: " + doubleValue);
 	}
-}
+}			
 ```
 
 ## Demotion(강제형변환)
@@ -897,79 +978,77 @@ public class Casting03 {
 ```java
 (원하는 자료형) 데이터or 변수;
 ```
-
-### Casting04클래스 생성하기
 ```java
-package test2;
+package ch02.sec08;
 
-public class Casting04 {
+public class CastingExample {
 	public static void main(String[] args) {
-		//int -> byte형 강제 형변환(값이 작을 경우)
-		int i = 10;
-		byte b = (byte)i;
-		System.out.println("[int -> byte] i의 값 : " + i + " b의 값 : " + b);
-		
-		//int -> byte형 강제 형변환(값이 큰 경우)
-		int j = 1000;
-		byte c = (byte)j;
-		System.out.println("[int -> byte] j의 값 : " + j + " c의 값 : " + c);
-	}
-}
+		int var1 = 10;
+		byte var2 = (byte) var1;
+		System.out.println(var2);	 //강제 타입 변환 후에 10이 그대로 유지
 
-```
+		long var3 = 300;
+		int var4 = (int) var3;
+		System.out.println(var4);	 //강제 타입 변환 후에 300이 그대로 유지
 
-### Casting05클래스 생성하기
-```java
-package test2;
+		int var5 = 65;
+		char var6 = (char) var5;
+		System.out.println(var6); 	//'A'가 출력
 
-public class Casting05 {
-	public static void main(String[] args) {
-		
-		//double -> float형 강제 형변환(float형 범위 내 값)
-		double d1 = 1.1234;
-		float f1 = (float)d1;
-		System.out.println("[double -> float] d1의 값 : " + d1 + ", f1의 값 : " + f1);
-		//범위 값 내에서 강제 형 변환을 실행하면 데이터의 손실 없이 변환된다.
-		
-		//double -> float형 강제 형변환(float형 최소값보다 작은 값)
-		double d2 = 1.0e-50;
-		float f2 = (float)d2;
-		System.out.println("[double -> float] d2의 값 : " + d2 + ", f2의 값 : " + f2);
-		//float형이 가질 수 있는 최소값보다 작은 경우 0.0이 된다.
-		
-		//double -> float형 강제 형변환(float형 최대값보다 큰 경우)
-		double d3 = 1.0e100;
-		float f3 = (float)d3;
-		System.out.println("[double -> float] d3의 값 : " + d3 + ", f3의 값 : " + f3);
-		//float형이 가질 수 있는 최대값보다 큰 경우 Infinity가 된다.
-		
-		//double과 float형의 정밀도 차이
-		double d4 = 9.123456789;
-		float f4 = (float)d4;
-		System.out.println("[정밀도차이] d4의 값 : " + d4 + ", f4의 값 : " + f4);
-		//float형 범위 내 값이지만 소수점 아래 값에서는 정밀도에서 차이가 난다.
+		double var7 = 3.14;
+		int var8 = (int) var7;
+		System.out.println(var8); 	//3이 출력
 	}
 }
 ```
 
-### Casting06클래스 생성하기
-```java
-package test2;
+### 연산식에서 자동 타입 변환
+- 자바는 실행 성능을 향상시키기 위해 컴파일 단계에서 연산을 수행한다.
 
-public class Casting06 {
+```java
+byte result = 10 + 20;
+```
+- 정수 타입 변수가 산술 연산식에서 피연산자로 사용되면 int 타입보다 작은 byte, short타입의 변수는 int 타입으로 자동 타입 변환되어 연산을 수행한다.
+
+```java
+package ch02.sec09;
+
+public class OperationPromotionExample {
 	public static void main(String[] args) {
-		//float -> int 강제 형변환
-		float f1 = 12345.67f;
-		int i1 = (int)f1;
-		System.out.println("[float -> int] f1의 값 : " + f1+", i1의 값 : " + i1);
-		
-		//double -> int 강제 형변환
-		double d1 = 12345.67;
-		int i2 = (int)d1;
-		System.out.println("[double -> int] d1의 값 : " + d1+", i2의 값 : " + i2);	
+		byte result1 = 10 + 20; //컴파일 단계에서 연산
+		System.out.println("result1: " + result1);
+
+		byte v1 = 10;
+		byte v2 = 20;
+		int result2 = v1 + v2; //int 타입으로 변환 후 연산
+		System.out.println("result2: " + result2);
+
+		byte v3 = 10;
+		int v4 = 100;
+		long v5 = 1000L;
+		long result3 = v3 + v4 + v5; //long 타입으로 변환 후 연산
+		System.out.println("result3: " + result3);
+			
+		char v6 = 'A';
+		char v7 = 1;
+		int result4 = v6 + v7; //int 타입으로 변환 후 연산
+		System.out.println("result4: " + result4);
+		System.out.println("result4: " + (char)result4);
+
+		int v8 = 10;
+		int result5 = v8 / 4; //정수 연산의 결과는 정수
+		System.out.println("result5: " + result5);
+
+		int v9 = 10;
+		double result6 = v9 / 4.0; //double 타입으로 변환 후 연산
+		System.out.println("result6: " + result6);
+
+		int v10 = 1;
+		int v11 = 2;
+		double result7 = (double) v10 / v11; //double 타입으로 변환 후 연산
+		System.out.println("result7: " + result7);
 	}
 }
-
 ```
 
 
@@ -1092,7 +1171,127 @@ public static void main(String[] args){
 	//var2,var3는 사용할 수 없다.
 
 }
+```
 
+## 변수의 사용 범위
+- 모든 변수는 만들어진 중괄호 안에서만 사용할 수 있다.
+
+### Variable05클래스 생성
+```java
+public class Variable05{
+	public static void main(String[] args){
+		String favoriteFood;
+	}
+
+	favoriteFood = "돈까스"; //오류 발생
+}
+```
+
+##  데이터의 출력
+```java
+System. 	out. 	println(리터럴 또는 변수)
+시스템으로 출력하는데 괄호안의 내용을 출력하고 행을 바꿔라.
+```
+```java
+System.out.print() : 괄호안의 내용을 출력한다.
+System.out.println() : 괄호안의 내용을 출력하고 줄을 바꿔준다(개행)
+```
+- System.out.print(),System.out.println() 출력문은 모든 데이터를 문자열로 인식하여 있는 그대로 출력하는 메서드이다.
+
+### System.out.print()
+```java
+package test;
+
+public class Test{
+	public static void main(String[] args) {
+		//괄호()안의 데이터를 콘솔창에 출력
+		System.out.print("Welcome");
+		//"Welcome"문자열 옆에 "Java World"문자열 출력
+		System.out.print("Java World");
+	}
+}
+```
+### System.out.println()
+```java
+package test;
+
+public class Test{
+	public static void main(String[] args) {
+		//괄호()안의 데이터를 콘솔창에 출력
+		System.out.println("Welcome");
+		//"Welcome"문자열 아래 "Java World"문자열 출력
+		System.out.println("Java World");
+	}
+}
+```
+
+### System.out.printf() 
+```java
+System.out.printf()
+```
+- System.out.printf() 출력문은 값의 자료형에 따라 서식문자를 이용해 문자열속에서 데이터를 출력할 수 있다.
+
+|서식문자|출력형태|
+|-----|------|
+|%d|정수(10진수)|
+|%o|정수(8진수)|
+|%x|정수(16진수)|
+|%f|실수|
+|%s|문자열|
+|%c|문자형|
+|%b|논리형|
+
+```java
+package ch02.sec12;
+
+public class PrintfExample {
+	public static void main(String[] args) {
+		int value = 123;
+		System.out.printf("상품의 가격:%d원\n", value);
+		System.out.printf("상품의 가격:%6d원\n", value);
+		System.out.printf("상품의 가격:%-6d원\n", value);
+		System.out.printf("상품의 가격:%06d원\n", value);
+
+		double area = 3.14159 * 10 * 10;
+		System.out.printf("반지름이 %d인 원의 넓이:%10.2f\n", 10, area);
+
+		String name = "홍길동";
+		String job = "도적";
+		System.out.printf("%6d | %-10s | %10s\n", 1, name, job);
+	}
+}	
+```
+### 2-4. 출력값의 정렬
+- 정수의 정렬
+```java
+%3d, %5d //주어진 숫자 칸 만큼 확보한후, 오른쪽 정렬하여 출력
+예) (%5d,1) -> XXXX1
+
+System.out.printf("%5d",1);
+System.out.println();
+System.out.printf("%5d",12);
+System.out.println();
+System.out.printf("%5d",123);
+System.out.println();
+System.out.printf("%5d",1234);
+System.out.println();
+System.out.printf("%5d",12345);
+System.out.println();
+```
+- 실수의 정렬
+
+```java
+%.2f //소수점 아래 정수번째 자리까지 출력(반올림)
+
+System.out.printf("%.1f",1.1234567);
+System.out.println();
+System.out.printf("%.2f",1.1234567);
+System.out.println();
+System.out.printf("%.3f",1.1234567);
+System.out.println();
+System.out.printf("%.4f",1.1234567);
+System.out.println();
+System.out.printf("%.5f",1.1234567);
 ```
 
 # 데이터의 입력
@@ -1158,34 +1357,32 @@ int 변수명 = 객체명.메서드(); //입력받기
 
 ## 데이터 입력받기
 ```java
-//Scanner 객체명 = new Scanner(System.in);
-Scanner sc = new Scanner(System.in);
-System.out.print("나이를 입력해주세요");
+package ch02.sec13;
 
-//자료형 변수명 = 객체명.Scanner함수();
-int age = sc.nextInt();
+import java.util.Scanner;
 
-System.out.printf("제 나이는 %d세 입니다.",age);
-```
-```java
-//Scanner 객체명 = new Scanner(System.in);
-Scanner sc = new Scanner(System.in);
-String name,address;
-int age;
-double weight;
-System.out.print("이름 : ");
-name = sc.next();
-System.out.print("나이 : ");
-age = sc.nextInt();
-System.out.print("주소 : ");
-address = sc.next();
-System.out.print("체중 : ");
-weight = sc.nextDouble();
+public class ScannerExample {
+	public static void main(String[] args)
+		//Scanner 객체명 = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
+		String name,address;
+		int age;
+		double weight;
+		System.out.print("이름 : ");
+		name = sc.next();
+		System.out.print("나이 : ");
+		age = sc.nextInt();
+		System.out.print("주소 : ");
+		address = sc.next();
+		System.out.print("체중 : ");
+		weight = sc.nextDouble();
 
-System.out.printf("당신의 이름은 %s입니다.\n",name);
-System.out.printf("당신의 나이는 %d입니다.\n",age);
-System.out.printf("당신의 주소는 %s입니다.\n",address);
-System.out.printf("당신의 체중은 %.1fkg입니다.\n",weight);
+		System.out.printf("당신의 이름은 %s입니다.\n",name);
+		System.out.printf("당신의 나이는 %d입니다.\n",age);
+		System.out.printf("당신의 주소는 %s입니다.\n",address);
+		System.out.printf("당신의 체중은 %.1fkg입니다.\n",weight);
+	}
+}
 ```
 
 # 연산자(Operator)
