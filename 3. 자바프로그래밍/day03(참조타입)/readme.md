@@ -40,6 +40,66 @@ String hobby = "독서";
 - null은 아무것도 참조하지 않는 상태를 나타내는 값이다.
 - 참조형 변수에서만 사용이 가능하다.
 
+## 참조 타입 변수의  ==, != 연산
+- ==, != 연산자는 변수의 값이 같은지, 아닌지를 조사한다.
+- 참조 타입 변수의 값은 객체의 주소값(번지)이므로 참조 타입 변수의 ==, != 연산자는 번지를 비교하는 것이 된다.
+- 번지가 같다면 동일한 객체를 참조하는 것이고, 다르다면 다른 객체를 참조하는 것이다.
+
+![image](img/참초타입비교.png)
+
+```java
+package ch05.sec03;
+
+public class ReferenceVariableCompareExample {
+	public static void main(String[] args) {
+		int[] arr1; //배열 변수 arr1 선언
+		int[] arr2; //배열 변수 arr2 선언
+		int[] arr3; //배열 변수 arr3 선언
+			
+		arr1 = new int[] { 1, 2, 3 }; //배열 { 1, 2, 3 }을 생성하고 arr1 변수에 대입
+		arr2 = new int[] { 1, 2, 3 }; //배열 { 1, 2, 3 }을 생성하고 arr2 변수에 대입
+		arr3 = arr2; //배열 변수 arr2의 값을 배열 변수 arr3에 대입
+			
+		System.out.println(arr1 == arr2); // arr1과 arr2 변수가 같은 배열을 참조하는지 검사
+		System.out.println(arr2 == arr3); // arr2와 arr3 변수가 같은 배열을 참조하는지 검사
+	}
+}
+```
+
+## null과 NullPointerException
+- 참조 타입 변수는 아직 번지를 저장하고 있지 않다는 뜻으로 null(널)값을 가질 수 있다.
+- null도 초기값으로 사용할 수 있기 때문에 null로 초기화된 참조 변수는 스택영역에 생성된다.
+```java
+String refVar1 = "자바";
+String refVar2 = null;
+```
+- 참조 타입 변수가 null값을 가지는지 확인하려면 다음과 같이 ==, != 연산을 수행할 수 있다.
+```java
+refVar1 == null; //결과 : false
+refVar1 != null; //결과 : true
+```
+```java
+refVar2 == null; //결과 : true
+refVar2 != null; //결과 : false
+```
+- 자바는 프로그램 실행 도중에 발생하는 오류를 예외(Exception)라고 부른다.
+- 참조 변수를 사용하면서 가장 많이 발생하는 예외 중 하나는 NullPointerException이다.
+- 변수가 null인 상태에서 객체의 데이터나 메소드를 사용하려 할 때 이 예외가 발생한다.
+
+	![image](img/nullPointer.png)
+
+```java
+package ch05.sec04;
+
+public class NullPointerExceptionExample {
+	public static void main(String[] args) {
+		String str = null;
+		//System.out.println("총 문자 수: " + str.length() );//NullPointerException
+	}
+}
+```
+
+
 ## 문자열(String)타입
 - 자바의 문자열은 String 객체로 생성된다.
 ```java
@@ -90,7 +150,6 @@ boolean result = str1.equals(str2); //문자열 값이 같은지 검사
 - 여러 줄의 코드를 하나의 이름으로 묶어서 필요할 때마다 실행할 수 있다.
 - 메서드는 값을 입력받을 수 있고, 결과값을 반환할 수도 있다.
 
-#### EqualsExample.java
 ```java
 package ch05.sec05;
 
@@ -140,7 +199,6 @@ char charValue = subject.charAt(3);
 ```
 - 3번은 프에 해당한다.
 
-#### CharAtExample.java
 ```java
 package ch05.sec05;
 
@@ -170,7 +228,6 @@ int length = subject.length();
 ```
 - 문자열의 길이는 공백을 포함하기 때문에 길이는 8이된다.
 
-#### LengthExample.java
 ```java
 package ch05.sec05;
 
@@ -199,7 +256,6 @@ String newStr = oldStr.replace("자바","JAVA");
 
 ![image](img/불변.png)
 
-#### ReplaceExample.java
 ```java
 package ch05.sec05;
 
@@ -228,7 +284,6 @@ String firstNum = ssn.substring(0,6);
 String secondNum = ssn.substring(7);
 ```
 
-#### SubStringExample.java
 ```java
 package ch05.sec05;
 
@@ -255,7 +310,6 @@ int index = subject.indexOf("프로그래밍");
 ```
 - 만약 주어진 문자열이 포함되어 있지 않으면 indexOf() 메소드는 -1을 리턴한다.
 
-#### IndexOfContainsExample.java
 ```java
 package ch05.sec05;
 
@@ -294,7 +348,6 @@ String[] arr = board.split(",");
 결과 : ["번호","제목","내용","성명"];
 ```
 
-#### SplitExample.java
 ```java
 package ch05.sec05;
 
@@ -331,6 +384,11 @@ public class SplitExample {
 - 10개의 데이터를 저장하려면 해당 자료형의 변수를 10개 만들어서 저장해야 했다.
 - 물론 이런방법으로 데이터를 저장할 수 있지만 데이터가 많아질수록 관리를 하기 힘들어진다.
 
+## 배열의 특징
+- 배열 선언 시 크기를 지정한다.
+- 배열 선언 후 공간의 크기를 늘리거나 삭제할 수 없다.
+- 지정된 자료형의 값만 저장할 수 있다.
+
 ## 배열의 선언
 - 배열을 사용하려면 변수와 마찬가지로 선언을 먼저 해야 한다.
 ```
@@ -340,27 +398,14 @@ public class SplitExample {
 - 대괄호[]는 배열의 연산자를 의미한다.
 - 자료형 뒤에 붙이거나 변수명 뒤에 붙이면 해당 자료형은 배열이라는 의미로 선언된다.
 - 자료형 뒤에 붙이는것이 가독성이 좋아 자주 사용된다.
+- 배열 변수는 참조 변수이다.
+- 배열도 객체이므로 힙 영역에 생성되고 배열 변수는 힙 영역의 배열 주소를 저장한다.
+- 참조할 배열이 없다면 배열 변수도 null로 초기화할 수 있다.
 
-## 배열의 생성
-- 배열을 선언한 후에는 배열을 생성해야 한다.
-- 배열을 선언한 것은 집을 짓는것과 같다. 안에 방을 만들어야 입주가 가능하듯이, 배열에 데이터를 넣어줄 수 있는 공간을 생성해줘야 한다.
-- 프로그래밍에서는 뭔가를 기억할 때 메모리를 사용한다.
-- 배열은 데이터를 저장하기 위한 공간이 필요하므로 메모리에 필요한 만큼 공간을 만들도록 선언해야 한다.
-- 배열을 생성하기 위해서는 'new'라는 연산자와 함께 자료형의 길이를 지정한다.
+```java
+타입[] 변수 = null;
 ```
-new int[4]
-```
-- 메모리에 배열의 데이터를 저장하기 위한 4개의 공간을 만들어라 라는 명령이다.
-
-#### <span style="color:red">new</span>
-- new는 객체를 생성할 때 사용하는 키워드이다.
-- new 연산자는 메모리에 공간을 만들고, 주소를 반환한다.
-- 클래스에 속한 변수나 메소드를 사용하려면 객체가 먼저 필요하다.
-
-## 선언과 생성을 동시에 하는것도 가능하다.
-```
-int [] arr = new int [4];
-```
+- 만약 배열 변수가 null 값을 가진 상태에서 변수[인덱스]로 값을 읽거나 저장하게 되면 NullPointerException이 발생한다.
 
 - 배열에 저장될 값을 미리 부여해 선언하는 방법이 있다.
 ```java
@@ -368,7 +413,49 @@ int[] arr = {1,2,3,4,5}
 ```
 - 위와 같이 배열을 선언할 때 값을 지정할 수 있다.
 - 5개의 값을 대입했기 때문에, 배열의 크기는 5가 되며 각 순서에 맞게 데이터가 삽입된다.
-- 해당 방법은 배열을 최초 선언할 때만 가능하다.
+
+- 위와 같은 방법들을 통해서 배열을 선언하면 실제 시스템 메모리에는 선언된 크기와 값 만큼 각각의 독립적인 저장 공간이 연속적으로 배치되어 생성된다.
+
+![image](https://user-images.githubusercontent.com/54658614/215388446-0a8c33c5-5e62-4798-b98b-d445511574a6.png)
+
+- 메모리에 지정한 크기만큼의 저장 공간을 생성하고 그 저장 공간이 있는 위치 값을 arr 변수에 대입한다.
+- 배열의 변수는 그 주소 값을 통해서 배열에 접근하는 데이터를 가져오게 된다.
+
+```java
+package ch05.sec06;
+
+public class ArrayCreateByValueListExample1 {
+	public static void main(String[] args) {
+		//배열 변수 선언과 배열 생성
+		String[] season = { "Spring", "Summer", "Fall", "Winter" };
+
+		//배열의 항목값 읽기
+		System.out.println("season[0] : " + season[0]);
+		System.out.println("season[1] : " + season[1]);
+		System.out.println("season[2] : " + season[2]);
+		System.out.println("season[3] : " + season[3]);
+
+		//인덱스 1번 항목의 값 변경
+		season[1] = "여름";
+		System.out.println("season[1] : " + season[1]);
+		System.out.println();
+
+		//배열 변수 선언과 배열 생성
+		int[] scores = { 83, 90, 87 };
+
+		//총합과 평균 구하기
+		int sum = 0;
+		for(int i=0; i<3; i++) {
+			sum += scores[i];
+		}
+		System.out.println("총합 : " + sum);
+		double avg = (double) sum / 3;
+		System.out.println("평균 : " + avg);
+	}
+}
+```
+- 중괄호로 감싼 값의 목록을 배열 변수에 대입할 때 주의할 점이 있다.
+- 배열 변수를 미리 선언한 후에는 값 목록을 변수에 대입할 수 없다.
 
 ```java
 int[] arr; //배열선언
@@ -380,38 +467,41 @@ arr = {1,2,3,4,5} //오류
 int [] arr; //배열선언
 arr = new int[]{1,2,3,4,5}; //배열 재정의
 ```
-- 위와 같은 방법들을 통해서 배열을 선언하면 실제 시스템 메모리에는 선언된 크기와 값 만큼 각각의 독립적인 저장 공간이 연속적으로 배치되어 생성된다.
 
-![image](https://user-images.githubusercontent.com/54658614/215388446-0a8c33c5-5e62-4798-b98b-d445511574a6.png)
-
-- 메모리에 지정한 크기만큼의 저장 공간을 생성하고 그 저장 공간이 있는 위치 값을 arr 변수에 대입한다.
-- 배열의 변수는 그 주소 값을 통해서 배열에 접근하는 데이터를 가져오게 된다.
-
-###  Array01 클래스생성
+## new 연산자를 이용한 배열의 생성
+- 값의 목록은 없지만 향후 값들을 저장할 목적으로 배열을 미리 생성할 수도 있다.
+- new 연산자를 다음과 같이 사용하면 배열 객체를 생성시킨다.
+- 길이는 배열이 저장할 수 있는 항목 수를 말한다.
 ```java
-package test;
-
-public class Test{
-	public static void main(String[] args) {
-		
-		int[] arr = new int[4];
-		
-		System.out.println(arr);
-				
-	}
-}
-
-[I@7d6f77cc
+타입 [] 변수 = new 타입 [길이];
 ```
-- [X@xxx...과 같은형태로 출력이 될것이다.
-- 이 값은 배열이 위치한 주소값이다.
-- 이처럼 값을 직접 변수에 저장하는것이 아니라 주소값이 저장되어 해당 주소를 통해 실제 주소에 접근한다.
-- 이를 참조변수라고 한다.
+- 메모리에 배열의 데이터를 저장하기 위한 4개의 공간을 만들어라 라는 명령이다.
 
-## 배열의 특징
-- 배열 선언 시 크기를 지정한다.
-- 배열 선언 후 공간의 크기를 늘리거나 삭제할 수 없다.
-- 지정된 자료형의 값만 저장할 수 있다.
+#### <span style="color:red">new</span>
+- new는 객체를 생성할 때 사용하는 키워드이다.
+- new 연산자는 메모리에 공간을 만들고, 주소를 반환한다.
+- 클래스에 속한 변수나 메소드를 사용하려면 객체가 먼저 필요하다.
+
+```java
+타입[] 변수 = null;
+변수 = new 타입[길이];
+```
+- 다음은 길이가 5인 int[] 배열을 생성하고, 배열 번지를 intArray변수에 대입한다.
+
+```java
+int[] intArray = new int[5];
+```
+- new 연산자로 배열을 처음 생성하면 배열 항목은 기본값으로 초기화된다.
+
+|자료형|초기값|
+|------|------|
+|정수형|0|
+|실수형|0.0|
+|문자형|''|
+|객체형|null|
+
+
+
 
 ## 배열의 구조
 ### 1. 인덱스(index)
@@ -425,90 +515,94 @@ public class Test{
 - 배열의 값을 저장하고 가져오는 방법은 변수와 같다.
 - 단지 변수명 대신 인덱스(index)를 사용한다는점이 다르다.
 
-### Array02클래스 생성하기
 ```java
-// 1) 배열선언
-int[] ar;
+package ch05.sec06;
 
-// 2) 배열생성
-//배열의 index수의 갯수는 처음 지정해둔 갯수에서 강제로 늘리거나 줄일 수 없다.
-//스택과 힙에 대한 설명  기본자료형 변수와 데이터는 스택에 만들어진다.
-//클래스 구조와 배열구조는 스택에 일단 만들어진다. new 라는 키워드를 통해서 힙 메모리 영역에 집을 지어주는 키워드이다.
-ar = new int[4];
+public class ArrayCreateByNewExample {
+	public static void main(String[] args) {
+		//배열 변수 선언과 배열 생성
+		int[] arr1 = new int[3];
+		//배열 항목의 초기값 출력
+		for(int i=0; i<3; i++) {
+			System.out.print("arr1[" + i + "] : " + arr1[i] + ", ");
+		}
+		System.out.println();
+		//배열 항목의 값 변경
+		arr1[0] = 10;
+		arr1[1] = 20;
+		arr1[2] = 30;
+		//배열 항목의 변경 값 출력
+		for(int i=0; i<3; i++) {
+			System.out.print("arr1[" + i + "] : " + arr1[i] + ", ");
+		}
+		System.out.println("\n");
 
-//생성 후에는 값을 넣어 초기화가 필요하다.
-//아무런 값도 넣지않으면 기본자료형은 각 자료형의 초기값,
-//스트링형은 null이 들어간다.
-//int[] ar = {100, 200, 300, 400};//초기화 방법1
+		//배열 변수 선언과 배열 생성
+		double[] arr2 = new double[3];
+		//배열 항목의 초기값 출력
+		for(int i=0; i<3; i++) {
+			System.out.print("arr2[" + i + "] : " + arr2[i] + ", ");
+		}
+		System.out.println();
+		//배열 항목의 값 변경
+		arr2[0] = 0.1;
+		arr2[1] = 0.2;
+		arr2[2] = 0.3;
+		//배열 항목의 변경 값 출력
+		for(int i=0; i<3; i++) {
+			System.out.print("arr2[" + i + "] : " + arr2[i] + ", ");
+		}
+		System.out.println("\n");
 
-// 3) 초기화 방법2
-ar[0] = 100;
-ar[1] = 200;
-ar[2] = 300;
-ar[3] = 400;
-//배열의 출력		
-System.out.println(arr[0]);
-System.out.println(arr[1]);
-System.out.println(arr[2]);
-System.out.println(arr[3]);
+		//배열 변수 선언과 배열 생성
+		String[] arr3 = new String[3];
+		//배열 항목의 초기값 출력
+		for(int i=0; i<3; i++) {
+			System.out.print("arr3[" + i + "] : " + arr3[i] + ", ");
+		}
+		System.out.println();
+		//배열 항목의 값 변경
+		arr3[0] = "1월";
+		arr3[1] = "2월";
+		arr3[2] = "3월";
+		//배열 항목의 변경값 출력
+		for(int i=0; i<3; i++) {
+			System.out.print("arr3[" + i + "] : " + arr3[i] + ", ");
+		}
+	}
+}
 ```
+
 ### 2. 배열의 길이
 - 배열을 생성할 때 대괄호[]안에 배열의 길이를 작성했다.
 - 배열을 사용하면서 종종 배열의 길이가 필요할 때가 있다.
 - 배열은 내부적으로 length라는 변수를 지니는데, 해당 변수는 배열의 길이 값을 가지고 있다.
-- 배열의 길이를 알고싶을 때는 '배열명.length'를 하면 된다.
+- 배열의 길이를 알고싶을 때는 ```배열명.length```를 하면 된다.
 - 이 변수의 값은 배열이 생성될 때 지정되며 변경할 수 없다.
 
 ```java
-//배열의 출력2
-//ar.length : 배열의 방의 개수
-for(int I = 0; I < ar.length; I++){
-	System.out.println(ar[i]);
-}
-```
-### 3. 배열의 초기값
-- 배열은 생성과 동시에 데이터 자료형 별로 기본값이 주어진다.
-- 배열을 선언했을 때 저장되는 초기값을 자료형 별로 정리하면 다음과 같다.
+package ch05.sec06;
 
-|자료형|초기값|
-|------|------|
-|정수형|0|
-|실수형|0.0|
-|문자형|''|
-|객체형|null|
-
-### Array03클래스 생성하기
-```java
-package test;
-
-public class Test{
+public class ArrayLengthExample {
 	public static void main(String[] args) {
-		
-		//5개의 공간을 가지는 배열선언
-		int [] intArray = new int[5];
-		String[] strArray = new String[5];
-		
-		//5개의 값을 가지는 배열 선언
-		int [] varArray = {1,2,3,4,5};
-		
-		//intArray의 첫번째 값 출력
-		System.out.println("intArray[0] : "+intArray[0]);
-		//intArray의 두번째 값 출력		
-		System.out.println("intArray[1] : "+intArray[1]);
-		//strArray의 첫번째 값 출력
-		System.out.println("strArray[0] : "+strArray[0]);
-		//strArray의 두번째 값 출력		
-		System.out.println("strArray[1] : "+strArray[1]);
-		//varArray의 첫번째 값 출력
-		System.out.println("varArray[0] : "+varArray[0]);
-		//varArray의 두번째 값 출력		
-		System.out.println("varArray[1] : "+varArray[1]);		
+		//배열 변수 선언과 배열 대입
+		int[] scores = { 84, 90, 96 };
+
+		//배열 항목의 총합 구하기
+		int sum = 0;
+		for(int i=0; i<scores.length; i++) {
+			sum += scores[i];
+		}
+		System.out.println("총합 : " + sum);
+
+		//배열 항목의 평균 구하기
+		double avg = (double) sum / scores.length;
+		System.out.println("평균 : " + avg);
 	}
 }
 ```
 
 ## 배열 사용하기
-### Array04 클래스 생성하기
 ```java
 package array;
 
@@ -537,20 +631,9 @@ public class Array03 {
 		//줄 바꾸기
 		System.out.println();
 		System.out.println("배열의 짝수들의 합 : " + sum);
-	}
-}
 
-```
-## 배열의 정렬
-- 배열의 값이 순서 없이 저장되는 경우, 배열의 값을 오름차순, 내림차순으로 정렬해야 할 때가 있다.
-- 정렬 방법에는 다양한 알고리즘이 있다.
-
-### Array05클래스 생성하기
-```java
-package array;
-
-public class Array04 {
-	public static void main(String[] args) {
+		//배열의 정렬
+		//배열의 값이 순서 없이 저장되는 경우, 배열의 값을 오름차순, 내림차순으로 정렬해야 할 때가 있다.
 		int [] arr = {1,6,2,3,10,7,4,8,5,9};
 		
 		int temp = 0;
@@ -575,6 +658,332 @@ public class Array04 {
 }
 
 ```
+
+## 다차원배열
+- 다차원 배열이란 2차원 이상의 배열을 의미하며, 배열의 요소로 또 다른 배열을 가지는것을 의미합니다.
+- 2차원 배열은 배열의 요소로 1차원 배열을 가지고,
+- 3차원 배열은 배열의 요소로 2차원 배열을 가지게 됩니다.
+
+### 이차원 배열의 초기값 지정
+```
+int [][] arr = { {1,2},{3,4},{5,6}};
+```
+- 이와 같은 방법은 배열을 최초 선언할 때만 가능하다.
+
+## 2차원 배열의 구조
+- 2차원 배열의 행은 독립된 공간으로 분리되어 있고, 그 행들이 각각 독립된 열을 가지고 있다.
+
+![image](https://user-images.githubusercontent.com/54658614/215390509-ba91a4f5-ca52-41e0-bd32-04be2d2e08d8.png)
+
+```java
+package ch05.sec07;
+
+public class MultidimensionalArrayByValueListExample {
+	public static void main(String[] args) {
+		//2차원 배열 생성
+		int[][] scores = {
+				{ 80, 90, 96 },
+				{ 76, 88 }
+		};
+
+		//배열의 길이
+		System.out.println("1차원 배열 길이(반의 수): " + scores.length);
+		System.out.println("2차원 배열 길이(첫 번째 반의 학생 수): " + scores[0].length);
+		System.out.println("2차원 배열 길이(두 번째 반의 학생 수): " + scores[1].length);
+
+		//첫 번째 반의 세 번째 학생의 점수 읽기
+		System.out.println("scores[0][2]: " + scores[0][2]);
+			
+		//두 번째 반의 두 번째 학생의 점수 읽기
+		System.out.println("scores[1][1]: " + scores[1][1]);
+			
+		//첫 번째 반의 평균 점수 구하기
+		int class1Sum = 0;
+		for(int i=0; i<scores[0].length; i++) {
+			class1Sum += scores[0][i];
+		}
+		double class1Avg = (double) class1Sum / scores[0].length;
+		System.out.println("첫 번째 반의 평균 점수: " + class1Avg);
+			
+		//두 번째 반의 평균 점수 구하기
+		int class2Sum = 0;
+		for(int i=0; i<scores[1].length; i++) {
+			class2Sum += scores[1][i];
+		}
+		double class2Avg = (double) class2Sum / scores[1].length;
+		System.out.println("두 번째 반의 평균 점수: " + class2Avg);
+			
+		//전체 학생의 평균 점수 구하기
+		int totalStudent = 0;
+		int totalSum = 0;
+		for(int i=0; i<scores.length; i++) { 			//반의 수만큼 반복
+			totalStudent += scores[i].length; 			//반의 학생 수 합산
+			for(int k=0; k<scores[i].length; k++) { 	//해당 반의 학생 수만큼 반복
+				totalSum += scores[i][k]; 				//학생 점수 합산
+			}
+		}
+		double totalAvg = (double) totalSum / totalStudent;
+		System.out.println("전체 학생의 평균 점수: " + totalAvg);
+	}
+}
+```
+## 2차원 배열의 선언
+- 2차원 배열을 선언하는 방법은 1차원방법과 근본적으로는 동일합니다.
+- 다만 대괄호[]가 하나 더 추가됩니다.
+```
+int [][] arr = new int [크기][크기];
+```
+
+### 2차원 배열은 다양한 방식으로 선언할 수 있는데, 다음과 같이 열을 지정하지 않고 선언할 수 있다.
+```java
+int[][] arr = new int[크기][];
+```
+### 열의 크기를 지정하지 않고 선언한 뒤, 각 행의 열을 각각 선언하여 사용할 수 있다.
+```java
+int[][] arr = new int[3][];
+arr[0] = new int[2];
+arr[1] = new int[3];
+arr[2] = new int[1];
+```
+```java
+int num[][] = new int[2][];
+num[0] = new int[3];
+num[1] = new int[2];
+int n = 0;
+		
+for(int i = 0; i < num.length; i++){
+			
+	for(int j = 0; j < num[i].length; j++){
+				
+		System.out.print((num[i][j] = n += 100) + " ");
+				
+	}
+	System.out.println();		
+}
+```
+```java
+package ch05.sec07;
+
+public class MultidimensionalArrayByNewExample {
+	public static void main(String[] args) {
+		//각 반의 학생 수가 3명으로 동일할 경우 점수 저장을 위한 2차원 배열 생성
+		int[][] mathScores = new int[2][3];
+		//배열 항목 초기값 출력
+		for (int i = 0; i < mathScores.length; i++) { 				//반의 수만큼 반복
+			for (int k = 0; k < mathScores[i].length; k++) { 		// 해당 반의 학생 수만큼 반복
+				System.out.println("mathScores[" + i + "][" + k + "]: " + mathScores[i][k]);
+			}
+		}
+		System.out.println();
+		//배열 항목 값 변경
+		mathScores[0][0] = 80;
+		mathScores[0][1] = 83;
+		mathScores[0][2] = 85;
+		mathScores[1][0] = 86;
+		mathScores[1][1] = 90;
+		mathScores[1][2] = 92;
+		//전체 학생의 수학 평균 구하기
+		int totalStudent = 0;
+		int totalMathSum = 0;
+		for (int i = 0; i < mathScores.length; i++) {
+			totalStudent += mathScores[i].length; 					//반의 학생 수 합산
+			for (int k = 0; k < mathScores[i].length; k++) { 		//해당 반의 학생 수만큼 반복
+				totalMathSum += mathScores[i][k]; 					//학생 점수 합산
+			}
+		}
+		double totalMathAvg = (double) totalMathSum / totalStudent;
+		System.out.println("전체 학생의 수학 평균 점수: " + totalMathAvg);
+		System.out.println();
+	
+		//각 반의 학생 수가 다를 경우 점수 저장을 위한 2차원 배열 생성
+		int[][] englishScores = new int[2][];
+		englishScores[0] = new int[2];
+		englishScores[1] = new int[3];
+		//배열 항목 초기값 출력
+		for (int i = 0; i < englishScores.length; i++) { 			//반의 수만큼 반복
+			for (int k = 0; k < englishScores[i].length; k++) { 	// 해당 반의 학생 수만큼 반복
+				System.out.println("englishScores[" + i + "][" + k + "]: " + englishScores[i][k]);
+			}
+		}
+		System.out.println();
+		//배열 항목 값 변경
+		englishScores[0][0] = 90;
+		englishScores[0][1] = 91;
+		englishScores[1][0] = 92;
+		englishScores[1][1] = 93;
+		englishScores[1][2] = 94;
+		//전체 학생의 영어 평균 구하기
+		totalStudent = 0;
+		int totalEnglishSum = 0;
+		for (int i = 0; i < englishScores.length; i++) { 			//반의 수만큼 반복
+			totalStudent += englishScores[i].length;				//반의 학생 수 합산
+			for (int k = 0; k < englishScores[i].length; k++) { 	// 해당 반의 학생 수만큼 반복
+				totalEnglishSum += englishScores[i][k]; 			//학생 점수 합산
+			}
+		}
+		double totalEnglishAvg = (double) totalEnglishSum / totalStudent;
+		System.out.println("전체 학생의 영어 평균 점수: " + totalEnglishAvg);
+	}
+}			
+```
+
+## 객체를 참조하는 배열
+- 기본타입(byte,char,short,int,long,float,double,boolean) 배열은 각 항목에 값을 직접 저장하지만, 참조 타입(클래스,인터페이스)배열은 각 항목에 객체의 번지를 저장한다.
+
+```java
+package ch05.sec08;
+
+public class ArrayReferenceObjectExample {
+	public static void main(String[] args) {		
+		String[] strArray = new String[3];
+		strArray[0] = "Java";
+		strArray[1] = "Java";
+		strArray[2] = new String("Java");
+
+		System.out.println( strArray[0] == strArray[1] );		//true: 같은 객체 참조
+		System.out.println( strArray[0] == strArray[2] );    	//false: 다른 객체를 참조
+		System.out.println( strArray[0].equals(strArray[2]) );	//true: 문자열이 동일
+	} 
+}
+```
+```
+※ 문자열 타입 변수는 리터럴값이 같을 때 같은 주소를 참조한다고 했다.
+```
+## 배열의 복사
+- 배열은 한 번 생성하면 길이를 변경할 수 없다.
+- 더 많은 저장 공간이 필요하다면 더 큰 길이의 배열을 새로 만들고 이전 배열로부터 항목들을 복사해야 한다.
+- 가장 기본적인 방법은 for문을 이용하여 항목을 하나하나 읽고 새로운 배열에 저장하는 것이다.
+```java
+package ch05.sec09;
+
+public class ArrayCopyByForExample {
+	public static void main(String[] args) {
+		//길이 3인 배열 
+		int[] oldIntArray = { 1, 2, 3 };
+		//길이 5인 배열을 새로 생성
+		int[] newIntArray = new int[5];
+		//배열 항목 복사
+		for(int i=0; i<oldIntArray.length; i++) {
+			newIntArray[i] = oldIntArray[i];
+		}
+		//배열 항목 출력
+		for(int i=0; i<newIntArray.length; i++) {
+			System.out.print(newIntArray[i] + ", ");
+		}
+	}
+}
+```
+### arraycopy()
+- 배열을 복사하기 위해서 System 클래스의 arraycopy()메소드를 이용하면 한 줄 만드로도 복사를 할 수 있다.
+```java
+System.arraycopy(원본배열, 원본배열 복사 시작 인덱스, 새 배열, 새 배열 붙여넣기 시작 인덱스, 복사 항목 수);
+```
+```java
+package ch05.sec09;
+
+public class ArrayCopyExample {
+	public static void main(String[] args) {
+		//길이 3인 배열
+		String[] oldStrArray = { "java", "array", "copy" };
+		//길이 5인 배열을 새로 생성
+		String[] newStrArray = new String[5];
+		//배열 항목 복사
+		System.arraycopy( oldStrArray, 0, newStrArray, 0, oldStrArray.length);
+		//배열 항목 출력
+		for(int i=0; i<newStrArray.length; i++) {
+			System.out.print(newStrArray[i] + ", ");
+		}
+	}
+}
+```
+
+## 향상된 for문
+- 자바는 배열 및 컬렉션을 좀 더 쉽게 처리할 목적으로 다음과 같은 for문을 제공한다.
+- 카운터 변수와 증감식을 사용하지 않고, 항목의 개수만큼 반복한 후 자동으로 for문을 빠져나간다.
+
+```java
+for(자료형 변수 : 배열){
+    실행코드
+}
+```
+- for문을 실행할 반복 대상이 있으면 변수는 반복대상이 지닌 자료형과 같은 타입으로 지정해야 한다.
+- 반복 대상의 요소를 하나씩 꺼내서 변수에 대입하면서 진행하고, 반복 대상의 길이만큼 꺼내어 반복한다.
+
+```java
+package ch05.sec10;
+
+public class AdvancedForExample {
+	public static void main(String[] args) {
+		//배열 변수 선언과 배열 생성
+		int[] scores = { 95, 71, 84, 93, 87 };
+		//배열 항목 전체 합 구하기
+		int sum = 0; 
+		for (int score : scores) {
+			sum = sum + score;
+		}
+		System.out.println("점수 총합 = " + sum);
+		//배열 항목 전체 평균 구하기
+		double avg = (double) sum / scores.length;
+		System.out.println("점수 평균 = " + avg);
+	} 
+}
+```
+## main()메소드의 String[] 매개변수 용도
+- 자바 프로그램을 실행하기 위해 지금까지 main()메소드를 작성했는데, 여기에서 문자열 배열 형태인 String[] args 매개변수가 왜 필요한지 알아보자.
+- 윈도우의 명령 프롬프트나 macOS의 터미널에서 프로그램을 실행할 때는 요구하는 값이 있을 수 있다.
+- 예를 들어 두 수를 입력받고 덧셈을 수행하는 Sum 프로그램은 실행할 때마다 다음과 같이 두 수를 요구할 수 있다.
+```java
+java Sum 10 20
+```
+- 공백으로 구분된 10과 20은 문자열로 취급되며 String[] 배열의 항목 값으로 구성된다.
+- 그리고 main()메소드 호출 시 매개값으로 전달된다.
+
+![image](img/String배열.png)
+
+- main() 메소드 중괄호 {} 내에서 문자열 "10"과 "20"은 다음과 같이 얻을 수 있다.
+```java
+String x = args[0];
+String y = args[1];
+```
+- 문자열 "10"과 "20"을 int 타입으로 변환하려면 다음과 같이 강제 타입 변환을 한다.
+```java
+int x = Integer.parseInt(args[0]);
+int y = Integer.parseInt(args[1]);
+```
+- Sum을 실행할 때 몇 개의 값이 입력되었는지 확인하려면 main()메소드에서 배열의 length필드를 읽으면 된다.
+- 두 개의 값이 입력되지 않았다면 다음과 같이 출력 메시지를 보여줄 수도 있다.
+```java
+if(args.length != 2){
+	System.out.println("실행 시 두 개의 값이 필요합니다.");
+}
+```
+```java
+package ch05.sec11;
+	
+public class MainStringArrayArgument {
+	public static void main(String[] args) {
+		if(args.length != 2) {
+			System.out.println("프로그램 입력값이 부족");
+			System.exit(0);
+		}
+
+		String strNum1 = args[0];
+		String strNum2 = args[1];
+			
+		int num1 = Integer.parseInt(strNum1);
+		int num2 = Integer.parseInt(strNum2);
+
+		int result = num1 + num2;
+		System.out.println(num1 + " + " + num2 + " = " + result);
+	}
+}
+
+프로그램 입력값이 부족
+```
+- 이클립스에서 입력값을 주고 실행하려면 다음 순서대로 진행한다.
+- 상단 메뉴에서 [Run] - [Run Configurations]을 선택하면 나오는 대화상자에서 Project 입력란에 프로젝트 이름, Main class란에 패키지와 클래스 이름이 잘 적혀있는지 확인한다.
+- [Arguments]탭을 클릭하고 Program arguments 입력란에 10과 20을 입력한다.
+- 그리고 [Run] 버튼을 클릭한다.
 
 ## Arrays
 - Arrays 클래스는 배열의 복사, 항목 정렬, 항목 검색 등 배열을 다루기 위한 다양한 메서드를 제공한다.
@@ -698,212 +1107,95 @@ public class Test{
 }
 ```
 
-# 다차원배열
-- 다차원 배열이란 2차원 이상의 배열을 의미하며, 배열의 요소로 또 다른 배열을 가지는것을 의미합니다.
-- 2차원 배열은 배열의 요소로 1차원 배열을 가지고,
-- 3차원 배열은 배열의 요소로 2차원 배열을 가지게 됩니다.
+# 열거형(Enum)타입
+- 데이터 중에는 몇 가지로 한정된 값을 갖는 경우가 있다.
+- 예를 들어 월,화,수,목,금,토,일이라는 7개의 값을, 계절은 봄, 여름,가을,겨울이라는 4개의 값을 갖는다.
+- 이와 같이 한정된 값을 갖는 타입을 열거 타입이라고 한다.
+- 열거 타입을 사용하기 위해서는 먼저 열거 타입 이름으로 소스파일(.java)을 생성하고 한정된 값을 코드로 정의해야 한다.
+- 열거 타입 이름은 첫 문자를 대문자로 작성하고 다음과 같이 카멜 스타일로 지어주는것이 관례이다.
+```java
+Week.java
+MemberGrade.java
+ProductKind.java
+```
+- 요일을 저장할 수 있는 열거 타입인 Week를 이클립스에서 생성해보자.
+```java
+package ch05.sec12;
 
-## 2차원 배열의 선언
-- 2차원 배열을 선언하는 방법은 1차원방법과 근본적으로는 동일합니다.
-- 다만 대괄호[]가 하나 더 추가됩니다.
-```
-int [][] arr = new int [크기][크기];
-```
-
-### 2차원 배열은 다양한 방식으로 선언할 수 있는데, 다음과 같이 열을 지정하지 않고 선언할 수 있다.
-```java
-int[][] arr = new int[크기][];
-```
-### 열의 크기를 지정하지 않고 선언한 뒤, 각 행의 열을 각각 선언하여 사용할 수 있다.
-```java
-int[][] arr = new int[3][];
-arr[0] = new int[2];
-arr[1] = new int[3];
-arr[2] = new int[1];
-```
-```java
-int num[][] = new int[2][];
-num[0] = new int[3];
-num[1] = new int[2];
-int n = 0;
-		
-for(int i = 0; i < num.length; i++){
-			
-	for(int j = 0; j < num[i].length; j++){
-				
-		System.out.print((num[i][j] = n += 100) + " ");
-				
-	}
-	System.out.println();		
+public enum Week {
+	MONDAY,
+	TUESDAY,
+	WEDNESDAY,
+	THURSDAY,
+	FRIDAY,
+	SATURDAY,
+	SUNDAY
 }
 ```
-### 이차원 배열의 초기값 지정
-```
-int [][] arr = { {1,2},{3,4},{5,6}};
-```
-- 이와 같은 방법은 배열을 최초 선언할 때만 가능하다.
-
-## 2차원 배열의 구조
-- 2차원 배열의 행은 독립된 공간으로 분리되어 있고, 그 행들이 각각 독립된 열을 가지고 있다.
-
-![image](https://user-images.githubusercontent.com/54658614/215390509-ba91a4f5-ca52-41e0-bd32-04be2d2e08d8.png)
-
-### multi_Array01클래스 생성
+- 열거 상수는 열거 타입으로 사용할 수 있는 한정된 값을 말한다.
+- 관례적으로 알파벳으로 정의하며, 모두 대문자로 작성한다.
+- 만약 열거 상수가 여러 단어로 구성될 경우에는 다음과 같이 단어와 단어 사이를 언더바(_)로 연결하는 것이 좋다.
 ```java
-package array;
-
-public class Multi_Array01 {
-	public static void main(String[] args) {
-		
-		int[][]arr = new int[2][3];
-		
-		arr[0][0] = 1;
-		arr[0][1] = 2;
-		arr[0][2] = 3;
-		
-		arr[1][0] = 11;
-		arr[1][1] = 12;
-		arr[1][2] = 13;
-		
-		//행의 주소 출력
-		System.out.println("2차원 배열 : " + arr);
-		
-		//1행이 가진 열에 대한 주소 출력
-		System.out.println("2차원 배열 1행 : " + arr[0]);
-		
-		//행의 크기 출력
-		System.out.println("행의 크기 : " + arr.length);
-		
-		//각 행의 열 크기 출력
-		System.out.println("1 행의 열 크기 : " + arr[0].length);
-		System.out.println("2 행의 열 크기 : " + arr[1].length);
-		
-		//1행 1열의 값 출력
-		System.out.println("arr[0][0] : " + arr[0][0]);
-		
-		
-		
-	}
+public enum LoginResult{
+	LOGIN_SUCCESS,
+	LOGIN_FALED
 }
-
-//결과
-2차원 배열 : [[I@58ceff1
-2차원 배열 1행 : [I@7c30a502
-행의 크기 : 2
-1 행의 열 크기 : 3
-2 행의 열 크기 : 3
-arr[0][0] : 1
 ```
-## 2차원 배열의 활용
-### Multi_Array02클래스 생성
+- 열거 타입도 하나의 데이터 타입이므로 변수를 선언하고 사용해야 한다.
+- 열거 타입 Week로 변수를 선언하면 다음과 같다.
 ```java
-package array;
-
-public class Multi_Array02 {
-	public static void main(String[] args) {
-		
-		int[][]arr = new int[5][5];
-		
-		int count = 1;
-		
-		//1부터 25까지 차례로 배열에 넣는다.
-		for(int i = 0; i < 5; i++) {
-			for(int j = 0; j < 5; j++) {
-				arr[i][j] = count++;
-			}
-		}
-		
-		for(int i = 0 ; i < 5; i++) {
-			for(int j = 0 ; j < 5; j++) {
-				System.out.print(arr[i][j]+" ");
-			}
-			System.out.println();
-		}
-	}
-}
-//결과
-1 2 3 4 5 
-6 7 8 9 10 
-11 12 13 14 15 
-16 17 18 19 20 
-21 22 23 24 25 
+Week today;
+Week reservationDay;
 ```
-
-### Multi_Array03클래스 생성
-- 2차원 배열을 활용한 로또
+- 열거 타입 변수에는 열거 상수를 대입할 수 있는데, '열거타입.열거상수'형태로 작성한다.
+- Week 변수에 열거 상수인 SUNDAY를 대입하는 코드는 다음과 같다.
 ```java
-package array;
+Week today = Week.SUNDAY;
+```
+- 열거 타입은 참조 타입이므로 Week 변수에 다음과 같이 null도 대입할 수 있다.
+```java
+Week birthday = null;
+```
+- 열거 변수의 값이 특정 열거 상수인지 비교할 때는 ==와 !=연산자를 사용한다.
+- Week 변수값이 SUNDAY인지 비교하는 코드는 다음과 같다.
+```java
+Week today = Week.SUNDAY;
+today == Week.SUNDAY; //결과: true
+```
+```java
+package ch05.sec12;
 
-import java.util.Scanner;
+import java.util.Calendar;
 
-public class Multi_Array03 {
+public class WeekExample {
 	public static void main(String[] args) {
+		//Week 열거 타입 변수 선언
+		Week today = null;
+ 
+		//Calendar 얻기
+		Calendar cal = Calendar.getInstance();
 		
-		//당첨번호 리스트
-		int[][] lotto = {{2,6,11,33,42,44},{1,6,17,22,24,33},{7,16,24,33,42,44},{11,27,32,34,43,46},{6,17,22,24,33,41}};
-		
-		Scanner scan = new Scanner(System.in);
-		
-		String myNum = "";
-		
-		boolean isWin = false;
-		
-		System.out.println("당첨 숫자를 6개 연속으로 입력해주세요 >>> ");
-		myNum = scan.next();
-		
-		for(int i = 0 ; i< lotto.length; i++) {
-			String lottoNumber = "";
-			//한 행의 번호를 더해서 하나의 숫자로 만든다.
-			for(int j = 0 ; j < lotto[i].length; j++) {
-				lottoNumber += lotto[i][j];
-			}
-			if(myNum.equals(lottoNumber)) {
-				isWin = true;
-				break;
-			}
+		//오늘의 요일 얻기(1~7)
+		int week = cal.get(Calendar.DAY_OF_WEEK);
+
+		//숫자를 열거 상수로 변환해서 변수에 대입
+		switch(week) {
+			case 1: today = Week.SUNDAY ; break;
+			case 2: today = Week.MONDAY ; break;
+			case 3: today = Week.TUESDAY ; break;
+			case 4: today = Week.WEDNESDAY ; break;
+			case 5: today = Week.THURSDAY ; break;
+			case 6: today = Week.FRIDAY ; break;
+			case 7: today = Week.SATURDAY ; break;
 		}
 		
-		if(isWin) {
-			System.out.println(myNum+"번호 당첨");
+		//열거 타입 변수를 사용
+		if(today == Week.SUNDAY) {
+			System.out.println("일요일에는 축구를 합니다.");
 		} else {
-			System.out.println(myNum + "번호는 당점되지 못했습니다.");
+			System.out.println("열심히 자바를 공부합니다.");
 		}
-		scan.close();
-	}
-}
-//결과
-당첨 숫자를 6개 연속으로 입력해주세요 >>> 
-2611334244
-2611334244번호 당첨
-```
-
-## 향상된 for문
-- 향상된 for문은 JDK 1.5부터 새롭게 추가된 기능으로 배열과 컬렉션의 모든 요소를 참조하기 위한 반복문이다.
-
-```java
-for(자료형 변수 : 배열){
-    실행코드
-}
-```
-- for문을 실행할 반복 대상이 있으면 변수는 반복대상이 지닌 자료형과 같은 타입으로 지정해야 한다.
-- 반복 대상의 요소를 하나씩 꺼내서 변수에 대입하면서 진행하고, 반복 대상의 길이만큼 꺼내어 반복한다.
-
-### For01클래스 생성하기
-```java
-public class Test{
-	public static void main(String[] args) {
-		
-		int[] score = {90,92,93};
-		
-		int sum = 0;
-		double avg = 0;
-		
-		for(int val : score) {
-			sum += val;
-		}
-		
-		avg = (double)sum/3;
-		System.out.println("총점 : " + sum + ", 평균 : " + avg);
 	}
 }
 ```
+

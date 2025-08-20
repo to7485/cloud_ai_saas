@@ -6,16 +6,82 @@
 - 객체는 일반적으로 상태를 표현할 수 있고, 우리가 행동으로 실행할 수 있는 모든것들을 의미한다.
 - 이런 객체를 중심으로 프로그램 구조를 설계하고 프로그래밍 하는 것을 객체 지향 프로그래밍이라고 한다.
 
-## 클래스란?
-- 객체를 생성하기 위한 설명서이다.
-- 어떤 물건을 만들기 위한 메뉴얼이라고 생각하면 된다.
-- 클래스를 기반으로 객체를 생성해야 한다.
-- 하나의 설명서로 여러개의 물건을 만들 수 있듯이, 자바에서는 하나의 클래스로 여러 개의 객체를 생성할 수 있다.
+### 객체란?
+- 물리적으로 존재하거나 개념적인 것 중에서 다른 것과 식별 가능한 것을 말한다.
+- 예를 들어 물리적으로 존재하는 자동차, 자전거, 책, 사람은 물론 개념적인 학과나 강의, 주문 등도 모두 객체가 될 수 있다.
+- 객체는 속성과 동작으로 구성된다. 사람은 이름, 나이 등의 속성과 웃다, 걷다 등의 동작이 있고, 자동차는 생상, 모델명 등의 속성과 달린다, 멈춘다 등의 동작이 있다.
+- 자바는 이러한 속성과 동작을 각각 ```필드(field)```와 ```메소드(method)```라고 부른다.
+
+![image](img/객체1.png)
+
+- 현실 세계의 객체를 소프트웨어 객체로 설계하는 것을 객체 모델링이라고 한다.
+- 객체 모델링은 현실 세계 객체의 대표 속성과 동작을 추려 내어 소프트웨어 객체의 필드와 메소드로 정의하는 과정이다.
+  
+### 객체의 상호작용
+- 현실 세계에서 일어나나 모든 현상은 객체와 객체 간의 상호작용으로 이루어져 있다.
+- 예를 들어 사람은 전자계산기의 기능을 이용하고, 전자계산기는 계산 결과를 반환하는 상호작용을 한다.
+
+	![image](img/객체상호작용.png)
+
+### 객체간의 관계
+- 객체는 단독으로 존재할 수 있지만 대부분 다른 객체와 관계를 맺고 있다.
+- 관계의 종류에는 집합 관계, 사용 관계, 상속 관계가 있다.
+
+#### 집합 관계
+- 완성품과 부품관의 관계를 말한다.
+- 예를 들어, 자동차는 엔진, 타이어, 핸들 등으로 구성되므로 자동차와 푸품들은 집합 관계라고 볼 수 있다.
+
+#### 사용 관계
+- 다른 객체의 필드를 읽고 변경하거나 메소드를 호출하는 관계를 말한다.
+- 예를 들어 사람이 자동차에게 달린다, 멈춘다 등의 메소드를 호출하면 사람과 자동차는 사용관계라고 볼 수 있다.
+
+#### 상속 관계
+- 부모와 자식 관계를 말한다.
+- 자동차가 기계의 특징(필드,메소드)을 물려받는다면 기계(부모)와 자동차(자식)는 상속 관계에 있다고 볼 수 있다.
+
+### 객체지향 프로그래밍의 특징
+#### 캡슐화
+- 객체의 데이터(필드),동작(메소드)을 하나로 묶고 실제 구현 내용을 외부에 감추는 것을 말한다.
+- 외부 객체는 객체 내부의 구조를 알지 못하며 객체가 노출해서 제공하는 필드와 메소드만 이용할 수 있다.
+
+	![image](img/캡슐화.png)
+
+- 필드와 메소드를 캡슐화 하여 보호하는 이유는 외부의 잘못된 사용으로 인해 객체가 손상되지 않도록 하는 데 있다.
+
+#### 상속
+- 객체지향 프로그래밍에서는 부모 역할의 상위 객체와 자식 역할의 하위 객체가 있다.
+- 부모 객체는 자기가 가지고 있는 필드와 메소드를 자식 객체에게 물려주어 자식 객체가 사용할 수 있도록 한다.
+##### 상속을 하는 이유
+- 코드의 재사용성을 높여 준다.
+- 유지 보수 시간을 최소화 시켜준다.
+
+	![image](img/객체의상속.png)
+
+
+#### 다형성
+- 사용방법은 동일하지만 실제 결과가 다양하게 나오는 성질을 말한다.
+- 자동차 부품을 교환하면 성능이 다르게 나오듯이 프로그램을 구성하는 객체(부품)를 바꾸면 프로그램의 실행 성능이 다르게 나올 수 있다.
+
+	![image](img/객체다형성.png)
+
+## 객체와 클래스
+- 객체를 생성할 때는 설계도가 필요하다.
+- 현실 세계에서 자동차를 생성하려면 자동차의 설계도가 필요하듯이, 객체지향 프로그래밍에서도 객체를 생성하려면 설계도에 해당하는 클래스가 필요하다.
+- 클래스로 부터 생성된 객체를 해당 클래스의 인스턴스라고 부른다.
+- 그리고 클래스로부터 객체를 만드는 과정을 인스턴스화라고 한다.
+- 동일한 클래스로부터 여러 개의 인스턴스를 만들 수 있는데, 이것은 동일한 설계도로 여러 대의 자동차를 만드는것과 동일하다.
+
+	![image](img/인스턴스화.png)
+
+- 우리는 지금까지 많은 클래스를 선언해봤다.
+- 클래스는 객체를 생성하기 위한 설계도이지만 객체를 만들지는 않았고, main()메소드만 작성해서 실행할 목적으로 클래스를 이용했다.
+- 이제부터 main()메소드가 없는 클래스를 선언하고 생성해보자.
 
 ## 클래스의 선언
 - 첫날부터 클래스를 만들어서 사용해왔다.
 - 자바 프로그래밍의 기반이 클래스이기 때문이다.
 - 우리가 사용해온 클래스의 기본 구조는 다음과 같다.
+
 ```java
 접근제한자 class 클래스명{
 
@@ -25,20 +91,22 @@
 class : class를 선언함을 뜻한다.
 클래스명 : 변수처럼 이름을 가지고, 객체를 생성할 때 사용한다.
 ```
-- 그동한 사용해왔던 클래스는 "실행용"클래스로, 프로그램의 실행을 전적으로 맡고 있다.
+- 클래스는 일반적으로 하나의 소스 파일에 하나의 클래스를 선언합니다.
+- 하나의 파일에서 여러개의 클래스를 선언한다면 파일이름과 같은 클래스에만 public을 사용해야 한다.
 
-## 클래스의 종류
-### 실행용 클래스 
-- 프로그램 전체에서 단 하나의 클래스로, 프로그램의 실행을 맡고 있다.
-- main메서드를 갖고 있으며, 다른 클래스에서 사용하지 않는다.
-### 객체 생성용 클래스
-- 다른 클래스에서 사용할 목적으로 선언되는 클래스 입니다.
+### Main01 클래스 작성
+```java
+package ch06.sec03;
 
+public class SportsCar {
+}
+
+class Tire {
+}
 ```
-하나의 클래스가 위 두 가지 용도의 역할을 모두 수행할 수 도 있다.
-하지만 유지 보수와 객체 지향 프로그래밍의 특징인 모듈화를 고려해 별도로 분리하여 작성하는 것이 좋다.
-일반적으로 하나의 프로그램에서 실행용 클래스 1개를 제외한 나머지 클래스는 모두 참조용 클래스이다.
-```
+- 하지만 코드를 컴파일한 결과물은 코드 파일을 각각 작성한 것과 동일하게 각 class별로 도출되어 2개가 생성된다.
+- 파일 분리 여부와 상관 없이 결과물이 같기 때문에, 분리 여부는 개발자가 원하는 대로 작성해도 무방하다.
+- 그러나 추후 유지보수의 편리성과 클래스 재사용을 고려해 하나의 파일에 한 개의 클래스를 작성하는 것을 추천합니다.
 
 ### 클래스 이름을 작성하는 규칙
 - 영어 대소문자를 사용할 수 있으며 보통 첫 글자는 대문자를 사용한다.
@@ -48,58 +116,70 @@ class : class를 선언함을 뜻한다.
 
 ### Cat 클래스 만들기
 ```java
-public class Cat {
+package ch06.sec04;
+
+public class Student {
 
 }
 ```
 
-## 객체변수 선언하기
-- 객체를 담을 수 있는 변수 선언해보기
-```
-클래스명 객체명;
-Cat c
-```
-
-## 객체변수에 대입하기
-- 선언한 객체 변수에 객체를 생성해 대입해보기
+## 객체 생성과 클래스 변수
+- 클래스로부터 객체를 생성하려면 객체 생성 연산자인 new가 필요하다.
 ```java
-객체명 = new 클래스명();
+new 클래스명();
 ```
-- 객체를 생성하는 키워드는 new이다.
-- 클래스를 이용해 객체를 생성할 수 있도록 도와준다.
+- new 연산자 뒤에는 생성자 호출 코드가 있는데, ```클래스명()```형태를 가진다.
+- new 연산자는 객체를 생성시킨 후 객체의 주소를 반환하기 때문에 클래스 변수에 다음과 같이 대입할 수 있다.
+
+```java
+클래스명 변수명 = new 클래스명();
+```
 
 ### CatMain클래스 만들기
 ```java
-public class CatMain {
+package ch06.sec04;
+
+public class StudentExample {
 	public static void main(String[] args) {
-		
-		Cat c = new Cat();
+		Student s1 = new Student();
+		System.out.println("s1 변수가 Student 객체를 참조합니다.");
+
+		Student s2 = new Student();
+		System.out.println("s2 변수가 또 다른 Student 객체를 참조합니다.");
 	}
 }
 ```
-- 클래스는 일반적으로 하나의 소스 파일에 하나의 클래스를 선언합니다.
-- 하나의 파일에서 여러개의 클래스를 선언한다면 파일이름과 같은 클래스에만 public을 사용해야 한다.
 
-### Main01 클래스 작성
+## 클래스의 종류
+
+### 실행용 클래스 
+- 프로그램 전체에서 단 하나의 클래스로, 프로그램의 실행을 맡고 있다.
+- main메서드를 갖고 있으며, 다른 클래스에서 사용하지 않는다.
 ```java
-package test;
-
-class Cat{ //참조용 클래스의 선언
-	
-}
-
-public class Test{
-	public static void main(String[] args) {
-		Cat c = new Cat();
-		
+public class Main{
+	public static void main(String[] args){
+		//실행하려는 코드
 	}
 }
 ```
-- 하지만 코드를 컴파일한 결과물은 코드 파일을 각각 작성한 것과 동일하게 각 class별로 도출되어 2개가 생성된다.
-- 파일 분리 여부와 상관 없이 결과물이 같기 때문에, 분리 여부는 개발자가 원하는 대로 작성해도 무방하다.
-- 그러나 추후 유지보수의 편리성과 클래스 재사용을 고려해 하나의 파일에 한 개의 클래스를 작성하는 것을 추천합니다.
+### 객체 생성용 클래스
+- 다른 클래스에서 사용할 목적으로 선언되는 클래스 입니다.
+```java
+public class Car{
+	//속성
 
-# 클래스의 구성
+	//행위
+}
+```
+
+```
+하나의 클래스가 위 두 가지 용도의 역할을 모두 수행할 수 도 있다.
+하지만 유지 보수와 객체 지향 프로그래밍의 특징인 모듈화를 고려해 별도로 분리하여 작성하는 것이 좋다.
+일반적으로 하나의 프로그램에서 실행용 클래스 1개를 제외한 나머지 클래스는 모두 참조용 클래스이다.
+```
+
+
+## 클래스의 구성
 - 클래스를 구성하는 요소는 필드,메서드, 생성자 3가지가 있다.
 
 ## 필드(field)
@@ -107,14 +187,14 @@ public class Test{
 - 필드, 전역변수, 멤버 변수 라고 부르는데 다 같은말이다.
 - 필드의 값을 초기화 하지 않으면 객체 생성시 자동으로 기본값으로 초기화 된다.
 
-### Car클래스 만들기
-
 ```java
-package test3;
+package ch06.sec06.exam01;
 
 public class Car {
-	//int wheel; //필드 선언
-	int wheel = 4; //초기화를 할 수도 있다.
+	//필드 선언
+	String model;
+	boolean start;
+	int speed;
 }
 ```
 - 만약 클래스를 선언할 때, 필드의 값을 초기화 하지 않으면 객체 생성 시 자동으로 기본값으로 초기화된다.
@@ -164,111 +244,429 @@ public class Car {
 객체명 : 클래스를 이용해 만든 객체의 이름
 필드명 : 만든 객체가 가지고 있는 필드의 이름
 ```
+```java
+package ch06.sec06.exam01;
 
-### CarMain클래스 만들기
+public class CarExample {
+	public static void main(String[] args) {
+		//Car 객체 생성
+		Car myCar = new Car();
+
+		//Car 객체의 필드값 읽기
+		System.out.println("모델명: " + myCar.model);
+		System.out.println("시동여부: " + myCar.start);
+		System.out.println("현재속도: " + myCar.speed);
+	}
+}
+```
+
+### 필드의 사용
+- 필드를 사용한다는 것은 필드값을 읽고 변경하는 것을 말한다.
+- 클래스에서 필드를 선언했다고 해서 바로 사용할 수 있는 것은 아니다.
+- 필드는 객체의 데이터이므로 객체가 존재하지 않으면 필드도 존재하지 않는다.
+- 클래스로부터 객체가 생성된 후에 필드를 사용할 수 있다.
+- 필드는 객체 내부의 생성자와 메소드 내부에서 사용할 수 있고, 객체 외부에서도 접근해서 사용할 수 있다.
+
+```java
+package ch06.sec06.exam02;
+
+public class Car {
+	//필드 선언
+	String company = "현대자동차";
+	String model = "그랜저";
+	String color = "검정";
+	int maxSpeed = 350;
+	int speed;
+}
+```
+```java
+package ch06.sec06.exam02;
+
+public class CarExample {
+	public static void main(String[] args) {
+		//Car 객체 생성
+		Car myCar = new Car();
+
+		//Car 객체의 필드값 읽기
+		System.out.println("제작회사: " + myCar.company);
+		System.out.println("모델명: " + myCar.model);
+		System.out.println("색깔: " + myCar.color);
+		System.out.println("최고속도: " + myCar.maxSpeed);
+		System.out.println("현재속도: " + myCar.speed);
+
+		//Car 객체의 필드값 변경
+		myCar.speed = 60;
+		System.out.println("수정된 속도: " + myCar.speed);
+	}
+}
+```
+
+# 생성자
+- 클래스를 구성하는 구성요소중 하나인 생성자는, 객체를 생성할 때 호출되어 객체의 초기화를 담당하는 특별한 메서드이다.
+- 객체를 생성하고 초기화하기 위해서는 반드시 생성자를 호출해야 한다.
+- 따라서 객체를 생성해야 하는 참조용 클래스는 모두생성자를 가지고 있다.
+
+## 생성자의 정의
+- 생성자는 반환값이 없지만, 반환 타입을 아예 작성하지 않는다.(void로도 적지 않는다.)
+- 생성자는 초기화를 위한 데이터를 인수로 전달받을 수 있다.
+```java
+접근제어자 클래스명 (매개변수1,매개변수2...){
+
+}
+```
+
+## 생성자의 호출 위치
+- 일반 메서드들과는 다르게, 생성자를 호출하는곳이 정해져있다.
+- 생성자는 클래스를 기반으로 객체를 생성할 때, 객체의 초기화를 담당하는 역할을 하므로 객체를 생성할 때만 호출할 수 있다.
+
+## 생성자 호출 방법
+- 생성자를 호출할 때는 new 키워드를 함께 사용한다.
+```java
+클래스명 객체명 = new 클래스명();
+					  ㄴ 이 메서드가 생성자이다.
+```
+
+## constructer패키지 생성하기
+### Snack 클래스 만들기
+```java
+package constructor;
+
+public class Snack {
+	int price;
+	
+	void info() {
+		System.out.println("과자의 가격은 " + price + "원입니다.");
+	}
+}
+
+```
+### SnackMain클래스 정의
+```java
+package constructor;
+
+public class SnackMain {
+	public static void main(String[] args) {
+		Snack chip = new Snack(); //객체 생성 및 초기화
+		chip.price = 2000; //객체 필드 설정
+		chip.info(); //객체 메서드 호출
+	}
+}
+```
+- 객체의 필드에 데이터를 삽입하고, 메서드를 사용하기 위해 생성자를 통해 객체를 생성하고 사용할 준비를 한다.
+- 하지만 우리는 클래스에 Snack()생성자를 선언한적이 없는데 어떻게 상요할 수 있는것일까??
+
+## 기본생성자
+- 자바의 모든 클래스에는 하나 이상의 생성자가 정의되어야 있어야 한다.
+- 클래스를 생성하면서 개발자가 직접 생성자를 선언하지 않았지만, 자바 컴파일러가 기본생성자를 자동으로 제공해주고 있다.
+- 다만, 컴파일러의 눈에만 보일 뿐 우리가 보는 코드에는 생략되어 있다.
+
+```java
+package constructor;
+
+public class Snack {
+	int price;
+	
+	public Snack() { //기본생성자
+					//안에는 텅 비어있음
+	}
+	
+	void info() {
+		System.out.println("과자의 가격은 " + price + "원입니다.");
+	}
+}
+```
+- 기본 생성자는 파라미터가 별도로 없으며, 중괄호{}블록 안에 코드가 없는 비어있는 생성자를 말한다.
+- 기본생성자는 개발자기 직접 선언하지 않았을 때만 컴파일러가 자동으로 추가한다.
+- 만약 개발자가 직접 생성자를 선언한다면, 컴파일러는 선언된 생성자를 사용한다.
+
+## 생성자 선언 이유
+- 생성자는 객체를 생성함과 동시에 객체를 초기화 할 수 있다.
+- 생성자를 통해 객체를 초기화한다는 것은 필드와 메서드를 호출하는 등 객체를 사용하기 위해 객체를 메모리에 올린다는 의미이다.
+- 생성자를 통해 객체를 메모리에 올림과 동시에, 더 나아가 객체 멤버에 접근이 가능하므로 일반적인 메서드처럼 객체 멤버의 데이터를 초기화 할 수 있다.
+- 메서드를 호출해서 파라미터에 값을 전달했던 것처럼, **생성자 역시 파라미터를 통해 값을 전달할 수 있다.**
+
+### Snack클래스 코드 추가하기
+```java
+package constructor;
+
+public class Snack {
+	int price;
+	
+	public Snack(int p) { //기본생성자
+		price = p;
+	}
+	
+	void info() {
+		System.out.println("과자의 가격은 " + price + "원입니다.");
+	}
+}
+```
+
+```java
+package constructor;
+
+public class SnackMain {
+	public static void main(String[] args) {
+		Snack chip = new Snack(5000); //객체 생성 및 초기화
+		//chip.price = 2000; //객체 필드 설정
+		chip.info(); //객체 메서드 호출
+	}
+}
+```
+- 생성자를 통해 필드를 초기화 했으므로 chip.price로 필드에 접근하여 값을 주지 않아도 필드에 값이 들어가있음을 확인할 수 있다.
+- 물론 생성자를 통하지 않고 클래스에서 필드를 선언할 때 필드를 초기화할 수도 있다.
+
+```java
+public class Snack{
+	int price = 2000;
+	...
+}
+```
+- 위와 같은 클래스로 객체를 만들 경우 모든 과자의 가격이 2000원으로 생성된다.
+- 과자의 가격이 모두 2000원으로 동일하다면 효과적인 방법일 것이다.
+- 하지만 과자마다 가격이 다르다면 생성자를 통해 가격을 전달하고 객체를 생성하는 것이 더 효율적일 수 있다.
+```java
+Snack potatoChip = new Snack(2000);
+Snack potatoChip = new Snack(1800);
+```
+
+- 일반적인 메서드와 마찬가지로, 파라미터를 2개 이상 전달할 수 있다.
+
+## Person 클래스
+```java
+public class Person {
+	int age;
+	String name;
+
+	//예를들어서 나이와 이름, 전화번호를 알아야 친구가 된다고 가정을 해볼게요.
+	//이중에 한가지라도 빼먹고 안쓰면 문제가 있는거에요 써먹기 불가능한 객체가 될수도 있다는거죠.
+
+	//똑같은걸 계속 만드려고 한다면 기본생성자에 값을 넣어놓는것도 좋은 방법
+	//pbulic Person() {
+	//	age = 40;
+	//	name = "노태문";
+	//}
+
+	//빈공간에서 cntl + space bar 기본생성자 생성
+	//임의로 새로운 생성자를 정의한 순간부터 기본생성자는 쓸 수 없다.
+	public Person(int age, String) {
+		this.age = age;
+		this.name = name;
+
+	}
+
+	public void introduce() {
+		System.out.printf("안녕하세요. 저는 %d살 %s입니다.", age,name);
+	}
+}
+```
+## PMain 클래스
+```java
+public class PMain{
+	public static void main(String[] args) {
+		
+		Person p1 = new Person(20,"홍길동");
+		Person p2 = new Person(30,"김자바");
+
+		p1.introduce();
+		p2.introduce();
+		
+}
+```
+
+## 생성자 오버로딩
+- 생성자에 전달할 매개변수가 부족하면 어떤일이 발생할까??
+### Phone 클래스
 ```java
 package test3;
 
-public class CarMain {
+public class Phone {
+	String brand;
+	int series;
+	String color = "검정색";
+	
+	public Phone(String b, int s, String c) {
+			brand = b;
+			series = s;
+			color = c;
+	}
+	
+	public void phoneInfo() {
+		System.out.println(color + " " + brand + " " + series);
+	}
+}
+```
+### PhoneMain클래스
+```java
+package test3;
+
+public class PhoneMain {
 	public static void main(String[] args) {
-		Car c = new Car();
-		System.out.println("wheel의 개수는 " + c.wheel + "개입니다."); //필드의 값 출력
+		Phone p1 = new Phone("갤럭시",1,"흰색");
+		Phone p2 = new Phone("아이폰",1);
+	}
+}
+```
+- 생성자에 전달할 매개변수가 부족하면, 객체를 생성할 수 없다.
+- 선언된 생성자의 형태에 맞게 매개변수를 전달해 줘야 하기 때문이다.
+- 클래스 내부에 선언된 필드의 기본값을 그대로 사용하고 싶다면 파라미터가 부족하다고 생성하지 못할 이유가 없어야 한다.
+- 이 경우 자바에서는 생성자를 여러 개 선언하는 것을 허용하고 있다.
+- 외부에서 제공할 수 있는 데이터만큼만 매개변수로 전달하여 객체를 생성할 수 있다.
+- 생성자를 다양한 형태로 선언하는 것을 '생성자 오버로딩'이라고 한다.
+
+### 오버로딩 규칙
+1. 매개변수의 개수가 다를 때
+2. 매개변수의 개수가 같아도 자료형이 다를 때
+3. 생성자나 메서드의 이름은 그대로 사용해야 한다.
+
+
+### Phone클래스에 코드추가하기
+```java
+package test3;
+
+public class Phone {
+	String brand;
+	int series;
+	String color = "검정색";
+
+	public Phone(String b, int s) {
+		brand = b;
+		series = s;
+	}
+
+	public Phone(String b, int s, String c) {
+		brand = b;
+		series = s;
+		color = c;
+	}
+
+	public void phoneInfo() {
+		System.out.println(color + " " + brand + " " + series);
+	}
+}
+```
+
+## 여러개의 생성자를 선언해보기
+### Book 클래스
+```java
+package test3;
+
+public class Book {
+	String title = "제목없음";
+	int series = 1;
+	int page = 100;
+	
+	public Book() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Book(String t) {
+		title = t;
+	}
+	public Book(String t, int p) {
+		title = t;
+		page = p;
+	}
+	public Book(int s, String t) {
+		series = s;
+		title = t;
+	}
+}
+```
+### BookMain클래스
+```java
+package test3;
+
+public class BookMain {
+	public static void main(String[] args) {
+		Book b1 = new Book();
+		System.out.println("b1.title : " + b1.title);
+		System.out.println("b1.series : " + b1.series);
+		System.out.println("b1.page : " + b1.page);
 		
-		c.wheel = 5;
-		System.out.println("wheel의 개수는 " + c.wheel + "개입니다.");
+		Book b2 = new Book("멘토시리즈 자바");
+		System.out.println("b2.title : " + b2.title);
+		System.out.println("b2.series : " + b2.series);
+		System.out.println("b2.page : " + b2.page);
+		
+		Book b3 = new Book("신데렐라",170);
+		System.out.println("b3.title : " + b3.title);
+		System.out.println("b3.series : " + b3.series);
+		System.out.println("b3.page : " + b3.page);
+		
+		Book b4 = new Book(5,"노인과 바다");
+		System.out.println("b4.title : " + b4.title);
+		System.out.println("b4.series : " + b4.series);
+		System.out.println("b4.page : " + b4.page);
+	}
+}
+```
+
+# this와 this()
+- 변수명을 지을 때, 최대한 구체적이고 명확하게 작명하는 것이 보다 효율적인 코드를 작성하는데 도움이 된다는 것을 알고있다.
+- 함수나 생성자에서 매개변수는 클래스의 필드보다 우선순위가 높아서, 대입연산자를 기준으로 왼쪽/오른쪽 변수 모두 매개변수를 뜻하게 된다.
+- 매개변수에 매개변수를 넣는 의미없는 코드가 된다.
+- 이러한 상황을 해결하기 위해 this키워드를 사용한다.
+
+## this
+- 객체 자기 자신 스스로 참조
+- this 참조 변수는 객체가 자기 자신을 참조하는데 사용하는 변수이다.
+- this를 필드에 붙여서 사용하면, 중괄호{}안에서도 같은 이름의 매개변수와 필드를 구분해서 사용할 수 있다.
+```java
+this.필드 = 매개변수명;
+```
+
+### Student.java
+```java
+package test3;
+
+public class Student {
+	String name;
+	int age;
+	int studentID;
+	
+	public Student(String name, int age, int studentID) {
+		this.name = name;
+		this.age = age;
+		this.studentID = studentID;
 	}
 }
 
 ```
 
-## 메서드
-- 객체의 기능을 담당하는 중괄호({})블록을 말한다.
-- 특정 기능을 수행하는 코드를 따로 빼서 중괄호 안에 작성하며, 1개의 메서드는 일반적으로 1개의 기능을 수행한다.
+## this()
+- 현재 클래스에 선언되어있는 생성자를 가리킬 수 있는 키워드이다.
 
-### 메서드의 선언
-- 메서드는 다음과 같이 선언한다.
+### this(매개변수1,매개변수2)
+- this()메서드는 같은 클래스 안에 있는 생성자 중 매개변수의 개수, 자료형, 순서에 맞는 다른 생성자를 호출하는 메서드로 생성자 내부에서만 사용할 수 있다.
+
+### Phone.java
 ```java
-반환형 메서드명(파라미터){ //머리
-	작업할 내용
-	return 반환값;
-}
-```
+package test3;
 
-### 메서드 구현하기
-```java
-public class Car{
-	int wheel;
+public class Phone {
+	String brand;
+	int series;
+	String color = "검정색";
 
-	void ride(){
-		System.out.println("달립니다");
+	public Phone(String b, int s) {
+		brand = b;
+		series = s;
+	}
+
+	public Phone(String b, int s, String c) {
+		//brand = b;
+		//series = s;
+		this(b,s); //this()는 첫줄에서만 사용할 수 있다.
+		color = c;
+	}
+
+	public void phoneInfo() {
+		System.out.println(color + " " + brand + " " + series);
 	}
 }
 ```
 
-### 메서드의 사용
-- 구현한 메서드를 사용하는 방법은 필드의 사용법과 동일하다.
-- 메서드를 선언한 클래스 안에서 메서드를 사용할 때는 단순히 메서드명만 호출하면 되지만, 다른 클래스에서 메서드를 사용하려면 객체를 먼저 생성한 후 참조 변수를 이용해 그 객체의 메서드를 사용해야 한다.
-- 개체가 존재해야 메서드도 존재하기 때문이다.
-
-### 함수의 작동 원리
-- 메서드를 호출하면 블록 안에 있는 코드들이 위에서 순차적으로 모두 실행되고 경우에 따라 실행한 결과를 호출한 곳으로 돌려준다. 
-- 이를 '반환한다'라고 표현하고, 반환하는 결과값을 '반환값(리턴값)'이라고 한다.
-- 리턴값이 있을 경우에는 리턴할 데이터의 타입이 무엇인지 메서드명()앞에 반환 타입을 기재해줘야 한다.
-- 반환형은 메서드가 처음부터 끝까지 수행을 마친 후에 반환해야 할 값이 있을 경우에 기입.
-- int, String, boolean등 기본자료형을 포함하여 사용자가 만든 객체로도 반환이 가능.
-- 아무것도 반환하지 않을때는 void
-
-```java
-클래스명 객체명 = new 클래스명(); //객체의 생성
-객체명.메서드명();//생성한 객체의 메서드 호출(사용)
-```
-
-```java
-public class Main{
-	public static void main(String[] args){
-		Car c = new Car();
-		//메서드의 호출
-		c.ride();
-		c.ride();
-		c.ride();
-	}
-}
-```
-- 메서드를 한 번 선언해 두면 필요할 때마다 여러 번 호출하여 사용할 수 있다.
-- 즉, 메서드를 사용하면 반복적인 프로그래밍을 보다 쉽고 간단하게 해결할 수 있다.
-
-### 메서드 이름 짓기
-- 메서드의 이름은 그 기능을 명확하게 설명해줄 수 있게 작성하는 것이 좋다.
-- 메서드명을 작성하는 규칙 역시 변수를 작성하는 규칙과 동일하다.
-
-## 생성자(constructor)
-- 메서드 중 객체를 생성할 때 반드시 호출해야 하는 특수한 기능을 하는 메서드 이다.
-- 이 메서드는 객체를 생성하면서 객체 변수를 초기화하는 역할을 하기 때문에 생성자라고 부른다.
-
-```
-클래스명 객체명 = new 클래스명();
-```
-- 생성자라는 메서드는 클래스명과 이름이 같아야 한다.
-- 우리는 생성자라는 메서드를 선언한적이 없음에도 호출하여 객체를 생성해 왔다.
-- 그 이유는 우리가 직접 선언하지 않아도 기본 생성자가 자동으로 생성되고 우리 눈에만 보이지 않기 때문이다.
-
-### Car클래스에 생성자 선언하기
-```java
-public class Car{
-	int wheel;
-
-	//기본생성자
-	Car(){
-
-	}
-
-	void ride(){
-		System.out.println("달립니다");
-	}
-}
-```
-- 생성자를 통해 객체 변수를 초기화 한다는 말은, 단순히 어떤 값을 초기화 한다는 뜻이 아니다.
-- 필드와 메서드를 호출하는 등 객체를 사용학 위해서는 객체 변수가 메모리에 올라가야 하는데, 이렇게 메모리에 객체를 올려주는 역할을 하기 때문이다.
 
 ## 정적 멤버와 static
 - 클래스 안에서 선언된 필드와 메서드를 클래스 멤버라고도 부른다.
@@ -969,371 +1367,7 @@ public class CarTest {
 
 ```
 
-# 생성자
-- 클래스를 구성하는 구성요소중 하나인 생성자는, 객체를 생성할 때 호출되어 객체의 초기화를 담당하는 특별한 메서드이다.
-- 객체를 생성하고 초기화하기 위해서는 반드시 생성자를 호출해야 한다.
-- 따라서 객체를 생성해야 하는 참조용 클래스는 모두생성자를 가지고 있다.
 
-## 생성자의 정의
-- 생성자는 반환값이 없지만, 반환 타입을 아예 작성하지 않는다.(void로도 적지 않는다.)
-- 생성자는 초기화를 위한 데이터를 인수로 전달받을 수 있다.
-```java
-접근제어자 클래스명 (매개변수1,매개변수2...){
-
-}
-```
-
-## 생성자의 호출 위치
-- 일반 메서드들과는 다르게, 생성자를 호출하는곳이 정해져있다.
-- 생성자는 클래스를 기반으로 객체를 생성할 때, 객체의 초기화를 담당하는 역할을 하므로 객체를 생성할 때만 호출할 수 있다.
-
-## 생성자 호출 방법
-- 생성자를 호출할 때는 new 키워드를 함께 사용한다.
-```java
-클래스명 객체명 = new 클래스명();
-					  ㄴ 이 메서드가 생성자이다.
-```
-
-## constructer패키지 생성하기
-### Snack 클래스 만들기
-```java
-package constructor;
-
-public class Snack {
-	int price;
-	
-	void info() {
-		System.out.println("과자의 가격은 " + price + "원입니다.");
-	}
-}
-
-```
-### SnackMain클래스 정의
-```java
-package constructor;
-
-public class SnackMain {
-	public static void main(String[] args) {
-		Snack chip = new Snack(); //객체 생성 및 초기화
-		chip.price = 2000; //객체 필드 설정
-		chip.info(); //객체 메서드 호출
-	}
-}
-```
-- 객체의 필드에 데이터를 삽입하고, 메서드를 사용하기 위해 생성자를 통해 객체를 생성하고 사용할 준비를 한다.
-- 하지만 우리는 클래스에 Snack()생성자를 선언한적이 없는데 어떻게 상요할 수 있는것일까??
-
-## 기본생성자
-- 자바의 모든 클래스에는 하나 이상의 생성자가 정의되어야 있어야 한다.
-- 클래스를 생성하면서 개발자가 직접 생성자를 선언하지 않았지만, 자바 컴파일러가 기본생성자를 자동으로 제공해주고 있다.
-- 다만, 컴파일러의 눈에만 보일 뿐 우리가 보는 코드에는 생략되어 있다.
-
-```java
-package constructor;
-
-public class Snack {
-	int price;
-	
-	public Snack() { //기본생성자
-					//안에는 텅 비어있음
-	}
-	
-	void info() {
-		System.out.println("과자의 가격은 " + price + "원입니다.");
-	}
-}
-```
-- 기본 생성자는 파라미터가 별도로 없으며, 중괄호{}블록 안에 코드가 없는 비어있는 생성자를 말한다.
-- 기본생성자는 개발자기 직접 선언하지 않았을 때만 컴파일러가 자동으로 추가한다.
-- 만약 개발자가 직접 생성자를 선언한다면, 컴파일러는 선언된 생성자를 사용한다.
-
-## 생성자 선언 이유
-- 생성자는 객체를 생성함과 동시에 객체를 초기화 할 수 있다.
-- 생성자를 통해 객체를 초기화한다는 것은 필드와 메서드를 호출하는 등 객체를 사용하기 위해 객체를 메모리에 올린다는 의미이다.
-- 생성자를 통해 객체를 메모리에 올림과 동시에, 더 나아가 객체 멤버에 접근이 가능하므로 일반적인 메서드처럼 객체 멤버의 데이터를 초기화 할 수 있다.
-- 메서드를 호출해서 파라미터에 값을 전달했던 것처럼, **생성자 역시 파라미터를 통해 값을 전달할 수 있다.**
-
-### Snack클래스 코드 추가하기
-```java
-package constructor;
-
-public class Snack {
-	int price;
-	
-	public Snack(int p) { //기본생성자
-		price = p;
-	}
-	
-	void info() {
-		System.out.println("과자의 가격은 " + price + "원입니다.");
-	}
-}
-```
-
-```java
-package constructor;
-
-public class SnackMain {
-	public static void main(String[] args) {
-		Snack chip = new Snack(5000); //객체 생성 및 초기화
-		//chip.price = 2000; //객체 필드 설정
-		chip.info(); //객체 메서드 호출
-	}
-}
-```
-- 생성자를 통해 필드를 초기화 했으므로 chip.price로 필드에 접근하여 값을 주지 않아도 필드에 값이 들어가있음을 확인할 수 있다.
-- 물론 생성자를 통하지 않고 클래스에서 필드를 선언할 때 필드를 초기화할 수도 있다.
-
-```java
-public class Snack{
-	int price = 2000;
-	...
-}
-```
-- 위와 같은 클래스로 객체를 만들 경우 모든 과자의 가격이 2000원으로 생성된다.
-- 과자의 가격이 모두 2000원으로 동일하다면 효과적인 방법일 것이다.
-- 하지만 과자마다 가격이 다르다면 생성자를 통해 가격을 전달하고 객체를 생성하는 것이 더 효율적일 수 있다.
-```java
-Snack potatoChip = new Snack(2000);
-Snack potatoChip = new Snack(1800);
-```
-
-- 일반적인 메서드와 마찬가지로, 파라미터를 2개 이상 전달할 수 있다.
-
-## Person 클래스
-```java
-public class Person {
-	int age;
-	String name;
-
-	//예를들어서 나이와 이름, 전화번호를 알아야 친구가 된다고 가정을 해볼게요.
-	//이중에 한가지라도 빼먹고 안쓰면 문제가 있는거에요 써먹기 불가능한 객체가 될수도 있다는거죠.
-
-	//똑같은걸 계속 만드려고 한다면 기본생성자에 값을 넣어놓는것도 좋은 방법
-	//pbulic Person() {
-	//	age = 40;
-	//	name = "노태문";
-	//}
-
-	//빈공간에서 cntl + space bar 기본생성자 생성
-	//임의로 새로운 생성자를 정의한 순간부터 기본생성자는 쓸 수 없다.
-	public Person(int age, String) {
-		this.age = age;
-		this.name = name;
-
-	}
-
-	public void introduce() {
-		System.out.printf("안녕하세요. 저는 %d살 %s입니다.", age,name);
-	}
-}
-```
-## PMain 클래스
-```java
-public class PMain{
-	public static void main(String[] args) {
-		
-		Person p1 = new Person(20,"홍길동");
-		Person p2 = new Person(30,"김자바");
-
-		p1.introduce();
-		p2.introduce();
-		
-}
-```
-
-## 생성자 오버로딩
-- 생성자에 전달할 매개변수가 부족하면 어떤일이 발생할까??
-### Phone 클래스
-```java
-package test3;
-
-public class Phone {
-	String brand;
-	int series;
-	String color = "검정색";
-	
-	public Phone(String b, int s, String c) {
-			brand = b;
-			series = s;
-			color = c;
-	}
-	
-	public void phoneInfo() {
-		System.out.println(color + " " + brand + " " + series);
-	}
-}
-```
-### PhoneMain클래스
-```java
-package test3;
-
-public class PhoneMain {
-	public static void main(String[] args) {
-		Phone p1 = new Phone("갤럭시",1,"흰색");
-		Phone p2 = new Phone("아이폰",1);
-	}
-}
-```
-- 생성자에 전달할 매개변수가 부족하면, 객체를 생성할 수 없다.
-- 선언된 생성자의 형태에 맞게 매개변수를 전달해 줘야 하기 때문이다.
-- 클래스 내부에 선언된 필드의 기본값을 그대로 사용하고 싶다면 파라미터가 부족하다고 생성하지 못할 이유가 없어야 한다.
-- 이 경우 자바에서는 생성자를 여러 개 선언하는 것을 허용하고 있다.
-- 외부에서 제공할 수 있는 데이터만큼만 매개변수로 전달하여 객체를 생성할 수 있다.
-- 생성자를 다양한 형태로 선언하는 것을 '생성자 오버로딩'이라고 한다.
-
-### 오버로딩 규칙
-1. 매개변수의 개수가 다를 때
-2. 매개변수의 개수가 같아도 자료형이 다를 때
-3. 생성자나 메서드의 이름은 그대로 사용해야 한다.
-
-
-### Phone클래스에 코드추가하기
-```java
-package test3;
-
-public class Phone {
-	String brand;
-	int series;
-	String color = "검정색";
-
-	public Phone(String b, int s) {
-		brand = b;
-		series = s;
-	}
-
-	public Phone(String b, int s, String c) {
-		brand = b;
-		series = s;
-		color = c;
-	}
-
-	public void phoneInfo() {
-		System.out.println(color + " " + brand + " " + series);
-	}
-}
-```
-
-## 여러개의 생성자를 선언해보기
-### Book 클래스
-```java
-package test3;
-
-public class Book {
-	String title = "제목없음";
-	int series = 1;
-	int page = 100;
-	
-	public Book() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public Book(String t) {
-		title = t;
-	}
-	public Book(String t, int p) {
-		title = t;
-		page = p;
-	}
-	public Book(int s, String t) {
-		series = s;
-		title = t;
-	}
-}
-```
-### BookMain클래스
-```java
-package test3;
-
-public class BookMain {
-	public static void main(String[] args) {
-		Book b1 = new Book();
-		System.out.println("b1.title : " + b1.title);
-		System.out.println("b1.series : " + b1.series);
-		System.out.println("b1.page : " + b1.page);
-		
-		Book b2 = new Book("멘토시리즈 자바");
-		System.out.println("b2.title : " + b2.title);
-		System.out.println("b2.series : " + b2.series);
-		System.out.println("b2.page : " + b2.page);
-		
-		Book b3 = new Book("신데렐라",170);
-		System.out.println("b3.title : " + b3.title);
-		System.out.println("b3.series : " + b3.series);
-		System.out.println("b3.page : " + b3.page);
-		
-		Book b4 = new Book(5,"노인과 바다");
-		System.out.println("b4.title : " + b4.title);
-		System.out.println("b4.series : " + b4.series);
-		System.out.println("b4.page : " + b4.page);
-	}
-}
-```
-
-# this와 this()
-- 변수명을 지을 때, 최대한 구체적이고 명확하게 작명하는 것이 보다 효율적인 코드를 작성하는데 도움이 된다는 것을 알고있다.
-- 함수나 생성자에서 매개변수는 클래스의 필드보다 우선순위가 높아서, 대입연산자를 기준으로 왼쪽/오른쪽 변수 모두 매개변수를 뜻하게 된다.
-- 매개변수에 매개변수를 넣는 의미없는 코드가 된다.
-- 이러한 상황을 해결하기 위해 this키워드를 사용한다.
-
-## this
-- 객체 자기 자신 스스로 참조
-- this 참조 변수는 객체가 자기 자신을 참조하는데 사용하는 변수이다.
-- this를 필드에 붙여서 사용하면, 중괄호{}안에서도 같은 이름의 매개변수와 필드를 구분해서 사용할 수 있다.
-```java
-this.필드 = 매개변수명;
-```
-
-### Student.java
-```java
-package test3;
-
-public class Student {
-	String name;
-	int age;
-	int studentID;
-	
-	public Student(String name, int age, int studentID) {
-		this.name = name;
-		this.age = age;
-		this.studentID = studentID;
-	}
-}
-
-```
-
-## this()
-- 현재 클래스에 선언되어있는 생성자를 가리킬 수 있는 키워드이다.
-
-### this(매개변수1,매개변수2)
-- this()메서드는 같은 클래스 안에 있는 생성자 중 매개변수의 개수, 자료형, 순서에 맞는 다른 생성자를 호출하는 메서드로 생성자 내부에서만 사용할 수 있다.
-
-### Phone.java
-```java
-package test3;
-
-public class Phone {
-	String brand;
-	int series;
-	String color = "검정색";
-
-	public Phone(String b, int s) {
-		brand = b;
-		series = s;
-	}
-
-	public Phone(String b, int s, String c) {
-		//brand = b;
-		//series = s;
-		this(b,s); //this()는 첫줄에서만 사용할 수 있다.
-		color = c;
-	}
-
-	public void phoneInfo() {
-		System.out.println(color + " " + brand + " " + series);
-	}
-}
-```
 # 메서드 오버로드
 - 오버로드은 메서드의 '중복정의' 라고 하며, 하나의 클래스 내에서 같은 이름을 가진 메서드(함수)가 여러개 정의되는 것을 말한다.
 - 메서드들을 같은 이름으로 작업할 수 있다는 의미이다.

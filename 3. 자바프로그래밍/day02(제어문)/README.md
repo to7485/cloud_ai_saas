@@ -39,25 +39,23 @@ if(조건식)조건식이 참일 때 실행할 문장;
 - 수행문이 하나일경우 생략할 수 있지만 중괄호를 사용하면 가독성이 좋을 뿐 아니라 코드의 해석이 용이하고 버그를 찾아 수정하는데 도움이 되므로 중괄호를 사용하는 습관을 길러두는것이 좋다.
 - 중괄호를 사용할 때는 들여쓰기를 하는 것이 좋다. 들여쓰기는 공백이나 탭을 이용하는데 혼용하여 사용하지 않고 한가지 방법으로 일관되게 사용하는 것이 좋다.
 
-## ex01_if패키지 생성하기
-
-### if01클래스 생성하기
 ```java
-int result = 0;
-if(3 > 2) {
-	result = 3;
-}
-System.out.println(result);
-```
+package ch04.sec02;
 
-```java
-Scanner sc = new Scanner(System.in);
-
-int age = sc.nextInt();
-if(age > 19) {
-	System.out.println("성인입니다.");
+public class IfExample {
+	public static void main(String[] args) {
+		int score = 93;
+		
+		if(score >= 90) {
+			System.out.println("점수가 90보다 큽니다.");
+			System.out.println("등급은 A입니다.");
+		}
+		
+		if(score < 90)
+			System.out.println("점수가 90보다 작습니다.");
+			System.out.println("등급은 B입니다.");
+	}
 }
-System.out.println("프로그램을 종료합니다.");
 ```
 
 ## if - else문
@@ -75,39 +73,22 @@ if(조건식){
 }
 ```
 
-### if02클래스 생성하기
 ```java
-int num = 5;
+package ch04.sec02;
 
-if(num > 4) {
-	System.out.println(num+"은 4보다 큽니다.");
-} else {
-	System.out.println(num+"은 4보다 작습니다.");
-}
----------------------------------------------------------
-int a = 4;
-int b = 10;
+public class IfElseExample {
+	public static void main(String[] args) {
+		int score = 85;
 
-if(a > b) {
-	System.out.println("a가 b보다 큽니다.");
-} else {
-	System.out.println("a가 b보다 작거나 같습니다.");
+		if(score>=90) {
+			System.out.println("점수가 90보다 큽니다.");
+			System.out.println("등급은 A입니다.");
+		} else {
+			System.out.println("점수가 90보다 작습니다.");
+			System.out.println("등급은 B입니다.");
+		}
+	}
 }
-```
-- 우리는 if-else문을 활용해 다양한 문제를 해결할 수 있다.
-- 예를 들어, 정수 2개를 비교하여 더 큰 수를 찾아내는 코드를 보다 간단하게 해결할 수 있다.
-```java
----------------------------------------------------------
-int x = 10;
-int y = 7;
-int max = 0;
-if(x > y) {
-	max = x;
-} else {
-	max = y;
-}
-
-System.out.printf("%d 와 %d 중에 큰 수는 %d 입니다.",x,y,max);
 ```
 
 ### 예제
@@ -147,36 +128,30 @@ if(조건식1){
 - 하지만 너무 많은 else - if문을 사용한다면 프로그램의 실행 속도가 현저히 느려질 수 있기 때문에 다른 방법을 함께 고려해야 한다.
 - if - else if문의 가장 마지막에 작성하는 else블록은 필요없다면 생략이 가능하다.
 
-### if_elseif01클래스 생성하기
 ```java
-int favorite = 7;
+package ch04.sec02;
 
-if(favorite < 5) {//1번 조건문
-	System.out.println("좋아하는 숫자가 5보다 작습니다.");
-}else if(favorite > 5) {//2번 조건문
-	System.out.println("좋아하는 숫자는 5보다 큽니다.");
-}else {
-	System.out.println("좋아하는 숫자는 5입니다.");
+public class IfElseIfElseExample {
+	public static void main(String[] args) {
+		int score = 75;
+
+		if(score>=90) {
+			System.out.println("점수가 100~90입니다.");
+			System.out.println("등급은 A입니다.");
+		} else if(score>=80) {
+			System.out.println("점수가 80~89입니다.");
+			System.out.println("등급은 B입니다.");
+		} else if(score>=70) {
+			System.out.println("점수가 70~79입니다.");
+			System.out.println("등급은 C입니다.");
+		} else {
+			System.out.println("점수가 70 미만입니다.");
+			System.out.println("등급은 D입니다.");
+		}
+	}
 }
 ```
-- 1번 조건식이 true라면 2번 조건식이 아무리 true여도, 실행되지 않고 프로그램은 바로 if-else if문을 빠져나간다.
-- 코드를 아래와 같이 수정하고 실행을 해보겠습니다.
 
-### if_elseif02클래스 생성하기
-```java
-int favorite = 7;
-
-if(favorite > 5) {
-	System.out.println("좋아하는 숫자가 5보다 큽니다.");
-}else if(favorite == 7) {
-	System.out.println("좋아하는 숫자는 7입니다.");
-}
-```
-- elseif에 있는 조건문이 더 정확함에도 불구하고 if문에 있는 조건식이 true가 되버리기 때문에
-- elseif에 있는 조건식은 실행되지 못하고 if-else if문을 빠져나간다.
-- 효율적인 흐름으로 제어하기 위해 if문과 elseif문의 조건문의 위치를 바꿔야 한다.
-- 이러한 구조적 흐름때문에 if-else if문을 작성할 때 조건식의 순서를 어떻게 결정하느냐에 따라서 프로그램의 흐름이 완전히 달라질 수 있도, 오류가 발생할수도 있다.
-- 개발자들은 흐름을 정확히 판단해 조건식의 구문과 위치를 결정해야 한다.
 
 ### if_elseif03클래스 생성하기
 ```java
@@ -193,24 +168,51 @@ if(age > 19) {
 	System.out.println("유아입니다.");
 }
 ```
-### if_elseif04클래스 생성하기
+- 주사위를 굴려서 나올 수 있는 1,2,3,4,5,6 중에서 하나의 수를 뽑아서 출력하는 코드를 작성해보자.
+- 먼저 임의의 정수를 뽑기 위해 Math.random()메서드를 활용할 수 있다.
+- 이 메소드는 0.0 <= ~ < 1.0 사이의 double 타입 난수를 반환한다.
 ```java
-int num = 75;
-	
-if(num >= 90)
-System.out.println("성적은 A입니다.");
+0.0 <= Math.random() < 1.0
+```
+- 여기에 각 변에 6을 곱하면 0.0 <= ~ <6.0 사이의 double 타입의 난수를 얻게 된다.
+```java
+(0.0 * 6) <= (Math.random() * 6) < (1.0 * 6)
+```
+- 마지막으로 각 변에 1을 더하면 비로소 1,2,3,4,5,6 중에서 하나의 난수를 얻게 된다.
+```java
+(0.0 + 1) <= ((int)(Math.random() * 6) +1)< ((1.0 * 6) + 1)
+```
+- 그렇다면 start부터 시작하는 n개의 정수 중 하나에서 정수를 얻기 위한 코드는 다음과 같이 작성할 수 있다.
+```java
+int num = (int)(Math.random() * n) + start
+```
+- 로또 번호(1, ... 45)중 하나를 뽑기 위해서도 다음 코드를 사용할 수 있다.
+```java
+int num = (int)(Math.random() * 45) + 1
+```
 
-else if(num >= 80)	
-System.out.println("성적은 B입니다.");
+```java
+package ch04.sec02;
 
-else if(num >= 70)
-System.out.println("성적은 C입니다.");
-
-else if(num >= 60)	
-System.out.println("성적은 D입니다.");
-
-else
-System.out.println("성적은 F입니다.");		
+public class IfDiceExample {
+	public static void main(String[] args) {
+		int num = (int)(Math.random()*6) + 1;
+		
+		if(num==1) {
+			System.out.println("1번이 나왔습니다.");
+		} else if(num==2) {	
+			System.out.println("2번이 나왔습니다.");
+		} else if(num==3) {
+			System.out.println("3번이 나왔습니다.");
+		} else if(num==4) {
+			System.out.println("4번이 나왔습니다.");
+		} else if(num==5) {
+			System.out.println("5번이 나왔습니다.");
+		} else {
+			System.out.println("6번이 나왔습니다.");
+		}
+	}
+}
 ```
 
 ### if문의 중첩
@@ -224,13 +226,33 @@ if(조건식1){
   }
 }
 ```
-### multi_if01클래스 생성하기
+- 실제 프로그램에서는 여러 단계로 중첩되는 경우가 많기 때문에 코드의 실행 흐름을 이해하지 못한다면 프로그램 작성은 물론, 이미 작성된 프로그램도 분석이 어려워진다.
 ```java
-int num = 5;
-if(num <=10){
-  if(num % 2 == 1){
-    System.out.println(num + "은 홀수입니다."); 
-  }
+package ch04.sec02;
+
+public class IfNestedExample {
+	public static void main(String[] args) {
+		int score = (int)(Math.random()*20) + 81;
+		System.out.println("점수: " + score);
+		
+		String grade;
+		
+		if(score>=90) {
+			if(score>=95) {
+				grade = "A+";
+			} else {
+				grade = "A";
+			}
+		} else {	
+			if(score>=85) {
+				grade = "B+";
+			} else {
+				grade = "B";
+			}
+		}
+		
+		System.out.println("학점: " + grade);
+	}
 }
 ```
 - 중첩의 단계에는 제한이 없습니다.
@@ -257,94 +279,85 @@ default ://비교값과 일치하는 조건값이 없을 때 실행된다.
 	코드;
 }
 ```
-## ex02_switch 패키지 만들기
 
-### Switch01클래스 만들기
+- switch문은 괄호 안의 변수값에 따라 해당 case로 가서 실행문을 실행시킨다.
+- 만약 변수값과 동일한 값을 갖는 case가 없으면 default로 가서 실행문을 실행시킨다.
+- default가 필요 없다면 생략이 가능하다.
 ```java
-//1) 비교값과 조건값의 타입은 반드시 일치해야 한다.
-//2) 중복되는 조건값을 가질 수 없다.
-int n = 1;
-	
-package test2;
+package ch04.sec03;
 
-public class Test {
+public class SwitchExample {
 	public static void main(String[] args) {
-		int num = 7;
+		int num = (int)(Math.random()*6) + 1;
 		
 		switch(num) {
-		case 1:
-			System.out.println("num은 1입니다.");
-			break;
-		case 7:
-			System.out.println("num은 7입니다.");
-			break;
-		default:
-			System.out.println("num은 1도 7도 아닙니다.");
+			case 1:
+				System.out.println("1번이 나왔습니다.");
+				break;
+			case 2:
+				System.out.println("2번이 나왔습니다.");
+				break;
+			case 3:
+				System.out.println("3번이 나왔습니다.");
+				break;
+			case 4:
+				System.out.println("4번이 나왔습니다.");
+				break;
+			case 5:
+				System.out.println("5번이 나왔습니다.");
+				break;
+			default:
+				System.out.println("6번이 나왔습니다.");
 		}
 	}
 }
-
-}
 ```
-## if vs switch
-- 둘 다 조건에 따라서 명령을 실행을 하는 문법이다.
-- if문은 범위에 따라서 조건을 비교하는데 효과적이고
-- switch문은 하나의 값에 따라서 조건을 비교하는데 효과적이다.
-
-### Switch02클래스 생성하기
+- case 끝에 있는 break는 다음 case를 실행하지 않고 switch문을 빠져나가기 위해 필요하다.
+- 만약 break가 없다면 다음 case가 연달아 실행되는데, 이때는 case 값과는 상관없이 실행된다.
 ```java
-//switch문의 비교값으로 사용 가능한 자료형
-//1) 정수(byte,short,int)
-//2) 문자형(char)
-//3) 문자열(String)
+package ch04.sec03;
 
-String str = "홍";
-String result;
-	
-switch (str) { //인자로 비교할 값이 들어와야 한다.
-
-case "박"://인자와 비교할 조건값이 들어온다.	
-result = "박길동";	
-break;
-	
-case "이"://콜론이다. 세미콜론 아니다.	
-result = "이길동";	
-break;
-	
-case "독고":	
-result = "독고길동";	
-break;
-	
-case "홍":	
-result = "홍길동";	
-break;
-	
-default:	
-result = "제대로 입력하시지";	
-break;
+public class SwitchNoBreakCaseExample {
+	public static void main(String[] args) {
+		int time = (int)(Math.random()*4) + 8;  
+		System.out.println("[현재시간: " + time + " 시]");
+		
+		switch(time) {
+			case 8:
+				System.out.println("출근합니다.");
+			case 9:
+				System.out.println("회의를 합니다.");
+			case 10:
+				System.out.println("업무를 봅니다.");
+			default:
+				System.out.println("외근을 나갑니다.");
+		}
+	}
 }
-	
-System.out.println(result);
 ```
-## switch문에 break가 없다면 어떻게 될까?
-- break키워드는 뒤에오는 모든 조건이 실행되지 않도록 switch문을 빠져나가는 역할을 한다.
-- break키워드가 없으면 어떻게 될까?
 
-### Switch03클래스 생성하기
 ```java
-int num = 1;
+package ch04.sec03;
 
-switch(num) {
-case 1:
-	System.out.println("num은 1입니다.");
-case 7:
-	System.out.println("num은 7입니다.");
-default:
-	System.out.println("num은 1도 7도 아닙니다.");	
+public class SwitchCharExample {
+	public static void main(String[] args) {
+		char grade = 'B';
+		
+		switch(grade) {
+			case 'A':
+			case 'a':
+				System.out.println("우수 회원입니다.");
+				break;
+			case 'B':
+			case 'b':
+				System.out.println("일반 회원입니다.");
+				break;							
+			default:
+				System.out.println("손님입니다.");
+		}
+	}
 }
 ```
-- 조건에 맞는 case를 시작으로 뒤따라오는 모든 case구문이 실행된다.
-- 따라서 개발자는 break; 키워드를 적절하게 이용할 수 있어야 합니다.
 
 # java 12 이상의 switch문
 - 조건절에 복수개의 값을 사용하는것이 가능해졌다.
@@ -353,36 +366,28 @@ default:
 
 ### Switch04클래스 생성하기
 ```java
-package test2;
+package ch04.sec03;
 
-public class Test {
+public class SwitchExpressionsExample {
 	public static void main(String[] args) {
-		String day = "SUNDAY";
+		char grade = 'B';
 		
-		//기존의 switch문
-		//불필요하게 장황하다
-		//에러 발생시 디버깅이 어렵다
-		
-		switch(day) {
-		case "MONDAY":
-		case "TUESDAY":
-		case "WENDSDAY":
-		case "THURSDAY":
-		case "FRIDAY":
-			System.out.println("평일");
-			break;
-		case "SATURDAY":
-		case "SUNDAY":
-			System.out.println("주말");
-			break;
-		default:
-			System.out.println("잘못된 입력입니다.");
+		switch(grade) {
+			case 'A', 'a' -> {
+				System.out.println("우수 회원입니다.");
+			}
+			case 'B', 'b' -> {
+				System.out.println("일반 회원입니다.");
+			}						
+			default -> {
+				System.out.println("손님입니다.");
+			}
 		}
-		//자바 12이상에서의 switch문
-		switch(day) {
-		case "MONDAY", "TUESDAY", "WENDSDAY", "THURSDAY", "FRIDAY" -> System.out.println("평일");
-		case "SATURDAY","SUNDAY" ->System.out.println("주말");
-		default -> System.out.println("잘못된 입력입니다.");
+
+		switch(grade) {
+			case 'A', 'a' -> System.out.println("우수 회원입니다.");
+			case 'B', 'b' -> System.out.println("일반 회원입니다.");						
+			default -> System.out.println("손님입니다.");
 		}
 	}
 }
@@ -477,16 +482,22 @@ for(초기식; 조건식; 증감식){
 ※후행증감이나 선행증감이나 영향은 없지만 개발자들이 다들 후행증감을 사용하므로 후행증감으로 사용하도록 하자.<br>
 
 ```java
-for(int i = 0; i <= 3; i++){
-	System.out.println(i);
-}//for문 돌아가는 구조 설명해주기.
+package ch04.sec04;
+
+public class PrintFrom1To10Example {
+	public static void main(String[] args) {
+		for(int i=1; i<=10; i++) {
+			System.out.print(i + " ");
+		}
+	}
+}
 ```
 
 ![image](https://user-images.githubusercontent.com/54658614/215010183-dceb4e66-811e-46ba-a8b6-e3e902446b3d.png)
 
 
 ### for문을 작성할 때 주의할 점
-- 부동 소수점을 쓰는 float타입을 사용하지 말아야 한다.
+#### 1. 부동 소수점을 쓰는 float타입을 사용하지 말아야 한다.
 ```java
 package ch04.sec04;
 
@@ -511,6 +522,30 @@ public class FloatCounterExample {
 - 부동 소수점 방식의 float타입은 연산 과정에서 정확히 0.1을 표현하지 못하기 때문에 증감식에서 x에 더해지는 실제 값은 0.1보다 약간 클 수 있다.
 - 따라서 최종 반복 횟수는 9번이 된다.
 
+#### 2. 초기값 변수
+- 초기화식에서 선언된 변수는 for문 블록 안에서만 사용되는 지역변수이다.
+- for문을 벗어나서도 사용하고 싶다면 초기화식에서 변수를 선언하지 말고 for문 이전에 선언해야 한다.
+```java
+int i;
+for(int i = 1; i <= 100; i++){...};
+System.out.println("최종 i값 : " + i);
+```
+```java
+package ch04.sec04;
+
+public class SumFrom1To100Example {
+	public static void main(String[] args) {
+		int sum = 0;
+		int i;
+			
+		for(i=1; i<=100; i++) {
+			sum += i;
+		}
+			
+		System.out.println("1~" + (i-1) + " 합 : " + sum);
+	}
+ }
+ ```
 ## 다중 for문
 - for문안에 또 다른 for문을 사용하는 경우를 말한다.
 - for문을 중첩하여 사용하기 때문에 코드가 어려워 보일 수 있으나 반복문의 원리는 같다.
@@ -518,6 +553,21 @@ public class FloatCounterExample {
 for(초기식;조건식;증감식){
 	for(초기식;조건식;증감식){
 		
+	}
+}
+```
+
+```java
+package ch04.sec04;
+
+public class MultiplicationTableExample {
+	public static void main(String[] args) {
+		for (int m=2; m<=9; m++) {
+			System.out.println("*** " + m + "단 ***");
+			for (int n=1; n<=9; n++) {
+				System.out.println(m + " x " + n + " = " + (m*n));
+			}
+		}
 	}
 }
 ```
@@ -535,23 +585,77 @@ while(조건식){
 ```
 - while문은 for문처럼 시작값과 증감값을 가지고 있지 않기 때문에 값을 변화시켜주지 않으면 무한반복이 일어나게된다.
 
-### While01클래스 생성하기
-
 ```java
-int num = 1;
+package ch04.sec05;
+
+public class PrintFrom1To10Example {
+	public static void main(String[] args) {
+		int i = 1;
+		while (i<=10) {
+			System.out.print(i + " ");
+			i++;
+		}
+	}
+}
+```
+- 1부터 100까지 합을 구하기 위해 while문을 사용한다.
+- while문 내에서 계속 누적되는 값을 갖는 sum 변수는 while문 시작 전에 미리 선언해 놓아야 한다.
+```java
+package ch04.sec05;
+
+public class SumFrom1To100Example {
+	public static void main(String[] args) {
+		int sum = 0;
 		
-while(num <= 10){ 
-	System.out.println(num);
-}//while문의 끝
+		int i = 1;
+		
+		while(i<=100) {
+			sum += i;
+			i++;
+		}
+
+		System.out.println("1~" + (i-1) + " 합 : " + sum);
+	}
+}
 ```
 
+- 만약 조건식에 true를 사용하면 while(true){...}가 되어서 무한 반복하게 된다.
+- 이 경우, 언젠가는 while문을 빠져나가기 위한 코드가 필요하다.
+- 다음은 키보드에서 1,2를 입력했을 때 속도를 증속, 감속시키고, 3을 입력하면 프로그램을 종료시키는 예제이다.
+
 ```java
-int num = 1;
-		
-while(num <= 10){ 
-	System.out.println(num);
-	num++;
-}//while문의 끝
+package ch04.sec05;
+
+import java.util.Scanner;
+
+public class KeyControlExample {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		boolean run = true;
+		int speed = 0;
+
+		while(run) {
+			System.out.println("-----------------------------");
+			System.out.println("1. 증속 | 2. 감속 | 3. 중지");
+			System.out.println("-----------------------------");
+			System.out.print("선택: ");
+
+			String strNum = scanner.nextLine();
+
+			if(strNum.equals("1")) {
+				speed++;
+				System.out.println("현재 속도 = " + speed);
+			} else if(strNum.equals("2")) {
+				speed--;
+				System.out.println("현재 속도 = " + speed);
+			} else if(strNum.equals("3")) {
+				run = false;
+			}
+		}
+
+		System.out.println("프로그램 종료");
+	}
+}
 ```
 
 ## do-while문
@@ -559,31 +663,29 @@ while(num <= 10){
 - 다만, while문과 다른 점은 먼저 루프를 한 번 실행한 후 조건식을 검사한다는 점이다.
 - 즉, 조건식의 결과와 상관없이 무조건 한 번은 실행을 한다.
 
-### Do_while01클래스 생성하기
-
 ```java
-do{
-	반복하고자 하는 명령;
-}while(조건식);
-```
-```java	
-int i = 11;
-do{
-    System.out.println(i);
+package ch04.sec06;
 
-}while(i <= 10); //결과 : 11
-```
-- 1부터 10까지의 합 출력하기
-```java
-int sum = 0;
-int i = 1;
+import java.util.Scanner;
 
-do {
-	sum += i;
-	i++;
-} while(i <= 10);
+public class DoWhileExample {
+	public static void main(String[] args) {
+		System.out.println("메시지를 입력하세요.");
+		System.out.println("프로그램을 종료하려면 q를 입력하세요.");
 
-System.out.println("합  : " + sum);
+		Scanner scanner = new Scanner(System.in);
+		String inputString;
+
+		do {
+			System.out.print(">");
+			inputString = scanner.nextLine();
+			System.out.println(inputString);
+		} while( ! inputString.equals("q") );
+
+		System.out.println();
+		System.out.println("프로그램 종료");
+	}
+}
 ```
 
 ### 상황에 따라 반복문 사용하기
@@ -599,32 +701,27 @@ System.out.println("합  : " + sum);
 - 하지만 숫자가 표시된 100개의 공에서 특정 숫자가 적힌 공을 찾는데, 10번만에 찾았다면 더이상 반복을 할 필요가 없을 것이다.
 - 기타제어문은 반복문을 좀 더 개발자의 입맞에 맞게 다룰 수 있게 해준다.
 
-## 1. continue
-- 반복문 안에서 continue를 만나게 되면 이후의 실행 코드는 수행되지 않고, 반복문의 처음으로 돌아가 반복문을 진행하게 된다.
-- for문의 증감식으로 이동하며, while문과 do-while의 경우 조건식으로 이동한다.
-
-### Continue01클래스 생성하기
-```java
-package test2;
-
-public class Continue01 {
-	public static void main(String[] args) {
-		int sum = 0;
-		for(int i = 1; i <= 100; i++) {
-			if(i % 2 == 0) {
-				continue;
-			}
-			sum += i;
-		}
-		System.out.println("짝수 합 : " + sum);
-	}
-}
-```
-
-## 2. break
+## 1. break
 - break문은 이전에 switch문을 학습할 때 나왔던 구문으로 case문을 종료할 때 사용되었다.
 - break라는 단어의 의미와 동일하게 반복문을 미리 종료할 때 사용한다.
 - 반복문이 진행되는 도중, 특정 조건을 만족해 더이상 반복문을 실행할 필요 없이 종료하려고 할 때 사용한다.
+
+```java
+package ch04.sec07;
+
+public class BreakExample {
+	public static void main(String[] args) throws Exception {
+		while(true) {
+			int num = (int)(Math.random()*6) + 1;
+			System.out.println(num);
+			if(num == 6) {
+				break;
+			}
+		}
+		System.out.println("프로그램 종료");
+	}
+}
+```
 
 ### Break01클래스 생성하기
 ```java
@@ -659,3 +756,44 @@ public class Break01 {
 	}
 }
 ```
+- 만약 반복문이 중첩되어 있을 경우 break 문은 가장 가까운 반복문만 종료하고 바깥쪽 반복문은 종료시키지 않는다.
+- 중첩된 반복문에서 바깥쪽 반복문까지 종료시키려면 바깥쪽 반복문에 이름(레이블)을 붙이고, break 이름;을 사용하면 된다.
+
+```java
+package ch04.sec07;
+
+public class BreakOutterExample {
+	public static void main(String[] args) throws Exception {
+		Outter: for(char upper='A'; upper<='Z'; upper++) {
+			for(char lower='a'; lower<='z'; lower++) {
+				System.out.println(upper + "-" + lower);
+				if(lower=='g') {
+					break Outter;
+				}
+			}
+		}
+		System.out.println("프로그램 실행 종료");
+	}
+}
+```
+
+## 2. continue
+- 반복문 안에서 continue를 만나게 되면 이후의 실행 코드는 수행되지 않고, 반복문의 처음으로 돌아가 반복문을 진행하게 된다.
+- for문의 증감식으로 이동하며, while문과 do-while의 경우 조건식으로 이동한다.
+
+```java
+package ch04.sec08;
+
+public class ContinueExample {
+	public static void main(String[] args) throws Exception {
+		for(int i=1; i<=10; i++) {
+			if(i%2 != 0) {
+				continue;
+			}
+			System.out.print(i + " ");
+		}
+	}
+}
+```
+
+

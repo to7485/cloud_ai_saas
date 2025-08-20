@@ -648,13 +648,6 @@ x:5, y:3
 - 표현 범위: -2,147,483,648 ~ 2,147,483,647
 - 특징: 정수 연산의 기본 타입, 대부분의 연산은 int로 처리
 
-### 2진수로 음수 표현하는법
-- byte,short,int,long은 모두 부호 있는(signed) 정수 타입이므로 최상위 bit는 부호 bit로 사용되고, 나머지는 bit는 값의 범위를 결정한다.
-
-![image](img/2의보수.png)
-
-
-
 #### <span style="color:red">리터럴</span>
 - 코드에서 개발자가 직접 입력한 값을 의미한다.
 - 변수에 대입할 정수 리터럴은 진수에 다라 작성하는 방법이 다르다.
@@ -1415,25 +1408,19 @@ public class ScannerExample {
 - 단항연산자는 피연산자가 한 개인 연산자를 말하며, 부호연산자(+,-), 증감 연산자(++,--),논리 부정 연산자(!)가 있다.
 
 ## 1. 부호연산자
-### Operator01클래스 생성하기
 ```java
-package test2;
+package ch03.sec01;
 
-public class Operator01 {
+public class SignOperatorExample {
 	public static void main(String[] args) {
-		int x = 100;
-		int resultPlus = +x; //+부호
-		int resultMinus = -x; //-부호
-	
-		System.out.println(resultPlus);
-		System.out.println(resultMinus);
+		int x = -100;
+		x = -x;
+		System.out.println("x: " + x);
 
-		double d = 1.11; //기본값이 +이기 때문에 생략 가능하다.
-		double result = -d;
-		
-		System.out.println(-d);
-		System.out.println(result);
-	}	
+		byte b = 100;
+		int y = -b;
+		System.out.println("y: " + y);
+	}
 }
 ```
 
@@ -1444,29 +1431,39 @@ public class Operator01 {
 - \--
   - 1을 감소시키는 연산자로, 피연산자-1과 같은 연산이다.
 
-### Operator02클래스 생성하기
 ```java
-package test2;
+package ch03.sec01;
 
-public class Operator02 {
+public class IncreaseDecreaseOperatorExample {
 	public static void main(String[] args) {
+		int x = 10;
+		int y = 10;
+		int z;
 		
-		//선행증감
-		//1이 먼저 증감되고 코드에 즉시 반영되어 실행
-		int a = 10;
-		System.out.println("a : " + ++a); //결과 11
-		
-		
-		//후행증감
-		//코드가 먼저 실행되고 1이 증감
-		//다음에 다시 사용될 때 증감값을 반영한다.
-		int b = 10;
-		System.out.println("b : " + b++); //결과 10
-		System.out.println("b++ : " + b); //결과 11
+		x++;
+		++x;
+		System.out.println("x=" + x);		
 
-		char alphabetA = 'A'; //아스키 정수 65가 저장되어 'A'와 매핑
-		System.out.println(alphabetA++);//코드가 실행된후 65+1이 됨
-		System.out.println(alphabetA);//66값인 B가 출력이 된다.
+		System.out.println("-----------------------");		
+		y--;
+		--y;
+		System.out.println("y=" + y);		
+
+		System.out.println("-----------------------");		
+		z = x++;
+		System.out.println("z=" + z);
+		System.out.println("x=" + x);
+		
+		System.out.println("-----------------------");		
+		z = ++x;
+		System.out.println("z=" + z);
+		System.out.println("x=" + x);
+		
+		System.out.println("-----------------------");				
+		z = ++x + y++;
+		System.out.println("z=" + z);
+		System.out.println("x=" + x);
+		System.out.println("y=" + y);
 
 		//오버플로우와 언더플로우
 		//정수 타입 연산에서 오버플로우 또는 언더플로우가 발생하면
@@ -1479,26 +1476,6 @@ public class Operator02 {
 		byte value2 = -128;
 		value2--;
 		System.out.println(value2);
-
-	}
-}
-```
-
-## 3. 논리 부정 연산자
-- boolean값을 가지는 피연산자 앞에 !를 붙여서 값을 반대로 바꾸는 역할을 한다.
-- true를 false로, false를 true로 바꿔준다.
-
-### Operator03클래스 생성하기
-```java
-package test2;
-
-public class Operator3 {
-	public static void main(String[] args) {
-		
-		boolean isHuman = false;
-		System.out.println(!isHuman);//true
-		System.out.println(isHuman);//false
-		
 	}
 }
 ```
@@ -1512,29 +1489,29 @@ public class Operator3 {
 - 산술연산자는 4칙연산(+,-,*,/)과 나머지 값을 구하는 연산자로 나뉜다.
 - 프로그래밍에서 곱셈은 x가 아닌 *, 나눗셈은 / 기호를 사용한다.
 
-### Operator04클래스 생성하기
 ```java
-package test2;
+package ch03.sec02;
 
-public class Operator04 {
+public class ArithmeticOperatorExample {
 	public static void main(String[] args) {
+		byte v1 = 10;
+		byte v2 = 4;
+		int v3 = 5;
+		long v4 = 10L;
 		
-		int x = 100;
-		int y = 200;
+		int result1 = v1 + v2;			//모든 피연산자는 int 타입으로 자동 변환 후 연산
+		System.out.println("result1: " + result1);
 		
-		System.out.println(x + y);// 100 + 200
-		System.out.println(x - y);// 100 - 200
-		System.out.println(x * y);// 100 * 200
-		System.out.println(x / y);// 100 / 200 정수형의 계산으로 0.5가 아닌 0을 반환
-		System.out.println(x % y);// 100 % 200
-
-		//계산 결과가 표현범위를 벗어나면 오버플로우가 발생하거나 쓰레기 값이 입력된다.
-		int result = 1000000 * 100000;
-		System.out.println(result);
+		long result2 = v1 + v2 - v4; 	//모든 피연산자는 long 타입으로 자동 변환 후 연산
+		System.out.println("result2: " + result2);
 		
+		double result3 = (double) v1 / v2;	//double 타입으로 강제 변환 후 연산
+		System.out.println("result3: " + result3);
+		
+		int result4 = v1 % v2;
+		System.out.println("result4: " + result4);
 	}
-}
-
+}	
 ```
 
 ### 산술변환
@@ -1547,64 +1524,198 @@ float + int -> float + float -> float
 double + float -> double + double -> double
 ```
 
-
-
-## 2. 대입연산자
-- 우변의 값을 좌변에 대입을 한다 라고 생각하자!
-
-### Operator05클래스 생성하기
+### 정확한 계산은 정수 연산으로
+- 산술 연산을 정확하게 계산하고 싶다면 실수 타입을 사용하지 않는 것이 좋다.
 ```java
-int n1 = 10; //n1이라는 int형 변수에 10이라는 정수를 대입함.
-int n2 = 7;
-System.out.println("=연산자: n1 = " + n1 + ", n2 = " + n2);
-```
-### 복합대입연산자 
-- 산술연산자와 대입연산자가 합쳐진 형태, +=,-=,*=,/=,%=
-- A = A +,-,*,/,% B 와 같은 의미이다.
-```java
-package test;
+package ch03.sec04;
 
-public class Test{
+public class AccuracyExample1 {
 	public static void main(String[] args) {
-		int x = 10;
-		int y = 1;
+		int apple = 1;
+		double pieceUnit = 0.1;
+		int number = 7;
 		
-		y += x; // y = y + x; -> y = 1 + 10;
-		System.out.println(y); //11
+		double result = apple - number*pieceUnit;
+		System.out.println("사과 1개에서 남은 양: " + result);
+	}
+}
+
+사과 1개에서 남은 양: 0.29999999999999993
+```
+- 위와 같은 경우는 부동 소수점 방식을 사용하는 실수 타입에서 흔히 일어난다.
+- 그렇기 때문에 정확한 계산이 필요하다면 정수 연산으로 변경해서 다음과 같이 계산하는 것이 좋다.
+```java
+package ch03.sec04;
+
+public class AccuracyExample2 {
+	public static void main(String[] args) {
+		int apple = 1;
+		int totalPieces = apple * 10;
+		int number = 7;
 		
-		y *= x; // y = y * x -> y = 11 * 10;
-		System.out.println(y); //110
+		int result = totalPieces - number; 
+		System.out.println("10조각에서 남은 조각: " + result);
+		System.out.println("사과 1개에서 남은 양: " + result/10.0);
+	}
+}
+
+10조각에서 남은 조각: 3
+사과 1개에서 남은 양: 0.3
+```
+
+### 나눗셈 연산 후 NaN과 Infinity 처리
+- 나눗셈( / ) 또는 나머지( % ) 연산에서 좌측 피연산자가 정수이고 우측 피연산자가 0일 경우 예외(ArithmeticException)가 발생한다.
+- 무한대 값을 정수로 표현할 수 없기 때문이다.
+
+```java
+5 / 0 -> 예외 발생
+5 % 0 -> 예외 발생
+```
+- 하지만 좌측 피연산자가 실수이거나 우측 피연산자가 0.0 또는 0.0f면 예외가 발생하지 않고 연산의 결과는 Infinity(무한대) 또는 NaN(Not a Number)이 된다.
+```java
+5 / 0.0 -> Infinity
+5 % 0.0f -> NaN
+```
+- Infinity또는 NaN 상태에서 계속해서 연산을 수행하면 안된다.
+- 어떤 연산을 하더라도 결과는 계속해서 Infinity와 NaN이 되기 때문이다.
+- 그렇기 때문에 / 와 % 연산의 결과가 Infinity 또는 NaN인지 먼저 확인하고 다음 연산을 수행하는 것이 좋다.
+- 이를 확인하기 위해서는 isInfinite()와 isNaN()을 사용한다.
+- 변수의 값이 Infinity 또는 NaN일경우 true를, 그렇지 않다면 false를 산출한다.
+```java
+boolean result = Double.isInfinite(변수);
+boolean result = Double.isNan(변수);
+```
+
+```java
+package ch03.sec05;
+
+public class InfinityAndNaNCheckExample {
+	public static void main(String[] args) {
+		int x = 5;
+		double y = 0.0;
+		double z = x / y;
+		//double z = x % y;
 		
-		y %= x; //y = y % x; -> y = 110 % 10;
-		System.out.println(y); //0
+		//잘못된 코드
+		System.out.println(z + 2);	
+		
+		//알맞은 코드
+		if(Double.isInfinite(z) || Double.isNaN(z)) { 
+			System.out.println("값 산출 불가"); 
+		} else { 
+			System.out.println(z + 2); 
+		}
+	}
+}
+
+Infinity
+값 산출 불가
+```
+
+## 2. 관계(비교)연산자
+- 동등 ( ==, !=), 또는 크기( <, <=, >, >=)를 평가해서 boolean 타입인 true/false를 산출한다.
+- 비교 연산자는 흐름 제어문인 조건문(if), 반복문(for,while)에서 실행 흐름을 제어할 때 주로 사용된다.
+
+<table border="1">
+	<tr>
+		<td>구분</td>
+		<td>연산식</td>
+		<td>설명</td>
+	</tr>
+	<tr>
+		<td rowspan="2">동등 비교</td>
+		<td>피연산자1 == 피연산자2</td>
+		<td>두 피연산자의 값이 같은지 검사</td>
+	</tr>
+	<tr>
+		<td>피연산자1 != 피연산자2</td>
+		<td>두 피연산자의 값이 다른지 검사</td>
+	</tr>
+	<tr>
+		<td rowspan="4">동등 비교</td>
+		<td>피연산자1 > 피연산자2</td>
+		<td>피연산자1이 큰지 검사</td>
+	</tr>
+	<tr>
+		<td>피연산자1 >= 피연산자2</td>
+		<td>피연산자1이 크거나 같은지 검사</td>
+	</tr>
+	<tr>
+		<td>피연산자1 < 피연산자2</td>
+		<td>피연산자1이 작은지 검사</td>
+	</tr>
+	<tr>
+		<td>피연산자1 <= 피연산자2</td>
+		<td>피연산자1이 작거나 같은지 검사</td>
+	</tr>
+</table>
+
+- 피연산자의 타입이 다를 경우 비교 연산을 수행하기 위해 타입을 일치시킨다.
+- 예를 들어 'A' == 65 는 'A'가 int타입으로 변환되어 65가 된 다음 65 == 65로 비교한다.
+- 마찬가지로 3 == 3.0은 3을 double타입인 3.0으로 변환한 다음 3.0 == 3.0으로 비교한다.
+```java
+'A' == 65 -> true
+ 3 == 3.0 -> true
+```
+- 한 가지 예외가 있다. 0.1f == 0.1에서 0.1f가 double타입으로 변환되면 0.1 == 0.1이 되어 true가 산출되어야 하지만 결과는 false가 나온다.
+```java
+0.1f == 0.1 -> false
+```
+- 그 이유는 부동 소수점 방식을 사용하는 실수 타입은 0.1을 정확히 표현할 수 없을 뿐 아니라 float타입과 double타입의 정밀도 차이 때문이다.
+- 해결책은 float타입으로 강제로 타입 변환 후 비교 연산을 하면 된다.
+```java
+0.1f == (float)0.1 -> true
+```
+- 문자열을 비교할 때는 동등(==, !=)연산자 대신 equals()와 !equals()를 사용한다.
+```java
+boolean result = 문자열1.equals(문자열2); //문자열이 같은지 검사
+boolean result = !문자열1.equals(문자열2); //문자열이 다른지 검사
+```
+
+```java
+package ch03.sec06;
+
+public class CompareOperatorExample {
+	public static void main(String[] args) {
+		int num1 = 10;
+		int num2 = 10;
+		boolean result1 = (num1 == num2);
+		boolean result2 = (num1 != num2);
+		boolean result3 = (num1 <= num2);
+		System.out.println("result1: " + result1);
+		System.out.println("result2: " + result2);
+		System.out.println("result3: " + result3);
+			
+		char char1 = 'A';
+		char char2 = 'B';
+		boolean result4 = (char1 < char2); //65 < 66
+		System.out.println("result4: " + result4);
+			
+		int num3 = 1;
+		double num4 = 1.0;
+		boolean result5 = (num3 == num4);
+		System.out.println("result5: " + result5);
+
+		float num5 = 0.1f;
+		double num6 = 0.1;
+		boolean result6 = (num5 == num6);
+		boolean result7 = (num5 == (float)num6);
+		System.out.println("result6: " + result6);
+		System.out.println("result7: " + result7);
+
+		String str1 = "자바";
+		String str2 = "Java";
+		boolean result8 = (str1.equals(str2));
+		boolean result9 = (! str1.equals(str2));
+		System.out.println("result8: " + result8);
+		System.out.println("result9: " + result9);
 	}
 }
 ```
 
-## 3. 관계(비교)연산자
-- 변수나 상수의 값을 비교하여 참과 거짓을 판단하는 연산자.
-- 결과가 항상 true나 false로 반환된다. (반환을 받는다는건 연산식 자체가 반환값 데이터로 바뀌게 된다)
-### Operator06클래스 생성
-```java
-package test2;
-
-public class TestMain {
-	public static void main(String[] args) {
-		
-		int a = 10;
-		int b = 20;
-		
-		System.out.println(a > b);
-		System.out.println(a <= b);
-		System.out.println(a == b);
-		System.out.println(a != b);
-		
-	}
-}
-```
 ## 3. 논리연산자
-- 피연산자를 두개 필요로 하는 연산자이다.
-- 피연산자로 boolean형 데이터만 사용가능하다.
+- 논리곱(&&), 논리합(||), 배타적 논리합(^), 논리부정(!)연산을 수행한다.
+- 논리 연산의 흐름은 제어문인 조건문(if),반복문(for,while)등에서 주로 이용된다.
 
 |연산자|논리식|연산내용|
 |-----|-----|--------|
@@ -1664,35 +1775,17 @@ System.err.println("입력한 정수가 3의 배수인가? " + !(num % 3 != 0));
 System.out.println("입력한 정수가 양수인가? " + (num > 0));
 System.out.println("입력한 정수가 양수인가? " + !(num <= 0));
 ```
-
-## 4. 삼항연산자.
-- 하나의 조건을 정의하여 조건식이 참일 때 반환할 명령, 거짓일때 반환할 명령을 얻어내기 위한 연산자.
-
-```java
-int a = 10;
-int b = 15;
-boolean result;		
-result = ++a >= b ? true : false;
-System.out.println("result :" + result);
-		
-int n1 = 10;
-int n2 = 20;
-char result2;
-result2 = (n1 += n1) == n2 ? 'O' : 'X';
-System.out.println("result2 : " + result2);
-//삼항연산의 값을 받을 변수의 자료형과 ?뒤의 결과값의 타입이 같아야 한다.
-```
-
-## 비트연산자.
+## 4. 비트논리연산자.
 - 논리 연산자와 유사하지만 bit단위(2진수)의 연산만 가능하다.
-- 일반적으로 다음에 배울 시프트 연산자와 더불어 암호화, 복호화 작업에 사용된다.
+- 피연산자가 1,0이라는것과 산출 결과가 1,0이라는점을 주목하자
+- 1은 true, 0은 false라고 생각하면 논리연산자와의 차이는 없다.
 
 |연산자|논리식|연산내용|
 |-----|-----|--------|
-|&|논리곱(AND)|두 항이 모두 참이면 true, 아니면 false|
-|\||논리합(OR)|두 항 중 하나라도 참이면 true, 아니면 false|
+|&|논리곱(AND)|두 항이 모두 1이면 true, 아니면 false|
+|\||논리합(OR)|두 항 중 하나라도 1이면 true, 아니면 false|
 |^|배타적논리합(XOR)|두 항이 다르면 true, 같으면 false|
-| ~ | 부정(not) | 참을 거짓으로, 거짓을 참으로 연산|
+| ~ | 부정(not) | 1을 0으로, 0을 1로 연산|
 
 ```java
 int a = 10; //1010
@@ -1718,7 +1811,7 @@ System.out.println("c3 : " + c3);
 ```c
 int x = 7;
 System.out.println("~x : " + ~x); //-8
-
+```
 왜 -8이 나오는가
 
 1. 7의 2진수 표현 :  0111
@@ -1726,11 +1819,174 @@ System.out.println("~x : " + ~x); //-8
 3. 가장 낮은 비트에 1 더하기 : 1001
 
 편하게 그냥 -(x+1) 를 하자.
+
+### 2진수로 음수 표현하는법
+- byte,short,int,long은 모두 부호 있는(signed) 정수 타입이므로 최상위 bit는 부호 bit로 사용되고, 나머지는 bit는 값의 범위를 결정한다.
+
+![image](img/2의보수.png)
+
+## 5. 비트 이동 연산자
+- 비트를 좌측 또는 우측으로 밀어서 이동시키는 연산을 수행한다.
+
+### a << b
+- 정수 a의 각 비트를 b만큼 왼쪽으로 이동
+- 오른쪽 빈 자리는 0으로 채운다.
+- a x 2<sup>b</sup>과 동일한 결과가 된다.
+```java
+1 << 3 = 1 x 2^3 = 8
 ```
+
+### a >> b
+- 정수 a의 각 비트를 b만큼 오른쪽으로 이동
+- 왼쪽 빈 자리는 최상위 부호 비트와 같은 값으로 채운다.
+- a / 2<sup>b</sup>과 동일한 결과가 된다.
+```java
+-8 >> 3 = -8 / 2^3 = -1
+```
+
+### a >>> b
+- 정수 a의 각 비트를 b만큼 오른쪽으로 이동
+- 왼쪽 빈 자리는 0으로 채운다.
+
+```java
+package ch03.sec09;
+
+public class BitShiftExample1 {
+	public static void main(String[] args) {
+		int num1 = 1;
+		int result1 = num1 << 3;
+		int result2 = num1 * (int) Math.pow(2, 3);//2의 3제곱값을 double로 반환한다.
+		System.out.println("result1: " + result1);
+		System.out.println("result2: " + result2);
+		
+		int num2 = -8;
+		int result3 = num2 >> 3;
+		int result4 = num2 / (int) Math.pow(2, 3);
+		System.out.println("result3: " + result3);
+		System.out.println("result4: " + result4);		
+	}
+}	
+```
+```java
+package ch03.sec09;
+
+public class BitShiftExample2 {
+	public static void main(String[] args) {
+		int value = 772; //[00000000] [00000000] [00000011] [00000100]
+
+		//우측으로 3byte(24bit) 이동하고 끝 1바이트만 읽음: [00000000]
+		byte byte1 = (byte) (value >>> 24);
+		int int1 = byte1 & 255;
+		System.out.println("첫 번째 바이트 부호 없는 값: " + int1);
+
+		//우측으로 2byte(16bit) 이동하고 끝 1바이트만 읽음: [00000000]
+		byte byte2 = (byte) (value >>> 16);
+		int int2 = Byte.toUnsignedInt(byte2);
+		System.out.println("두 번째 바이트 부호 없는 값: " + int2);
+
+		//우측으로 1byte(8bit) 이동하고 끝 1바이트만 읽음: [00000011]
+		byte byte3 = (byte) (value >>> 8);
+		int int3 = byte3 & 255;
+		System.out.println("세 번째 바이트 부호 없는 값: " + int3);
+
+		//끝 1바이트만 읽음: [00000100]
+		byte byte4 = (byte) value;
+		int int4 = Byte.toUnsignedInt(byte4);
+		System.out.println("네 번째 바이트 부호 없는 값: " + int4);
+	}
+}
+
+첫 번째 바이트 부호 없는 값: 0
+두 번째 바이트 부호 없는 값: 0
+세 번째 바이트 부호 없는 값: 3
+네 번째 바이트 부호 없는 값: 4
+```
+
+## 6. 대입연산자
+- 우측 피연산자의 값을 좌측 피연산자인 변수에 대입한다.
+- 우측 피연산자에는 리터럴 및 변수, 그리고 다른 연산식이 올 수 있다.
+- 대입연산자의 종류에는 단순히 값을 대입하는 단순 대입연산자가 있고, 정해진 연산을 수행한 후 결과를 대입하는 복합대입연산자가 있다.
+
+### Operator05클래스 생성하기
+```java
+int n1 = 10; //n1이라는 int형 변수에 10이라는 정수를 대입함.
+int n2 = 7;
+System.out.println("=연산자: n1 = " + n1 + ", n2 = " + n2);
+```
+### 복합대입연산자 
+- 산술연산자와 대입연산자가 합쳐진 형태, +=,-=,*=,/=,%=
+- A = A +,-,*,/,% B 와 같은 의미이다.
+```java
+package test;
+
+public class Test{
+	public static void main(String[] args) {
+		int x = 10;
+		int y = 1;
+		
+		y += x; // y = y + x; -> y = 1 + 10;
+		System.out.println(y); //11
+		
+		y *= x; // y = y * x -> y = 11 * 10;
+		System.out.println(y); //110
+		
+		y %= x; //y = y % x; -> y = 110 % 10;
+		System.out.println(y); //0
+	}
+}
+```
+## 7. 삼항(조건)연산자.
+```java
+피연산자1 ? 피연산자2 : 피연산자3
+```
+- 총 3개의 피연산자를 가지는 연산자이다.
+- ? 앞의 피연산자1에는 boolean 또는 조건식이 오기 때문에 조건연산자라고도 한다.
+- 이 값이 true면 콜론( : ) 앞의 피연산자1이 선택되고, false면 콜론 뒤의 피연산자2가 선택된다.
+- 피연산자 2와 3에는 주로 값이 오지만, 경우에 따라서는 다른 연산식이 올 수도 있다.
+
+```java
+int a = 10;
+int b = 15;
+boolean result;		
+result = ++a >= b ? true : false;
+System.out.println("result :" + result);
+		
+int n1 = 10;
+int n2 = 20;
+char result2;
+result2 = (n1 += n1) == n2 ? 'O' : 'X';
+System.out.println("result2 : " + result2);
+//삼항연산의 값을 받을 변수의 자료형과 ?뒤의 결과값의 타입이 같아야 한다.
+```
+
+```java
+package ch03.sec11;
+
+public class ConditionalOperationExample {
+	public static void main(String[] args) {
+		int score = 85;
+		char grade = (score > 90) ? 'A' : ( (score > 80) ? 'B' : 'C' );
+		System.out.println(score + "점은 " + grade + "등급입니다.");
+	}
+}
+```
+
+
 ## 연산의 방향과 우선순위
 - 산술연산에서 덧셈과 뺄셈보다는 곱셈과 나눗셈이 우선 처리된다는것을 이미 알고 있다.
 - 사칙연산 외에도 자바에서 사용하는 다양한 연산자들은 연산 방향과 우선순위가 정해져있다.
-- 하나의 연산식에 여러 종류의 연산자가 있을 경우 우선순위가 높은 연산자를 먼저 처리한다.
+- 연산자의 우선순위가 같은 경우 대부분의 연산자는 왼쪽에서 오른쪽으로 연산을 수행한다.
+```java
+100 * 2 / 3 % 5
+->->->->->->->
+
+결과 1
+```
+- 하지만 대입연산자는 오른쪽에서 왼쪽으로 연산을 수행한다.
+```java
+a = b = c = 6
+<-<-<-<-<-<-<-
+```
 
 <table border="1">
 	<tr>
@@ -1780,7 +2036,7 @@ System.out.println("~x : " + ~x); //-8
 		<td>논리 연산자</td>
 		<td>비트 논리(&,^,|),논리(&&,||)</td>
 		<td>단항/이항</td>
-		<td>←</td>
+		<td>→</td>
 	</tr>
 	<tr>
 		<td>삼항 연산자</td>
