@@ -114,7 +114,6 @@ class Tire {
 - 특수문자는 $,_만 가능합니다.
 - 자바 예약어(키워드)는 사용할 수 없습니다.
 
-### Cat 클래스 만들기
 ```java
 package ch06.sec04;
 
@@ -135,7 +134,6 @@ new 클래스명();
 클래스명 변수명 = new 클래스명();
 ```
 
-### CatMain클래스 만들기
 ```java
 package ch06.sec04;
 
@@ -302,135 +300,160 @@ public class CarExample {
 ```
 
 # 생성자
+
+## 생성자의 선언과 호출
 - 클래스를 구성하는 구성요소중 하나인 생성자는, 객체를 생성할 때 호출되어 객체의 초기화를 담당하는 특별한 메서드이다.
 - 객체를 생성하고 초기화하기 위해서는 반드시 생성자를 호출해야 한다.
-- 따라서 객체를 생성해야 하는 참조용 클래스는 모두생성자를 가지고 있다.
 
-## 생성자의 정의
-- 생성자는 반환값이 없지만, 반환 타입을 아예 작성하지 않는다.(void로도 적지 않는다.)
-- 생성자는 초기화를 위한 데이터를 인수로 전달받을 수 있다.
 ```java
-접근제어자 클래스명 (매개변수1,매개변수2...){
+클래스명 변수명 = new 클래스명();
+				    ---------
+						↓
+					생성자의 호출
 
-}
 ```
 
-## 생성자의 호출 위치
-- 일반 메서드들과는 다르게, 생성자를 호출하는곳이 정해져있다.
-- 생성자는 클래스를 기반으로 객체를 생성할 때, 객체의 초기화를 담당하는 역할을 하므로 객체를 생성할 때만 호출할 수 있다.
-
-## 생성자 호출 방법
-- 생성자를 호출할 때는 new 키워드를 함께 사용한다.
-```java
-클래스명 객체명 = new 클래스명();
-					  ㄴ 이 메서드가 생성자이다.
-```
-
-## constructer패키지 생성하기
-### Snack 클래스 만들기
-```java
-package constructor;
-
-public class Snack {
-	int price;
-	
-	void info() {
-		System.out.println("과자의 가격은 " + price + "원입니다.");
-	}
-}
-
-```
-### SnackMain클래스 정의
-```java
-package constructor;
-
-public class SnackMain {
-	public static void main(String[] args) {
-		Snack chip = new Snack(); //객체 생성 및 초기화
-		chip.price = 2000; //객체 필드 설정
-		chip.info(); //객체 메서드 호출
-	}
-}
-```
-- 객체의 필드에 데이터를 삽입하고, 메서드를 사용하기 위해 생성자를 통해 객체를 생성하고 사용할 준비를 한다.
-- 하지만 우리는 클래스에 Snack()생성자를 선언한적이 없는데 어떻게 상요할 수 있는것일까??
+- 생성자가 성곡적으로 실행이 끝나면 new 연산자는 객체의 주소를 반환한다.
+- 반환된 주소는 클래스 변수에 대입되어 객체의 필드나 메소드에 접근할 때 이용된다.
 
 ## 기본생성자
-- 자바의 모든 클래스에는 하나 이상의 생성자가 정의되어야 있어야 한다.
-- 클래스를 생성하면서 개발자가 직접 생성자를 선언하지 않았지만, 자바 컴파일러가 기본생성자를 자동으로 제공해주고 있다.
+- 자바의 모든 클래스에는 ```하나 이상의 생성자가 정의```되어야 있어야 한다.
+- 클래스를 생성하면서 개발자가 직접 생성자를 선언하지 않았지만, 자바 컴파일러가 다음과 같은 기본생성자를 자동으로 제공해주고 있다.
+```java
+public 클래스명() { }
+```
 - 다만, 컴파일러의 눈에만 보일 뿐 우리가 보는 코드에는 생략되어 있다.
-
+- 클래스가 public class로 선언되면 기본 생성자도 public이 붙지만, 클래스가 public없이 class로만 선언되면 기본 생성자에도 public이 붙지 않는다.
+- 예를 들어 Car클래스를 설계할 때 생성자를 생략하면 기본생성자가 다음과 같이 생성된다.
 ```java
-package constructor;
+public class Car{
 
-public class Snack {
-	int price;
-	
-	public Snack() { //기본생성자
-					//안에는 텅 비어있음
-	}
-	
-	void info() {
-		System.out.println("과자의 가격은 " + price + "원입니다.");
+}
+
+↓ 컴파일
+
+public class Car{
+
+	public Car(){ //자동 추가
+
 	}
 }
 ```
-- 기본 생성자는 파라미터가 별도로 없으며, 중괄호{}블록 안에 코드가 없는 비어있는 생성자를 말한다.
-- 기본생성자는 개발자기 직접 선언하지 않았을 때만 컴파일러가 자동으로 추가한다.
-- 만약 개발자가 직접 생성자를 선언한다면, 컴파일러는 선언된 생성자를 사용한다.
-
-## 생성자 선언 이유
-- 생성자는 객체를 생성함과 동시에 객체를 초기화 할 수 있다.
-- 생성자를 통해 객체를 초기화한다는 것은 필드와 메서드를 호출하는 등 객체를 사용하기 위해 객체를 메모리에 올린다는 의미이다.
-- 생성자를 통해 객체를 메모리에 올림과 동시에, 더 나아가 객체 멤버에 접근이 가능하므로 일반적인 메서드처럼 객체 멤버의 데이터를 초기화 할 수 있다.
-- 메서드를 호출해서 파라미터에 값을 전달했던 것처럼, **생성자 역시 파라미터를 통해 값을 전달할 수 있다.**
-
-### Snack클래스 코드 추가하기
+- 그렇기 때문에 다음과 같이 new 연산자 뒤에 기본 생성자를 호출할 수 있다.
 ```java
-package constructor;
+Car myCar = new Car();
+				------
+					↓ 
+				기본 생성자의 호출
+```
 
-public class Snack {
-	int price;
-	
-	public Snack(int p) { //기본생성자
-		price = p;
-	}
-	
-	void info() {
-		System.out.println("과자의 가격은 " + price + "원입니다.");
+
+## 생성자 선언
+- 객체를 다양하게 초기화하기 위해 개발자는 생성자를 다음과 같이 직접 선언할 수 있다.
+```java
+접근제어자 클래스명 (매개변수1,매개변수2...){
+	//객체의 초기화 코드
+}
+```
+- 생성자는 반환값이 없지만, 반환 타입을 아예 작성하지 않는다.(void로도 적지 않는다.)
+- 매개변수는 new 연산자로 생성자를 호출할 때 매개값을 생성자 블록 내부로 전달하는 역할을 한다.
+- 예를 들어 다음과 같이 Car 생성자를 호출할 때 3개의 매개값을 블록 내부로 전달한다고 가정해보자.
+```java
+Car myCar = new Car("그랜저","검정",300);
+```
+- 3개의 매개값을 순서대로 매개변수로 대입받기 위해서는 다음과 같이 생성자가 선언되어야 한다.
+```java
+public class Car{
+	//생성자 선언
+	Car(String model, String color, int maxSpeed){
+		...
 	}
 }
 ```
-
+- 매개변수의 타입은 매개값의 종류에 맞게 작성하면 된다.
 ```java
-package constructor;
+package ch06.sec07.exam01;
 
-public class SnackMain {
+public class Car {
+	//생성자 선언
+	Car(String model, String color, int maxSpeed) {
+	}
+}
+```
+```java
+package ch06.sec07.exam01;
+
+public class CarExample {
 	public static void main(String[] args) {
-		Snack chip = new Snack(5000); //객체 생성 및 초기화
-		//chip.price = 2000; //객체 필드 설정
-		chip.info(); //객체 메서드 호출
+		Car myCar = new Car("그랜저", "검정", 250);
+		//Car myCar = new Car();  //기본 생성자 호출 못함
 	}
 }
 ```
-- 생성자를 통해 필드를 초기화 했으므로 chip.price로 필드에 접근하여 값을 주지 않아도 필드에 값이 들어가있음을 확인할 수 있다.
-- 물론 생성자를 통하지 않고 클래스에서 필드를 선언할 때 필드를 초기화할 수도 있다.
 
+## 필드 초기화
+- 객체마다 동일한 값을 갖고 있다면 필드 선언 시 초기값을 대입하는 것이 좋고, 객체마다 다른 값을 가져야 한다면 생성자에서 필드를 초기화 하는 것이 좋다.
+- 예를 들어 Korean 클래스를 선언한다고 가정해보자.
+- 한국인이므로 nation(국가)은 대한민국으로 동일한 값을 갖지만, name(이름)과ssn(주민등록번호)은 한국인마다 다르므로 생성자에서 초기화 하는것이 좋다.
 ```java
-public class Snack{
-	int price = 2000;
-	...
+package ch06.sec07.exam02;
+
+public class Korean {
+	//필드 선언
+	String nation = "대한민국";
+	String name;
+	String ssn;
+
+	//생성자 선언
+	public Korean(String n, String s) {
+	  name = n;
+	  ssn = s;
+	}
 }
 ```
-- 위와 같은 클래스로 객체를 만들 경우 모든 과자의 가격이 2000원으로 생성된다.
-- 과자의 가격이 모두 2000원으로 동일하다면 효과적인 방법일 것이다.
-- 하지만 과자마다 가격이 다르다면 생성자를 통해 가격을 전달하고 객체를 생성하는 것이 더 효율적일 수 있다.
+- 생성자의 매개변수에 들어가는 값은 생성자를 호출할 때 주어진다.
 ```java
-Snack potatoChip = new Snack(2000);
-Snack potatoChip = new Snack(1800);
-```
+package ch06.sec07.exam02;
 
-- 일반적인 메서드와 마찬가지로, 파라미터를 2개 이상 전달할 수 있다.
+public class KoreanExample {
+	public static void main(String[] args) {
+		//Korean 객체 생성
+		Korean k1 = new Korean("박자바", "011225-1234567");
+		//Korean 객체 데이터 읽기
+		System.out.println("k1.nation : " + k1.nation);
+		System.out.println("k1.name : " + k1.name);
+		System.out.println("k1.ssn : " + k1.ssn);
+		System.out.println();
+
+		//또 다른 Korean 객체 생성
+		Korean k2 = new Korean("김자바", "930525-0654321");
+		//또 다른 Korean 객체 데이터 읽기
+		System.out.println("k2.nation : " + k2.nation);
+		System.out.println("k2.name : " + k2.name);
+		System.out.println("k2.ssn : " + k2.ssn);
+	}
+}
+```
+- 위 예제의 Korean 생성자를 보면 매개변수 이름으로 각 n과 s를 사용했다.
+- 매개변수의 이름이 너무 짧으면 가독성이 좋지 않기 때문에 가능하면 초기화시킬 필드명과 동일한 이름을 사용하는 것이 좋다.
+```java
+package ch06.sec07.exam03;
+
+public class Korean {
+	// 필드 선언
+	String nation = "대한민국";
+	String name;
+	String ssn;
+
+	// 생성자 선언
+	public Korean(String name, String ssn) {
+		this.name = name;
+		this.ssn = ssn;
+	}
+}
+```
+- 매개변수명이 필드명과 동일하기 때문에 필드임을 구분하기 위해 this키워드를 필드명 앞에 붙여 주었다.
+- this는 현재 객체를 말하며, this.name은 현재 객체의데이터(필드)로서의 name을 뜻한다.
 
 ## Person 클래스
 ```java
@@ -475,129 +498,536 @@ public class PMain{
 ```
 
 ## 생성자 오버로딩
-- 생성자에 전달할 매개변수가 부족하면 어떤일이 발생할까??
-### Phone 클래스
-```java
-package test3;
-
-public class Phone {
-	String brand;
-	int series;
-	String color = "검정색";
-	
-	public Phone(String b, int s, String c) {
-			brand = b;
-			series = s;
-			color = c;
-	}
-	
-	public void phoneInfo() {
-		System.out.println(color + " " + brand + " " + series);
-	}
-}
-```
-### PhoneMain클래스
-```java
-package test3;
-
-public class PhoneMain {
-	public static void main(String[] args) {
-		Phone p1 = new Phone("갤럭시",1,"흰색");
-		Phone p2 = new Phone("아이폰",1);
-	}
-}
-```
-- 생성자에 전달할 매개변수가 부족하면, 객체를 생성할 수 없다.
-- 선언된 생성자의 형태에 맞게 매개변수를 전달해 줘야 하기 때문이다.
-- 클래스 내부에 선언된 필드의 기본값을 그대로 사용하고 싶다면 파라미터가 부족하다고 생성하지 못할 이유가 없어야 한다.
-- 이 경우 자바에서는 생성자를 여러 개 선언하는 것을 허용하고 있다.
-- 외부에서 제공할 수 있는 데이터만큼만 매개변수로 전달하여 객체를 생성할 수 있다.
-- 생성자를 다양한 형태로 선언하는 것을 '생성자 오버로딩'이라고 한다.
+- 매개값으로 객체의 필드를 다양하게 초기화하려면 생성자 오버로딩이 필요하다.
+- 생성자 오버로딩이란 매개변수를 달리하는 생성자를 여러 개 선언하는 것을 말한다.
 
 ### 오버로딩 규칙
 1. 매개변수의 개수가 다를 때
 2. 매개변수의 개수가 같아도 자료형이 다를 때
 3. 생성자나 메서드의 이름은 그대로 사용해야 한다.
 
-
-### Phone클래스에 코드추가하기
 ```java
-package test3;
+public class Car{
+	Car(){ ... }
+	Car(String model){ ... }
+	Car(String model, String color) { ... }
+	Car(String model, String color, int maxSpeed) { ... }
+}
+```
+- 매개변수의 타입과 개수 그리고 선언된 순서가 똑같을 경우 매개변수 이름만 바꾸는 것은 생성자 오버로딩이 아니다.
+```java
+Car(String model, String color) { ... }
+Car(String color, String model) { ... } //오버로딩이 아님 컴파일 에러 발생
+```
 
-public class Phone {
-	String brand;
-	int series;
-	String color = "검정색";
+```java
+package ch06.sec07.exam04;
 
-	public Phone(String b, int s) {
-		brand = b;
-		series = s;
+public class Car {
+	//필드 선언
+	String company = "현대자동차";
+	String model;
+	String color;
+	int maxSpeed;
+	
+	//생성자 선언
+	Car() {}
+	
+	Car(String model) { 
+		this.model = model; 
 	}
-
-	public Phone(String b, int s, String c) {
-		brand = b;
-		series = s;
-		color = c;
+	
+	Car(String model, String color) {
+		this.model = model;
+		this.color = color;
 	}
-
-	public void phoneInfo() {
-		System.out.println(color + " " + brand + " " + series);
+	
+	Car(String model, String color, int maxSpeed) {
+		this.model = model;
+		this.color = color;
+		this.maxSpeed = maxSpeed;
 	}
 }
 ```
-
-## 여러개의 생성자를 선언해보기
-### Book 클래스
 ```java
-package test3;
+package ch06.sec07.exam04;
 
-public class Book {
-	String title = "제목없음";
-	int series = 1;
-	int page = 100;
-	
-	public Book() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public Book(String t) {
-		title = t;
-	}
-	public Book(String t, int p) {
-		title = t;
-		page = p;
-	}
-	public Book(int s, String t) {
-		series = s;
-		title = t;
-	}
-}
-```
-### BookMain클래스
-```java
-package test3;
-
-public class BookMain {
+public class CarExample {
 	public static void main(String[] args) {
-		Book b1 = new Book();
-		System.out.println("b1.title : " + b1.title);
-		System.out.println("b1.series : " + b1.series);
-		System.out.println("b1.page : " + b1.page);
+		Car car1 = new Car();
+		System.out.println("car1.company : " + car1.company);
+		System.out.println();
+
+		Car car2 = new Car("자가용");
+		System.out.println("car2.company : " + car2.company);
+		System.out.println("car2.model : " + car2.model);
+		System.out.println();
 		
-		Book b2 = new Book("멘토시리즈 자바");
-		System.out.println("b2.title : " + b2.title);
-		System.out.println("b2.series : " + b2.series);
-		System.out.println("b2.page : " + b2.page);
+		Car car3 = new Car("자가용", "빨강");
+		System.out.println("car3.company : " + car3.company);
+		System.out.println("car3.model : " + car3.model);
+		System.out.println("car3.color : " + car3.color);
+		System.out.println();
 		
-		Book b3 = new Book("신데렐라",170);
-		System.out.println("b3.title : " + b3.title);
-		System.out.println("b3.series : " + b3.series);
-		System.out.println("b3.page : " + b3.page);
+		Car car4 = new Car("택시", "검정", 200);
+		System.out.println("car4.company : " + car4.company);
+		System.out.println("car4.model : " + car4.model);
+		System.out.println("car4.color : " + car4.color);
+		System.out.println("car4.maxSpeed : " + car4.maxSpeed);
+	}
+}
+```
+### 다른 생성자 호출
+- 생성자 오버로딩이 많아질 경우 생성자 간의 중복된 코드가 발생할 수 있다.
+- 매개변수의 수만 달리하고 필드 초기화 내용이 비슷한 생성자에서 이러한 중복 코드를 많이 볼 수 있다.
+```java
+Car(String model){
+	this.model = model;
+	this.color = "은색";
+	this.maxSpeed = 250;
+}
+
+Car(String model, String color){
+	this.model = model;
+	this.color = color;
+	this.maxSpeed = 250;
+}
+
+Car(String model, String color, int maxSpeed){
+	this.model = model;
+	this.color = color;
+	this.maxSpeed = maxSpeed;
+}
+```
+- 이 경우에는 공통 코드를 한 생성자에만 집중적으로 작성하고, 나머지 생성자는 this(...)를 사용하여 공통 코드를 가지고 있는 생성자를 호출하는 방법으로 개선할 수 있다.
+```java
+Car(String model){
+	this(model,"은색",250);
+}
+
+Car(String model, String color){
+	this(model,color,250);
+}
+
+Car(String model, String color, int maxSpeed){
+	this.model = model;
+	this.color = color;
+	this.maxSpeed = maxSpeed;
+}
+```
+```java
+package ch06.sec07.exam05;
+
+public class Car {
+	// 필드 선언
+	String company = "현대자동차";
+	String model;
+	String color;
+	int maxSpeed;
+	
+	Car(String model) {
+		//20라인 생성자 호출
+		this(model, "은색", 250);
+	}
+
+	Car(String model, String color) {
+		//20라인 생성자 호출
+		this(model, color, 250);
+	}
+
+	Car(String model, String color, int maxSpeed) {
+		this.model = model;
+		this.color = color;
+		this.maxSpeed = maxSpeed;
+	}
+}
+
+package ch06.sec07.exam05;
+
+public class CarExample {
+	public static void main(String[] args) {
+		Car car1 = new Car("자가용");
+		System.out.println("car1.company : " + car1.company);
+		System.out.println("car1.model : " + car1.model);
+		System.out.println();
+
+		Car car2 = new Car("자가용", "빨강");
+		System.out.println("car2.company : " + car2.company);
+		System.out.println("car2.model : " + car2.model);
+		System.out.println("car2.color : " + car2.color);
+		System.out.println();
 		
-		Book b4 = new Book(5,"노인과 바다");
-		System.out.println("b4.title : " + b4.title);
-		System.out.println("b4.series : " + b4.series);
-		System.out.println("b4.page : " + b4.page);
+		Car car3 = new Car("택시", "검정", 200);
+		System.out.println("car3.company : " + car3.company);
+		System.out.println("car3.model : " + car3.model);
+		System.out.println("car3.color : " + car3.color);
+		System.out.println("car3.maxSpeed : " + car3.maxSpeed);
+	}
+}
+```
+
+# 메서드
+
+## 메서드 선언과 호출
+- 메소드 선언은 객체의 동작을 실행하는 블록으로 정의하는 것을 말하고, 메소드 호출은 실행 블록을 실제로 실행하는 것을 말한다.
+- 메소드는 객체 내부에서도 호출되지만 다른 객체에서도 호출될 수 있기 때문에 객체 간의 상호작용 방법을 정의하는 것이라고 볼 수 있다.
+
+### 메서드 선언
+- 메서드는 크게 선언부(signature)와 실제 영역(body)로 구성되어 있다.
+```java
+접근 제한자 반환타입 메서드명(){
+	//기능을 수행하는 코드
+}
+```
+#### 반환타입(return Type)
+- 메서드를 호출하면 메서드는 블록 안에 있는 코드들을 실행한 후 결과값을 반환한다.
+- 이때 결과값을 어떤타입으로 반환할것인지 미리 정해주는것이다.
+- 반환값이 없는 경우 타입으로 'void'를 쓰면 된다.
+```java
+void powerOn() { ... } //리턴값이 없는 메소드 선언
+double divide(int x, int y) { ... } //double 타입 값을 리턴하는 메소드 선언
+```
+
+#### 메서드명(함수명)
+- 메서드명은 말그대로 메서드의 이름(첫글자는 소문자로 시작한다.)
+- 메서드를 호출할 때 사용한다.
+```java
+void run() { ... }
+void setSpeed(int speed) { ... }
+String getName() { ... }
+```
+
+#### 매개변수
+- 메소드를 호출할 때 전달한 매개값을 받기 위해 사용된다.
+- 다음 예에서 divide() 메소드는 연산할 두 수를 전달받아야 하므로 매개변수가 2개 필요하다.
+- 전달할 매개값이 없다면 매개변수는 생략할 수 있다.
+
+```java
+double divide(int x, int y) { ... }
+```
+- 매개변수는 '매개변수의 자료형'과'매개 변수명'으로 선언할 수 있다.
+```java
+				  int number;
+전달받을 값의 자료형 ┘ 	  └ 메서드 안에서 사용할 이름
+
+```
+#### 실행블록
+- 메소드 호출 시 실행되는 부분이다.
+```java
+package ch06.sec08.exam01;
+
+public class Calculator {
+	//리턴값이 없는 메소드 선언
+	void powerOn() {
+		System.out.println("전원을 켭니다.");
+	}
+
+	//리턴값이 없는 메소드 선언
+	void powerOff() {
+		System.out.println("전원을 끕니다.");
+	}
+
+	//호출 시 두 정수 값을 전달받고,
+	//호출한 곳으로 결과값 int를 리턴하는 메소드 선언
+	int plus(int x, int y) {
+		int result = x + y;
+		return result; //리턴값 지정;
+	}
+
+	//호출 시 두 정수 값을 전달받고,
+	//호출한 곳으로 결과값 double을 리턴하는 메소드 선언
+	double divide(int x, int y) {
+		double result = (double)x / (double)y;
+		return result; //리턴값 지정;
+	}
+}
+```
+### 메소드의 호출
+- 메소드를 호출한다는 것은 <b style="color:red">메소드 블록을 실행</b>하는 것을 말한다.
+- 클래스에서 메소드를 선언했다고해서 바로 호출할 수 있는 것은 아니다.
+- 메소드는 객체의 동작이므로 <b style="color:red">객체가 존재하지 않으면 메소드를 호출할 수 없다.</b>
+- 클래스로부터 객체가 생성된 후에 <b style="color:red">메소드는 생성자와 다른 메소드 내부에서 호출될 수 있고, 객체 외부에서도 호출될 수 있다.</b>
+- 객체 내부에서는 단훈시 메소드명으로 호출하면 되지만, 외부 객체에서는 참조 변수와 도트( . )연산자를 이용해서 호출한다.
+- 또한 메소드가 매개변수를 가지고 있을 때는 호출할 때 매개변수의 타입과 수에 맞게 매개값을 제공해야 한다.
+- 메소드가 리턴값이 있을 경우에는 대입 연산자를 사용해서 다음과 같이 리턴값을 변수에 저장할 수 있다.
+
+	<br>
+
+	```java
+	타입 변수 = 메소드();
+	```
+	<br>
+
+```java
+package ch06.sec08.exam01;
+
+public class CalculatorExample {
+	public static void main(String[] args) {
+		//Calculator 객체 생성
+		Calculator myCalc = new Calculator();
+		
+		//리턴값이 없는 powerOn() 메소드 호출
+		myCalc.powerOn();
+
+		//plus 메소드 호출 시 5와 6을 매개값으로 제공하고,
+		//덧셈 결과를 리턴 받아 result1 변수에 대입
+		int result1 = myCalc.plus(5, 6);
+		System.out.println("result1: " + result1);
+
+		int x = 10;
+		int y = 4;
+		//divide() 메소드 호출 시 변수 x와 y의 값을 매개값으로 제공하고,
+		//나눗셈 결과를 리턴 받아 result2 변수에 대입
+		double result2 = myCalc.divide(x, y);
+		System.out.println("result2: " + result2);
+
+		//리턴값이 없는 powerOff() 메소드 호출
+		myCalc.powerOff();
+	}
+}
+```
+### 가변길이 매개변수
+- 메소드를 호출할 때에는 매개변수의 개수에 맞게 매개값을 제공해야 한다.
+- 만약 메소드가 가변길이 매개변수를 가지고 있다면 매개변수의 개수와 상관없이 매개값을 줄 수 있다.
+- 가변길이 매개변수는 다음과 같이 선언한다.
+```java
+int sum(int ... values){
+
+}
+```
+- 가변 길이 매개변수는 메소드 호출 시 매개값을 쉼표로 구분해서 개수와 상관없이 제공할 수 있다.
+```java
+int result = sum(1,2,3);
+int result = sum(1,2,3,4,5);
+```
+- 매개값들은 자동으로 배열 항목으로 변환되어 메소드에서 사용된다.
+```java	
+int[] values = {1,2,3};		
+int result = sum(values);
+
+int result = sum(new int[] {1,2,3});
+```
+
+<br>
+
+```java
+package ch06.sec08.exam02;
+
+public class Computer {
+	//가변길이 매개변수를 갖는 메소드 선언
+	int sum(int ... values) {
+		//sum 변수 선언
+		int sum = 0;
+		
+		//values는 배열 타입의 변수처럼 사용
+		for (int i = 0; i < values.length; i++) {
+			sum += values[i];
+		}
+
+		//합산 결과를 리턴
+		return sum;
+	}
+}
+
+package ch06.sec08.exam02;
+
+public class ComputerExample {
+	public static void main(String[] args) {
+		//Computer 객체 생성
+		Computer myCom = new Computer();
+
+		//sum() 메소드 호출 시 매개값 1, 2, 3을 제공하고
+		//합산 결과를 리턴 받아 result1 변수에 대입
+		int result1 = myCom.sum(1, 2, 3);
+		System.out.println("result1: " + result1);
+
+		//sum() 메소드 호출 시 매개값 1, 2, 3, 4, 5를 제공하고
+		//합산 결과를 리턴 받아 result2 변수에 대입
+		int result2 = myCom.sum(1, 2, 3, 4, 5);
+		System.out.println("result2: " + result2);
+
+		//sum() 메소드 호출 시 배열을 제공하고
+		//합산 결과를 리턴 받아 result3 변수에 대입
+		int[] values = { 1, 2, 3, 4, 5 };
+		int result3 = myCom.sum(values);
+		System.out.println("result3: " + result3);
+
+		//sum() 메소드 호출 시 배열을 제공하고
+		//합산 결과를 리턴 받아 result4 변수에 대입
+		int result4 = myCom.sum(new int[] { 1, 2, 3, 4, 5 });
+		System.out.println("result4: " + result4);
+	}
+}
+```
+
+### return
+- return 문은 메소드의 실행을 강제 종료하고 호출한 곳으로 돌아간다는 의미이다.
+- 메소드 선언에 반환타입이 있을 경우에는 return문 뒤에 리턴값을 추가로 지정해야 한다.
+
+```java
+접근제한자 반환타입 메서드명(){
+	//기능을 수행할 코드들
+	...
+	return 리턴값;
+}
+```
+- return 문 이후에 실행문을 작성하면 'Unreachable code'라는 컴파일 에러가 발생한다.
+- 왜냐하면 return문 이후의 실행문은 결코 실행되지 않기 때문이다.
+```java
+int plus(int x, int y){
+	int result = x + y;
+	return result;
+	//System.out.println(result) Unreachable code
+}
+```
+- 하지만 다음과 같은 경우에는 컴파일 에러가 발생하지 않는다.
+```java
+boolean isLeftGas(){
+	if(gas == 0){
+		System.out.println("gas가 없습니다."); // 1
+		return false;
+	}
+	System.out.println("gas가 있습니다."); // 2
+	return true;
+}
+```
+- if 문의 조건식이 false가 되면 정상적으로 2가 실행되기 때문에 2는 'Unreachable code'에러를 발생시키지 않는다.
+- if문의 조건식이 true가 되면 1이 실행되고 return false가 실행되어 메소드는 즉시 종료되므로 당연히 2는 실행되지 않는다.
+
+<br>
+
+```java
+package ch06.sec08.exam03;
+
+public class Car {
+	//필드 선언
+	int gas;
+
+	//리턴값이 없는 메소드로 매개값을 받아서 gas 필드값을 변경
+	void setGas(int gas) {
+		this.gas = gas;
+	}
+
+	//리턴값이 boolean인 메소드로 gas 필드값이 0이면 false를, 0이 아니면 true를 리턴
+	boolean isLeftGas() {
+		if (gas == 0) {
+			System.out.println("gas가 없습니다.");
+			return false; // false를 리턴하고 메소드 종료
+		}
+		System.out.println("gas가 있습니다.");
+		return true; // true를 리턴하고 메소드 종료
+	}
+
+	//리턴값이 없는 메소드로 gas 필드값이 0이면 return 문으로 메소드를 종료
+	void run() {
+		while (true) {
+			if (gas > 0) {
+				System.out.println("달립니다.(gas잔량:" + gas + ")");
+				gas -= 1;
+			} else {
+				System.out.println("멈춥니다.(gas잔량:" + gas + ")");
+				return; // 메소드 종료
+			}
+		}
+	}
+}
+```
+<br>
+
+```java
+package ch06.sec08.exam03;
+
+public class CarExample {
+	public static void main(String[] args) {
+		//Car 객체 생성
+		Car myCar = new Car();
+
+		//리턴값이 없는 setGas() 메소드 호출
+		myCar.setGas(5);
+
+		//isLeftGas() 메소드를 호출해서 받은 리턴값이 true일 경우 if 블록 실행
+		if(myCar.isLeftGas()) {
+			System.out.println("출발합니다.");
+			
+			//리턴값이 없는 run() 메소드 호출
+			myCar.run();
+		}
+		
+		System.out.println("gas를 주입하세요.");
+	}
+}
+```
+
+### 메소드 오버로딩
+- 생성자 오버로딩과 같이 매개변수의 타입, 개수, 순서가 다른 메소드를 여러 개 선언하는 것을 말한다.
+```
+class 클래스 {
+	리턴 타입	메소드명	(타입 변수, ...) {...}
+		↕		↕			↕
+	  무관		동일		타입,개수,순서가 다른 메소드를 여러개 선언
+		↕		↕			↕
+	리턴 타입	메소드명	(타입 변수, ...) {...}
+}
+```
+- 메소드 오버로딩의 목적은 다양한 매개값을 처리하기 위해서이다.
+- 다음 예에서 plus() 메소드는 두 개의 int 타입 매개값만 처리하고 double 타입 매개 값은 처리할 수 없다.
+```java
+int plus(int x, int y){
+	int result = x + y;
+	return result;
+}
+```
+- 만약 double 타입 값도 처리하고 싶다면 다음과 같이 plus()메소드를 오버로딩하면 된다.
+```java
+int plus(double x, double y){
+	double result = x + y;
+	return result;
+}
+```
+- 메소드 오버로딩의 대표적인 예는 콘솔에 출력하는 System.out.println()메소드로, 호출할 때 주어진 매개값의 타입에 따라서 오버로딩된 println() 메소드 중 하나를 실행한다.
+
+```java
+void println() { ... }
+void println(double x) { ... }
+void println(int x) { ... }
+void println(String x) { ... }
+```
+
+<br>
+
+```java
+package ch06.sec08.exam04;
+
+public class Calculator {
+	//정사각형의 넓이
+	double areaRectangle(double width) {
+		return width * width;
+	}
+	
+	//직사각형의 넓이
+	double areaRectangle(double width, double height) {
+		return width * height;
+	}
+}
+```
+<br>
+
+```java
+package ch06.sec08.exam04;
+
+public class CalculatorExample {
+	public static void main(String[] args) {
+		//객체 생성
+		Calculator myCalcu = new Calculator();
+
+		//정사각형의 넓이 구하기
+		double result1 = myCalcu.areaRectangle(10);
+		
+		//직사각형의 넓이 구하기
+		double result2 = myCalcu.areaRectangle(10, 20);
+
+		System.out.println("정사각형 넓이=" + result1);
+		System.out.println("직사각형 넓이=" + result2);
 	}
 }
 ```
@@ -803,9 +1233,7 @@ Student stu1 = new Student();
 System.out.println(stu1.schoolName);
 ```
 
-# 메서드
-- 클래스 안에서 특정 기능을 수행하기 위해 코드들을 따로 하나의 블록으로 묶어놓은 집합을 말한다.
-- 필요에 따라 이 집합을 호출해 사용할 수 있다.
+
 
 ## 메서드 사용의 이점
 - 메서드를 구현함으로써, 같은 내용의 코드를 반복적으로 사용하는 것을 피할 수 있다. 
@@ -813,13 +1241,7 @@ System.out.println(stu1.schoolName);
 - 코드의 집합을 따로 분리하는것을 "모듈화"라고 한다.
 - 모듈화를 하면 코드를 읽을 때 가독성이 좋아지며, 프로그램을 수정할 때 더욱 빠르고 쉽게 할 수 있다.
 
-## 메서드 선언
-- 메서드는 크게 선언부(signature)와 실제 영역(body)로 구성되어 있다.
-```java
-접근 제한자 반환타입 메서드명(){
-	//기능을 수행하는 코드
-}
-```
+
 
 ### 접근제한자
 - 접근제한자는 클래스/메서드/필드에 대한 접근을 어디범위까지 제한하느냐에 대한 지시어이다.
@@ -828,14 +1250,9 @@ System.out.println(stu1.schoolName);
 3. protected : 상속관계의 객체들에만 사용을 허가.
 4. default : 같은 패키지(폴더)내의 객체에만 사용을 허가(아무것도 쓰지 않으면 default)
 
-### 반환타입(return Type)
-- 메서드를 호출하면 메서드는 블록 안에 있는 코드들을 실행한 후 결과값을 반환한다.
-- 이때 결과값을 어떤타입으로 반환할것인지 미리 정해주는것이다.
-- 반환값이 없는 경우 타입으로 'void'를 쓰면 된다.
 
-### 메서드명(함수명)
-- 메서드명은 말그대로 메서드의 이름(첫글자는 소문자로 시작한다.)
-- 메서드를 호출할 때 사용한다.
+
+
 ### Method01클래스 생성
 ```java
 package method;
@@ -932,22 +1349,6 @@ public class JoggerMain {
 run run run!!
 ```
 
-
-### 매개변수
-- 특정 기능을 수행하기 위한 메서드는 기능을 수행할 때 사용할 값(인수)를 전달받을 수 있다.
-- 매개변수는 사용할 값을 받는 변수이다.
-
-```java
-접근제한자 반환타입 메서드명(자료형 변수명){
-	//기능을 수행할 코드
-}
-```
-- 매개변수는 '매개변수의 자료형'과'매개 변수명'으로 선언할 수 있다.
-```java
-				  int number;
-전달받을 값의 자료형 ┘ 	  └ 메서드 안에서 사용할 이름
-
-```
 ### Book클래스 생성하기
 ```java
 package test3;
@@ -1070,21 +1471,7 @@ public class CalcMain {
 }
 ```
 
-### return
-- 함수에서 모든 작업을 마치고 경우에 따라 실행한 결과를 호출한곳으로 다시 돌려주기도 한다.
-- 이것을 '반환한다'라고 표현한다
-- 반환하는 결과값을 '반환값'이라고 부르기도 한다.
-- 리턴값이 있을 경우에는 리턴할 데이터의 타입이 무엇인지 반환형에 기재해줘야 한다.
-- 리턴값이 없는 경우 메서드를 종료하기 위해 return을 사용할 수 있다.
-```
-접근제한자 반환타입 메서드명(){
-	//기능을 수행할 코드들
-	...
-	return 결과값;
-}
-```
-- 매개변수와 마찬가지로 리턴값의 자료형은 제한이 없다.
-- 자바에서 사용하는 모든 자료형을 반환타입으로 사용할 수 있다.
+
 
 ### Calc클래스 수정하기
 ```java
@@ -1365,49 +1752,4 @@ public class CarTest {
 	}
 }
 
-```
-
-
-# 메서드 오버로드
-- 오버로드은 메서드의 '중복정의' 라고 하며, 하나의 클래스 내에서 같은 이름을 가진 메서드(함수)가 여러개 정의되는 것을 말한다.
-- 메서드들을 같은 이름으로 작업할 수 있다는 의미이다.
-
-```java
-public class Overload {
-  
-	public void result() {
-		System.out.println("인자가 없는 메서드");
-		//return; 강제로 끝내고 싶을 때는 return을 써도 됨.
-		// 대신 void 일때는 return에 아무 값도 실을 수 없음 사실 void일때는 return을 쓰는 경우도 거의 없고 쓸 필요도 없음
-	}
-
-	//메서드 이름이 같기 때문에 오류가 나는게 당연하다.
-	pulic void result( int n ) {
-		System.out.println("정수를 인자로 받는 메서드");
-	}
-	public void result( char n) {
-		System.out.println("문자를 인자로 받는 메서드");
-	}
-	public void result( String s, int n) {
-		System.out.println("문자열, 정수를 인자로 받는 메서드");
-	}
-
-	public void result( int n, String s) {
-		System.out.println("정수, 문자열을 인자로 받는 메서드");
-	}
-}
-```	
-
-```java
-public class OverloadingMain {
-	public static void main(String[] args) {
-
-	Ex1_Overload ov = new Ex1_Overload();
-	ov.result();
-	ov.result(10);
-	ov.result('A'); //인자를 char로 받으면 65를 넣어도 'A'가 출력되긴함.
-	ov.result("hi",10);
-	ov.result(10,"hi");
-  }
-}
 ```
