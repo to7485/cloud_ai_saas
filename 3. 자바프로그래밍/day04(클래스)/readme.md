@@ -1032,216 +1032,479 @@ public class CalculatorExample {
 }
 ```
 
-# this와 this()
-- 변수명을 지을 때, 최대한 구체적이고 명확하게 작명하는 것이 보다 효율적인 코드를 작성하는데 도움이 된다는 것을 알고있다.
-- 함수나 생성자에서 매개변수는 클래스의 필드보다 우선순위가 높아서, 대입연산자를 기준으로 왼쪽/오른쪽 변수 모두 매개변수를 뜻하게 된다.
-- 매개변수에 매개변수를 넣는 의미없는 코드가 된다.
-- 이러한 상황을 해결하기 위해 this키워드를 사용한다.
+## 인스턴스 멤버
+- 필드와 메소드는 선언 방법에 따라 인스턴스 멤버와 정적 멤버로 분류할 수 있다.
+- 인스턴스 멤버로 선언되면 객체 생성 후 사용할 수 있고, 정적 멤버로 선언되면 객체 생성 없이도 사용할 수 있다.
 
-## this
-- 객체 자기 자신 스스로 참조
-- this 참조 변수는 객체가 자기 자신을 참조하는데 사용하는 변수이다.
+|구분|설명|
+|----|----|
+|인스턴스(instance)멤버|객체에 소속된 멤버(객체를 생성해야만 사용할 수 있는 멤버)|
+|정적(static멤버|클래스에 고정인 멤버(객체 없이도 사용할 수 있는 멤버)|
+
+### 인스턴스 멤버 선언 및 사용
+- 인스턴스 멤버란 객체에 소속된 멤버를 말한다.
+- 따라서 <span style="color:red">객체가 있어야만 사용할 수 있는 멤버다.</b>
+- 우리가 지금까지 선언한 필드와 메서드를 멤버라고 할 수 있다.
+```java
+public class Car{
+	//인스턴스 필드 선언
+	int gas;
+
+	//인스턴스 메소드 선언
+	void setSpeed(int speed) { ... }
+}
+```
+- gas 필드와 setSpeed() 메소드는 인스턴스 멤버이기 때문에 외부 클래스에서 사용하기 위해서는 Car객체를 먼저 생성하고 참조변수로 접근해서 사용해야 한다.
+```java
+Car myCar = new Car();
+myCar.gas = 10;
+myCar.setSpeed(60);
+
+Car yourCar = new Car();
+myCar.gas = 20;
+myCar.setSpeed(80);
+```
+- gas 필드는 객체마다 따로 존재하며, setSpeed()메소드는 각 객체마다 존재하지 않고 메소드영역에 저장되고 공유된다.
+- 메소드는 코드의 덩어리이므로 <b style="color:red">객체마다 저장한다면 중복 저장으로 인해 메모리 효율이 떨어진다.</b>
+- 따라서 <b style="color:red">메소드 코드는 메소드 영역에 두되 공유해서 사용</b>하고, 이때 <b style="color:red">객체 없이는 사용하지 못하도록 제한</b>을 걸어둔 것이다.
+
+
+### this
+- 우리가 자신을 '나'라고 하듯이, <b style="color:red">객체는 자신을 'this'라고 한다.</b>
+- 생성자와 메소드의 매개변수명이 인스턴스 멤버인 필드명과 동일한 경우, 인스턴스 필드임을 강조하고자 할 때 this를 주로 사용한다.
 - this를 필드에 붙여서 사용하면, 중괄호{}안에서도 같은 이름의 매개변수와 필드를 구분해서 사용할 수 있다.
 ```java
 this.필드 = 매개변수명;
 ```
 
-### Student.java
 ```java
-package test3;
+package ch06.sec09;
 
-public class Student {
-	String name;
-	int age;
-	int studentID;
+public class Car {
+	//필드 선언
+	String model;
+	int speed;
+
+	//생성자 선언
+	Car(String model) {
+		this.model = model; //매개변수를 필드에 대입(this 생략 불가)
+	}
 	
-	public Student(String name, int age, int studentID) {
-		this.name = name;
-		this.age = age;
-		this.studentID = studentID;
-	}
-}
-
-```
-
-## this()
-- 현재 클래스에 선언되어있는 생성자를 가리킬 수 있는 키워드이다.
-
-### this(매개변수1,매개변수2)
-- this()메서드는 같은 클래스 안에 있는 생성자 중 매개변수의 개수, 자료형, 순서에 맞는 다른 생성자를 호출하는 메서드로 생성자 내부에서만 사용할 수 있다.
-
-### Phone.java
-```java
-package test3;
-
-public class Phone {
-	String brand;
-	int series;
-	String color = "검정색";
-
-	public Phone(String b, int s) {
-		brand = b;
-		series = s;
+	//메소드 선언
+	void setSpeed(int speed) {
+		this.speed = speed; //매개변수를 필드에 대입(this 생략 불가)
 	}
 
-	public Phone(String b, int s, String c) {
-		//brand = b;
-		//series = s;
-		this(b,s); //this()는 첫줄에서만 사용할 수 있다.
-		color = c;
-	}
-
-	public void phoneInfo() {
-		System.out.println(color + " " + brand + " " + series);
+	void run() {
+		this.setSpeed(100);
+		System.out.println(this.model + "가 달립니다.(시속:" + this.speed + "km/h)");
 	}
 }
 ```
 
+<br>
 
-## 정적 멤버와 static
-- 클래스 안에서 선언된 필드와 메서드를 클래스 멤버라고도 부른다.
-- 클래스에 포함된 요소라는 의미로 '멤버'라는 용어를 사용한다.
-#### 모든 객체가 동일한 값을 가져야할 때 각 객체의 멤버로 만들어야 할까???
-
-### Family클래스 생성하기
 ```java
-package member;
+package ch06.sec09;
 
-public class Family { //클래스 선언
-	String name; //구성원 이름
-	int age; //구성원 나이
-	String address = "서울";//구성원 주소
-}
-```
-
-### FamilyMain클래스 생성하기
-```java
-package member;
-
-public class FamilyMain {
+public class CarExample {
 	public static void main(String[] args) {
-		Family father = new Family();
-		Family son = new Family();
+		Car myCar = new Car("포르쉐");
+		Car yourCar = new Car("벤츠");
+
+		myCar.run();
+		yourCar.run();
+	}
+}
+```
+
+## 정적 멤버 (static)
+- 자바는 클래스 로더(loader)를 이용해서 클래스를 메소드 영역에 저장학 사용한다.
+- 정적 멤버란 메소드 영역의 <b style="color:red">클래스에 고정적으로 위치하는 멤버를 말한다.</b>
+- 그렇기 때문에 정적 멤버는 객체를 생성할 필요 없이 클래스를 통해 바로 사용이 가능하다.
+
+### 정적 멤버 선언
+- 필드와 메소드는 모두 정적 멤버가 될 수 있다.
+- 정적 필드와 메소드로 선언하려면 <b style="color:red">static키워드를 추가하면 된다.</b>
+```java
+public class 클래스{
+	//정적 필드 선언
+	static 타입 필드 [= 초기값];
+
+	//정적 메소드
+	static 리턴타입 메소드명(매개변수, ...){ ... }
+}
+```
+- 객체마다 가지고 있을 필요성이 없는 공용적인 필드는 정적필드로 선언하는 것이 좋다.
+- 정적필드나 메서드는 자바의 메모리 영역중 static 영역에 저장되기 때문이다.
+- static영역은 프로그램 실행 시 <b style="color:red">딱 하나만 생성되어 모든 객체가 공유한다.</b>
+
+```java
+public class Calculator{
+	String color;	//계산기별로 색깔이 다를 수 있다.
+	static double pi = 3.14159; //계산기에서 사용하는 파이값은 동일하다.
+}
+```
+- 인스턴스 필드를 이용하지 않는 메소드는 정적 메소드로 선언하는 것이 좋다.
+
+```java
+public class Calculator{
+	String color;
+	void setColor(String color) {this.color = color;}
+	static int plus(int x, int y) {return x + y;} //정적 메소드
+	static int minus(int x, int y) {return x - y;} //정적 메소드
+}
+```
+
+### 정적 멤버 사용
+- 클래스가 메모리로 로딩되면 정적 멤버를 바로 사용할 수 있는데, 클래스 이름과 함께 도트( . ) 연산자로 접근하면 된다.
+```java
+public class Calculator{
+	static double pi = 3.14159;
+	static int plus(int x, int y) {return x + y;} //정적 메소드
+	static int minus(int x, int y) {return x - y;} //정적 메소드
+}
+```
+- 정적 필드 pi와 정적 메소드 plus(), minus()는 다음과 같이 사용할 수 있다.
+```java
+double result1 = 10 * 10 * Calculator.pi;
+int result2 = Calculator.plus(10,5);
+int result3 = Calculator.minus(10,5);
+```
+```java
+package ch06.sec10.exam01;
+
+public class Calculator {
+	static double pi = 3.14159;
+
+	static int plus(int x, int y) {
+		return x + y;
+	}
+	
+	static int minus(int x, int y) {
+		return x - y;
+	}
+}
+
+package ch06.sec10.exam01;
+
+public class CalculatorExample {
+	public static void main(String[] args) {
+		double result1 = 10 * 10 * Calculator.pi;
+		int result2 = Calculator.plus(10, 5);
+		int result3 = Calculator.minus(10, 5);
+
+		System.out.println("result1 : " + result1);
+		System.out.println("result2 : " + result2);
+		System.out.println("result3 : " + result3);
+	}
+}
+```
+### 정적 블록
+- 정적 필드는 다음과 같이 필드 선언과 동시에 초기값을 주는 것이 일반적이다.
+```java
+static double pi = 3.14159;
+```
+- 하지만 복잡한 초기화 작업이 필요하다면 정적 블록을 이용해야 한다.
+```java
+static {
+
+}
+```
+- 정적 블록은 클래스가 <b style="color:red">메모리로 로딩될 때 단 한 번 실행된다.</b>
+- 정적 블록이 클래스 내부에 여러 개가 선언되어 있을 경우에는 선언된 순서대로 실행된다.
+
+```java
+package ch06.sec10.exam02;
+
+public class Television {
+	static String company = "MyCompany";
+	static String model = "LCD";
+	static String info;
+
+	static {
+		System.out.println("정적 블록 실행됨!");
+		info = company + "-" + model;
+		}
+}
+
+package ch06.sec10.exam02;
+
+public class TelevisionExample {
+	public static void main(String[] args) {
+		System.out.println(Television.info);
+		}	
+}
+```
+
+### 인스턴스 멤버 사용 불가
+- 정적 메소드와 정적 블록은 객체가 없어도 실행된다는 특징 때문에 내부에 인스턴스 필드나 인스턴스 메소드를 사용할 수 없다.
+- 또한 객체 자신의 참조인 this도 쓸 수 없다.
+- main()메소드 또한 정적 메소드이므로 객체 생성 없이 인스턴스 필드와 인스턴스 메소드를 main()메소드에서 바로 사용할 수 없다.
+
+```java
+package ch06.sec10.exam03;
+
+public class Car {
+	//인스턴스 필드 선언
+	int speed;
+
+	//인스턴스 메소드 선언
+	void run() {
+		System.out.println(speed + "으로 달립니다.");
+	}
+
+	static void simulate() {
+		//객체 생성
+		Car myCar = new Car();
+		//인스턴스 멤버 사용
+		myCar.speed = 200;
+		myCar.run();
+	}
+
+	public static void main(String[] args) {
+		//정적 메소드 호출
+		simulate();
 		
-		father.address = "인천";
-		System.out.println(son.address);
+		//객체 생성
+		Car myCar = new Car();
+		//인스턴스 멤버 사용
+		myCar.speed = 60;
+		myCar.run();
 	}
 }
-결과 : 서울
-```
-- 같은 집으로 함께 이사를 한 가족이라도 하나의 객체의 주소만 변경했더니 아들 객체의 주소는 바뀌지 않은 것을 알 수 있다.
-- 모든 객체의 필드 값이 같아야 한다면 매우 불편한 상황이 될 수 있다.
-- 일반적으로 각 객체가 가지게 되는 필드와 메서드를 인스턴스 멤버 라고 한다.
-- 모든 객체들이 공유하며 사용하는 하나의 필드와 메서드를 정적 멤버라고 부른다.
-
-### 정적 멤버
-- 필드와 메서드를 선언할 때 static이라는 키워드가 붙은 멤버를 말한다.
-
-
-### static키워드
-- 사전적으로 '고정된'이라는 뜻을 가지고 있다.
-- 프로그래밍 언어에서 static은 '클래스에 고정되었다'라는 의미로 사용되고 있다.
-- 쉽게 말해서 객체가 아닌 클래스에 의존적인 요소라고 생각하면 된다.
-- 멤버 앞에 static 키워드를 붙히게 되면, 다른 멤버들과 달리 객체를 생성하지 않고 바로 사용할 수 있다.
-- **그 이유는 객체를 생성할 때 메모리에 올라가는 것이 아니라, 프로그램이 실행될 때 메모리에 올라가고 프로그램이 종료될 때 메모리에서 사라지기 때문이다.**
-
-### 호출방법
-```
-클래스명.필드;
-클래스명.메서드명();
 ```
 
-### Student클래스 생성하기
+## final 필드와 상수
+- 인스턴스 필드와 정적 필드는 언제든지 값을 변경할 수 있다.
+- 그러나 경우에 따라서는 값을 변경하는 것을 막고 읽기만 허용해야 할 때가 있다.
+
+### final 필드 선언
+- final은 '최종적'이라는 뜻을 가지고 있다.
+- final 필드는 초기값이 저장되면 <b style="color:red">이것이 최종적인 값이 되어서 프로그램 실행 도중에 수정할 수 없게 된다.</b>
 ```java
-package member;
+final 타입 필드명 [= 초기값];
+```
+- final 필드에 초기값을 줄 수 있는 방법은 다음 두 가지밖에 없다.
 
-public class Student {
-	static String schoolName = "코리아 고등학교"; //정적 멤버 선언
+```java
+1. 필드 선언 시에 초기값 대입
+2. 생성자에서 초기값 대입
+```
+- 고정된 값이라면 필드 선언 시에 주는것이 간단하나, 복잡한 초기화 코드가 필요하거나 객체 생성 시에 외부에서 전달된 값으로 초기화한다면 생성자에서 해야 한다.
+- 위 두 방법을 사용하지 않고 final 필드를 그대로 남겨 두면 컴파일 에러가 발생한다.
+
+```java
+package ch06.sec11.exam01;
+
+public class Korean {
+	//인스턴스 final 필드 선언
+	final String nation = "대한민국";
+	final String ssn;
 	
-	static void goToSchool() {
-		System.out.println("학교에 갑니다");
+	//인스턴스 필드 선언
+	String name;
+
+	//생성자 선언
+	public Korean(String ssn, String name) {
+		this.ssn = ssn;
+		this.name = name;
 	}
 }
 ```
 
-### StudentMain클래스 생성하기
-```java
-package test2;
+<br>
 
-public class StudentMain {
+```java
+package ch06.sec11.exam01;
+
+public class KoreanExample {
 	public static void main(String[] args) {
-		System.out.println(Student.schoolName);
-		Student.goToSchool();
-	}
-}
-결과
-코리아 고등학교
-학교에 갑니다.
-```
-- 정적 멤버의 경우, 객체마다 가지는 데이터 기능이 아니기 때문에 모든 객체가 같은 값을 가져야 할 경우에 사용하는 것이 효율적이다.
-- 따라서 각 클래스의 멤버를 선언할 때는 충분히 고려한 후 정적 멤버로 선언할지에 대한 결정을 내리는 것이 좋다.
+		//객체 생성 시 주민등록번호와 이름 전달
+		Korean k1 = new Korean("123456-1234567", "감자바");
+		
+		//필드값 읽기
+		System.out.println(k1.nation);
+		System.out.println(k1.ssn);
+		System.out.println(k1.name);
 
-### Student클래스에 코드 추가하기
-```java
-package test2;
+		//Final 필드는 값을 변경할 수 없음
+		//k1.nation = "USA";
+		//k1.ssn = "123-12-1234";
 
-public class Student {//클래스 선언
-	static String schoolName = "코리아 고등학교";//정적 필드 선
-	String studentName; //인스턴스 필드 선
-	
-	static void goToSchool() { //정적 메서드 선언
-		System.out.println("학교에 갑니다.");
-	}
-	
-	void hello() { //인스턴스 메서드 선언
-		System.out.println("안녕하세요, 제 이름은 " + studentName + "입니다.");
+		//비 final 필드는 값 변경 가능
+		k1.name = "김자바";
 	}
 }
 ```
 
-### StudentMain클래스에 코드 추가하기
+### 상수 선언
+- 우리 주변에는 불변의 값이 있다.
+- 불변의 값은 수학에서 사용하는 원주율 파이나 지구의 무게 및 둘레 등이 해당된다.
+- 이런 <b style="color:red">불변의 값을 저장하는 필드를 자바에서는 상수라고 한다.</b>
+- 상수는 객체마다 저장할 필요가 없고, 여러 개의 값을 가져도 안되기 때문에 <b style="color:red">static이면서 final인 특성</b>을 가져야 한다.
+- 초기값은 선언 시에 주는 것이 일반적이지만,복잡한 초기화가 필요한 경우에는 정적 블록에서초기화 할 수도 있다.
 ```java
-package test2;
+static final 타입 상수;
+static {
+	상수 = 초기값;
+}
+```
+- 상수 이름은 <b style="color:red">모두 대문자로 작성</b>하는 것이 관례이다.
+- 서로 다른 단어가 혼합된 이름이라면 언더바로 단어들을 연결한다.
+```java
+package ch06.sec11.exam02;
 
-public class StudentMain {
+public class Earth {
+	//상수 선언 및 초기화
+	static final double EARTH_RADIUS = 6400;
+
+	//상수 선언
+	static final double EARTH_SURFACE_AREA;
+	
+	//정적 블록에서 상수 초기화
+	static {
+		EARTH_SURFACE_AREA = 4 * Math.PI * EARTH_RADIUS * EARTH_RADIUS;
+	}
+}
+```
+<br>
+
+```java
+package ch06.sec11.exam02;
+
+public class EarthExample {
 	public static void main(String[] args) {
-		Student stu1 = new Student();
-		stu1.studentName = "김고이";
-		stu1.hello();
-		System.out.println("학교는 " + Student.schoolName + "입니다.");
-		Student.goToSchool();
-		System.out.println("----------------------");
-		Student stu2 = new Student();
-		stu2.studentName = "김고";
-		stu2.hello();
-		System.out.println("학교는 " + Student.schoolName + "입니다.");
-		Student.goToSchool();
+		//상수 읽기
+		System.out.println("지구의 반지름: " + Earth.EARTH_RADIUS + "km");
+		System.out.println("지구의 표면적: " + Earth.EARTH_SURFACE_AREA + "km^2");
 	}
 }
-결과
-안녕하세요, 제 이름은 김고이입니다.
-학교는 코리아 고등학교입니다.
-학교에 갑니다.
-----------------------
-안녕하세요, 제 이름은 김고입니다.
-학교는 코리아 고등학교입니다.
-학교에 갑니다.
-```
-- 정적 멤버를 호출할 때, 객체 변수를 통해 호출할수도 있습니다.
-```
-Student stu1 = new Student();
-System.out.println(stu1.schoolName);
 ```
 
+## 패키지
+- 지금까지 장별, 절별 예제 클래스를 패키지 안에 생성해서 관리했다.
+- 자바의 패키지는 단순히 디렉토리만을 의미하지는 않는다.
+- 패키지는 클래스의 일부분이며, 클래스를 식별하는 용도로 사용된다.
+- 패키지는 주로 개발 회사 도메인 이름의 역순으로 만든다.
+```
+mycompany.com
+yourcompany.com
+
+com
+|
+|-- mycompany
+|		|-- Car.class
+|
+|-- yourcompany
+		|-- Car.class
+```
+- 패키지는 상위 패키지와 하위 패키지를 <b style="color:red">도트 ( . )로 구분한다.</b>
+- 도트는 물리적으로 하위 디렉토리임을 뜻한다.
+- 예를 들어 com.mycompany 패키지의 com은 상위 디렉토리, mycompany는 하위 디렉토리이다.
+- 패키지는 <b style="color:red">클래스를 식별하는 용도</b>로 사용되기 때문에 클래스의 전체 이름에 포함된다.
+- 예를 들어 Car클래스가 com.mycompany 패키지에 속해 있다면 Car 클래스의 전체 이름은 com.mycompany.Car가 된다.
+
+### 패키지 선언
+- 패키지 디렉토리는 <b style="color:red">클래스를 컴파일하는 과정에서 자동으로 생성</b>된다.
+- <b style="color:red">컴파일러는 클래스의 패키지 선언을 보고 디렉토리를 자동 생성</b>시킨다.
+```java
+package 상위패키지.하위패키지;
+
+public class 클래스명 { ... }
+```
+- 이클립스에서는 패키지를 먼저 생성하고 클래스를 나중에 추가하는 방식을 사용한다.
+- 만약 패키지 선언이 없다면 이클립스는 클래스를 (default package)에 포함시킨다.
+- (default package)란 패키지가 없다는 뜻이다.
+- 그러나 어떤 프로젝트든 패키지 없이 클래스를 만드는 경우는 드물다.
+
+### import
+- 같은 패키지에 있는 클래스는 아무런 조건 없이 사용할 수 있지만, 다른 패키지에 있는 클래스를 사용하려면 import문을 이용해서 어떤 패키지의 클래스를 사용하는지 명시해야 한다.
+- import 문이 작성되는 위치는 패키지 선언과 클래스 선언 사이이다.
+- import 키워드 뒤에는 사용하고자 하는 클래스의 전체 이름을 기술한다.
+- 만약 동일한 패키지에 포함된 다수의 클래스를 사용해야 한다면 클래스 이름을 생략하고 *를 사용할 수 있다.
+```java
+package com.mycompany
+
+import com.hankook.Tire;
+
+public class Car {
+	Tire tire = new Tire();
+}
+```
+- import 문은 하위 패키지를 포함하지 않는다.
+- 따라서 com.hankook 패키지에 있는 클래스도 사용해야 하고, com.hankook.project 패키지에 있는 클래스도 사용해야 한다면 다음과 같이 두 개의 import 문이 필요하다.
+```java
+import com.hankook.*; //com.hankook 패키지에 들어있는 모든 클래스
+import com.hankook.project.*; //com.hankook.project 패키지에 들어있는 모든 클래스
+```
+- 만약 서로 다른 패키지에 동일한 클래스 이름이 존재한다고 가정해보자.
+```java
+package com.hankook;
+
+public class Tire { ... };
+
+---
+
+package com.kumho;
+
+public class Tire { ... };
+```
+- 두 패키지를 모두 import하고 Tire 클래스를 사용할 경우, 컴파일러는 어떤 패키지의 클래스를 사용할 지 결정할 수 없기 때문에 컴파일 에러를 발생시킨다.
+
+```java
+package com.hyundai;
+
+import com.hankook.*;
+import com.kumho.*;
+
+public class Car{
+	//필드 선언
+	//Tire tire = new Tire(); // 컴파일 에러
+
+	//클래스의 전체 이름을 사용해서 정확히 어떤 패키지의 클래스를 사용하는지 알려야 한다.
+	com.hankook.Tire tire = new com.hankook.Tire();
+}
+```
+<br>
+
+```java
+package ch06.sec12.hankook;
+
+public class SnowTire {
+}
+
+package ch06.sec12.hankook;
+
+public class Tire {
+}
+
+package ch06.sec12.kumho;
+
+public class AllSeasonTire {
+}
+
+package ch06.sec12.kumho;
+
+public class Tire {
+}
 
 
-## 메서드 사용의 이점
-- 메서드를 구현함으로써, 같은 내용의 코드를 반복적으로 사용하는 것을 피할 수 있다. 
-- 반복되는 문장들을 묶어서 메서드로 작성해놓으면 필요할 때마다 재사용이 가능하기 때문이다.
-- 코드의 집합을 따로 분리하는것을 "모듈화"라고 한다.
-- 모듈화를 하면 코드를 읽을 때 가독성이 좋아지며, 프로그램을 수정할 때 더욱 빠르고 쉽게 할 수 있다.
+package ch06.sec12.hyundai;
 
+//import 문으로 다른 패키지 클래스 사용을 명시
+import ch06.sec12.hankook.SnowTire;
+import ch06.sec12.kumho.AllSeasonTire;
+	
+public class Car {
+	//부품 필드 선언
+	ch06.sec12.hankook.Tire tire1 = new ch06.sec12.hankook.Tire();
+	ch06.sec12.kumho.Tire tire2 = new ch06.sec12.kumho.Tire();
+	SnowTire tire3 = new SnowTire();
+	AllSeasonTire tire4 = new AllSeasonTire();
+}
 
+```
 
 ### 접근제한자
 - 접근제한자는 클래스/메서드/필드에 대한 접근을 어디범위까지 제한하느냐에 대한 지시어이다.
@@ -1250,402 +1513,168 @@ System.out.println(stu1.schoolName);
 3. protected : 상속관계의 객체들에만 사용을 허가.
 4. default : 같은 패키지(폴더)내의 객체에만 사용을 허가(아무것도 쓰지 않으면 default)
 
-
-
-
-### Method01클래스 생성
 ```java
-package method;
+package ch06.sec13.exam01.package1;
 
-public class Method01 {
-	public static void main(String[] args) {
-		printHello(); //main메서드 안에서 printHello()메서드 호
+class A { //default 접근 제한
+}
+
+package ch06.sec13.exam01.package1;
+	
+public class B {
+	//필드 선언
+	A a; 	//o
+}
+
+package ch06.sec13.exam01.package2;
+	
+import ch06.sec13.exam01.package1.*;
+	
+public class C {
+	//필드 선언
+	//A a; //x
+	B b;   //o
+}
+```
+### 생성자의 접근 제한
+- 객체를 생성하기 위해 생성자를 어디에서나 호출할 수 있는 것은 아니다.
+- 생성자가 어떤 접근 제한을 갖느냐에 따라 호출 가능 여부가 결정된다.
+- 생성자는 public,default,private 접근 제한을 가질 수 있다.
+```java
+package ch06.sec13.exam02.package1;
+
+public class A {
+	//필드 선언
+	A a1 = new A(true);
+	A a2 = new A(1);
+	A a3 = new A("문자열");
+
+	//public 접근 제한 생성자 선언
+	public A(boolean b) {
 	}
 	
-	static void printHello() {
-		System.out.println("안녕하세요");
-		System.out.println("만나서 반갑습니다.");
+	//default 접근 제한 생성자 선언
+	A(int b) {
+	}
+
+	//private 접근 제한 생성자 선언
+	private A(String s) {
 	}
 }
-```
-- main메서드도 static으로 프로그램 시작과 함께 메모리에 올라가 있다.
-- 따라서 main안에서 메서드를 호출하기 위해서는 호출하는 메서드가 메모리에 올라가 있어야 한다.
 
-### 메서드를 메모리에 올리는 두 가지 방법
-- 객체 생성용 클래스에 있는 경우
-  - 인스턴스 메서드 : 객체를 생성함과 동시에 객체의 멤버들이 메모리에 올라간다. 따라서 객체를 생성한 후 사용할 수 있다.
-  - 정적 메서드 : 프로그램 시작과 동시에 메모리에 자동으로 올라가기 때문에 바로 사용할 수 있다.
-- 실행용 클래스에 있는 경우
-  - 객체를 생성할 방법이 없기 때문에, 메서드가 무조건 static으로 선언되어야 한다.
+package ch06.sec13.exam02.package1;
 
-## 메서드의 호출
-- 메서드는 다른 메서드에서 호출되어 사용된다.
-```
-클래스명 변수명 = new 클래스명(); -> 객체를 생성하여 변수에 담기
-변수명.메서드명();
-```
-
-- 메서드는 클래스 안에서 선언되므로 메서드를 사용하기 위해서는 해당 클래스의 객체부터 생성해야 한다.
-
-### Jogger클래스 생성하기
-```java
-package method;
-
-public class Jogger {
-
-	void run() {
-		System.out.println("run run run!!");
-	}
+public class B {
+	// 필드 선언
+	A a1 = new A(true); 	//o
+	A a2 = new A(1); 		//o
+	//A a3 = new A("문자열");	//x
 }
-```
 
-### JoggerMain클래스 생성하기
-```java
-package method;
+package ch06.sec13.exam02.package2;
 
-public class JoggerMain {
-	public static void main(String[] args) {
-		Jogger jogger = new Jogger(); //객체 생성
-		jogger.run(); //jogger인스턴스의 run()메서드 호출
-	}
-}
-결과
-run run run!!
-```
-### 2개 이상의 메서드 선언하기
-- 메서드는 같은 클래스에 있는 필드를 사용할 수 있다.
-- 하나의 클래스에 2개 이상의 메서드를 사용하는 것 역시 가능하다.
-### Jogger클래스에 코드 추가힉
-```java
-package method;
-
-public class Jogger {
-
-	String name; //조거의 이름
+import ch06.sec13.exam02.package1.*;
 	
-	void run() {
-		System.out.println("run run run!!");
+public class C {
+	//필드 선언
+	A a1 = new A(true); 	//o
+	//A a2 = new A(1); 		//x
+	//A a3 = new A("문자열"); 	//x
+}
+``` 
+
+### 필드와 메소드의 접근 제한
+- 필드와 메소드도 어디에서나 읽고 호출할 수 있는 것은 아니고, 어떤 접근 제한을 갖느냐에 따라 호출 여부가 결정된다.
+- 필드와 메소드는 public, default, private 접근제한을 가질 수 있다.
+
+```java
+package ch06.sec13.exam03.package1;
+
+public class A {
+	//public 접근 제한을 갖는 필드 선언
+	public int field1;
+	//default 접근 제한을 갖는 필드 선언
+	int field2;
+	//private 접근 제한을 갖는 필드 선언
+	private int field3;
+
+	//생성자 선언
+	public A() {
+		field1 = 1; 		//o
+		field2 = 1; 		//o
+		field3 = 1; 		//o
+
+		method1(); 			//o
+		method2(); 			//o
+		method3(); 			//o
+	}
+
+	//public 접근 제한을 갖는 메소드 선언
+	public void method1() {
 	}
 	
-	void sayName() {
-		System.out.println("제 이름은 : " + name + "입니다.");
-	}
-}
-```
-### JoggerMain에 코드 추가하기
-```java
-package method;
-
-public class JoggerMain {
-	public static void main(String[] args) {
-		Jogger jogger = new Jogger(); //객체 생성
-		jogger.name = "김나비";
-		jogger.sayName();
-		jogger.run(); //jogger인스턴스의 run()메서드 호출
-	}
-}
-결과
-제 이름은 : 김나비입니다.
-run run run!!
-```
-
-### Book클래스 생성하기
-```java
-package test3;
-
-public class Book {
-	public void count(int bookNum) {
-		System.out.println("책은 " + bookNum+"권 입니다.");
-	}
-}
-```
-### BookMain클래스 생성하기
-```java
-package test3;
-
-public class BookMain {
-	public static void main(String[] args) {
-		Book myBook = new Book(); //객체 생성
-		myBook.count(3); //myBook 인스턴스 count메서드 호출
-	}
-}
-```
-- 파라미터의 개수에는 제한이 없다.
-- 2개 이상의 파라미터를 정의할 때는 콤마(,)를 기준으로 변수를 여러개 만들면 된다.
-```java
-접근제한자 반환형 메서드명(자료형 변수명1,자료형 변수명2...){
-
-}
-```
-### Calc클래스 생성하기
-```java
-package method;
-
-public class Calc {
-
-	void sum(int num1, int num2) {
-		System.out.println("두 수의 합은 : " + (num1 + num2) + "입니다.");
-	}
-}
-```
-
-### CalcMain클래스 생성하기
-```java
-package method;
-
-public class CalcMain {
-	public static void main(String[] args) {
-		Calc calc = new Calc();
-		calc.sum(5, 3);
-		calc.sum(10, 7);
-	}
-}
-```
-- 다른 자료형 2개를 매개변수로 받는 메서드
-
-### Person클래스 생성하기
-```java
-package method;
-
-public class Person {
-	void introduce(String name, int age) {
-		System.out.println("제 이름은 " + name+"이고, 나이는" + age+"세입니다.");
+	//default 접근 제한을 갖는 메소드 선언
+	void method2() {
 	}
 	
-	void hello() {
-		System.out.println("안녕하세요");
+	//private 접근 제한을 갖는 메소드 선언
+	private void method3() {
 	}
 }
-```
 
-### PersonMain클래스 생성하기
-```java
-package method;
+package ch06.sec13.exam03.package1;
 
-public class PersonMain {
-	public static void main(String[] args) {
-		Person hong = new Person();
-		hong.introduce("홍길동", 20);
-		hong.hello();
+public class B {
+	public void method() {
+		//객체 생성
+		A a = new A();
+
+		//필드값 변경
+		a.field1 = 1; 		// o
+		a.field2 = 1; 		// o
+		//a.field3 = 1;		// x
+
+		//메소드 호출
+		a.method1(); 		// o
+		a.method2(); 		// o
+		//a.method3(); 		// x
 	}
 }
-결과
-제 이름은 홍길동이고, 나이는20세입니다.
-안녕하세요
-```
-- 배열을 매개변수로 받는 메서드
 
-### Calc클래스에 코드 추가하기
-```java
-package method;
+package ch06.sec13.exam03.package2;
 
-public class Calc {
+import ch06.sec13.exam03.package1.*;
 
-	void sum(int num1, int num2) {
-		System.out.println("두 수의 합은 : " + (num1 + num2) + "입니다.");
-	}
-	
-	void sum(int[] nums) {
-		int result = 0;
-		for(int i = 0; i < nums.length; i++) {
-			result += nums[i];
-		}
-		System.out.println("숫자들의 합은 : " + result + "입니다.");
-	}
-}
-```
-
-### CalcMain클래스에 코드 추가하기
-```java
-package method;
-
-public class CalcMain {
-	public static void main(String[] args) {
-		Calc calc = new Calc();
-		calc.sum(5, 3);
-		calc.sum(10, 7);
+public class C {
+	public C() {
+		//객체 생성 
+		A a = new A();
 		
-		int []nums = {100,200};
-		calc.sum(nums);
+		//필드값 변경 
+		a.field1 = 1; 		// (o)
+		//a.field2 = 1; 	// (x)
+		//a.field3 = 1; 	// (x)
+
+		//메소드 호출 
+		a.method1(); 		// (o)
+		//a.method2(); 		// (x)
+		//a.method3(); 		// (x)
 	}
 }
 ```
-
-
-
-### Calc클래스 수정하기
-```java
-package method;
-
-public class Calc {
-
-	void sum(int num1, int num2) {
-		System.out.println("두 수의 합은 : " + (num1 + num2) + "입니다.");
-	}
-	
-	//반환값의 타입과 일치시켜준다.
-	int sum(int[] nums) {
-		int result = 0;
-		for(int i = 0; i < nums.length; i++) {
-			result += nums[i];
-		}
-		//System.out.println("숫자들의 합은 : " + result + "입니다.");
-
-		return result; //모든 기능을 수행한 값을 반환한다.
-	}
-}
-```
-
-### CalcMain클래스 수정하기
-```java
-package method;
-
-public class CalcMain {
-	public static void main(String[] args) {
-		Calc calc = new Calc();
-		calc.sum(5, 3);
-		calc.sum(10, 7);
-		
-		int []nums = {100,200};
-		//calc.sum(nums);
-		System.out.println("숫자들의 합은 " + calc.sum(nums)+"입니다.");
-	}
-}
-```
-- 메서드를 호출한 위치가 메서드를 실행하고 반환된 결과값으로 치환되었다.
-- 변수에 저장하지 않고 바로 치환하여 사용할 수도 있으며, 필요에 따라 저장하여 결과값을 활용할 수도 있다.
-
-### 반환받은 값을 변수에 저장하는 메서드
-### MidTerm클래스 생성하기
-```java
-package method;
-
-public class MidTerm {
-	public int score(int[] scores) {
-		int result = 0;
-		for(int i = 0; i < scores.length; i++) {
-			result += scores[i];
-		}
-		return result;
-	}
-}
-```
-
-### MidTermMain클래스 생성하기
-```java
-package method;
-
-public class MidTermMain {
-	public static void main(String[] args) {
-		int [] studentA = {97,53};
-		int [] studentB = {97,66};
-		
-		MidTerm mid = new MidTerm(); //MidTerm 객체 생성
-		int sumA = mid.score(studentA); //메서드를 호출한 결과값을 sumA에 저장
-		int sumB = mid.score(studentB); //메서드를 호출한 결과값을 sumB에 저장
-		
-		if(sumA > sumB) {
-			System.out.println("A학생의 중간고사 총점이 더 높습니다.");
-		} else if(sumA < sumB) {
-			System.out.println("B학생의 중간고사 총점이 더 높습니다.");
-		} else {
-			System.out.println("두 학생의 중간고사 총점이 같습니다.");
-		}
-	}
-}
-```
-### 메서드를 빠져나가기 위한 return
-#### Bus클래스
-```java
-package test3;
-
-public class Buss {
-
-	public void take(int m) {
-		while(true) {
-			if(m < 3000) {
-				System.out.println("교통카드를 충전하러 갑니다.");
-				return;
-			}
-			System.out.println("버스를 탑니다.");
-			m-=1250;
-		}
-	}
-}
-```
-#### BusMain클래스
-```java
-package test3;
-
-public class BusMain {
-
-	public static void main(String[] args) {
-		int money = 10000;
-		Bus bus = new Bus();
-		bus.take(money);
-	}
-}
-```
-
-## 클래스의 로딩
-- 자바의 클래스들이 언제 어디서 메모리에 올라가고 클래스 멤버들이 초기화 되는 방법
-
-### JVM의 클래스 로더(class Loader)
-- 클래스 로더는 컴파일된 자바의 클래스파일(.class)을 동적으로 로드한다.
-- JVM의 메모리 영역인 데이터 영역에 배치하는 작업을 수행한다.
-- class파일을 로딩하는 순서
-    1. Loading(로드):클래스 파일을 가져와서 JVM의 메모리에 로드한다.
-    2. Linking(링크) : 클래스 파일을 사용하기 위해 검증하는 과정
-    3. Initializtion(초기화) : 클래스 변수들을 적절한 값으로 초기화 한다.
-- 유의할 점은 Loading 기능은 한번에 메모리에 올리지 않고, 어플리케이션에서 필요한 경우 동적으로 메모리에 적재하게 된다는 점이다.
-- 곰곰히 생각해보면 언제 어디서 사용될지 모르는 static 멤버들을 처음에 전부 메모리에 올린다는건 비효율적이다.
-- JVM은 실행될때 모든 클래스를 메모리에 올려놓지 않고, 그때 마다 필요한 클래스를 메모리에 올려 효율적으로 관리하는 것이다.
 
 # setter&getter
 - 지금까지 객체의 필드를 객체의 내부뿐만 아니라 객체 밖에서도 마음껏 사용할 수 있었고, 마음대로 값을 바꿀수도 있었다.
-## 필드에 직접 접근했을 때의 문제점
-### Person클래스 수정하기
+- 하지만 이런 경우 객체의 무결성이 깨질 수 있다.
+- 예를 들어 자동차의 속력은 음수가 될 수 없는데, 외부에서 음수로 변경하면 객체의 무결성이 깨진다.
 ```java
-package method;
-
-public class Person {
-//	void introduce(String name, int age) {
-//		System.out.println("제 이름은 " + name+"이고, 나이는" + age+"세입니다.");
-//	}
-//	
-//	void hello() {
-//		System.out.println("안녕하세요");
-//	}
-	
-	int age;
-}
+Car myCar = new Car();
+myCar.speed = -100;
 ```
+- 이러한 문제점 때문에 객체지향 프로그래밍에서는 직접적인 외부에서의 필드 접근을 막고, 그 대신 메소드를 통해 필드에 접근하는 것을 선호한다.
+- 그 이유는 메소드가 데이터를 검증해서 유효한 값만 필드에 저장할 수 있기 때문이다.
 
-### PersonMain클래스 수정하기
-```java
-package method;
-
-public class PersonMain {
-	public static void main(String[] args) {
-		Person hong = new Person();
-//		hong.introduce("홍길동", 20);
-//		hong.hello();
-		hong.age = -30;
-		
-		System.out.println("hong의 나이는 " + hong.age+"세입니다.");
-	}
-}
-```
-- 사람의 나이는 음수가 될 수 없음에도 age값을 음수로 바꿀 수 있었다.
-- 이처럼 객체 밖에서 필드에 마음대로 접근할 수 있고 값을 변경할 수 있다면, 문제가 생길 가능성이 있다.
-- 이런 문제를 예방하기 위해 객체 지향 프로그래밍에서는 메서드를 통해서 필드의 값을 불러오고, 필드의 값을 변경하는 방법을 이용한다.
-
-### 메서드를 통해 필드에 접근할 때 장점
-- 필드를 보호할 수 있다.
-- 메서드에서 필드에 들어갈 값을 검증한 후 필드에 대입할 수 있다.
-- 외부에서 사용할 필드의 값을 정제한 후 값을 제공할 수 있다.
-
-## setter
+### setter
 - 외부에서 메서드를 통해 데이터에 접근하고 검증할 수 있도록 유도하는 메서드의 개념
 
 ### Person클래스에 코드 추가하기
