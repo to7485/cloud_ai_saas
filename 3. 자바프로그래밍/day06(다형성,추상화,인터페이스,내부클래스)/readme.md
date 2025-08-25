@@ -17,67 +17,109 @@
 ```java
 부모 클래스명 객체명 = 자식객체;
 ```
-## Ex1_class_casting
+
 ```java
-package test;
+class Animal{
+	...
+}
 
-class Parent{};
+class Cat extends Animal {
+	...
+}
 
-class Child extends Parent{};
 
-public class Test {
+Cat cat = new Cat();
+Animal animal = cat;
+```
+![image](img/자동타입변환.png)
+
+
+```java
+package ch07.sec07.exam01;
+
+class A {
+}
+
+class B extends A {
+}
+
+class C extends A {
+}
+
+class D extends B {
+}
+
+class E extends C {
+}
+
+public class PromotionExample {
 	public static void main(String[] args) {
-		Parent p1 = new Parent(); //p1 객체 생성
-		Child c1 = new Child(); //c1 객체 생성
+		B b = new B();
+		C c = new C();
+		D d = new D();
+		E e = new E();
+
+		A a1 = b;
+		A a2 = c;
+		A a3 = d;
+		A a4 = e;
 		
-		Parent p2 = new Child(); // 자동 타입 변환
-		Parent p3 = c1;			 // 자동 타입 변환
-		//Child c2 = p1; 자동 타입 변환이 되지 않음
+		B b1 = d;
+		C c1 = e;
 		
-		
-		//기본 자료형끼리 비교를 할 때 == 연산자는 값이 같은지 비교하지만
-		//객체끼리 비교를 할 때 == 연산자는 주소값이 같은 비교합니다.
-		if (p3 == c1) {
-			System.out.println("p3와 c1은 같은 객체를 참조하고 있습니다.");
-		}
+		// B b3 = e;
+		// C c2 = d;
 	}
 }
 ```
-- 우리는 p3와 c1이 같은 객체를 참조하고 있음을 알 수 있다.
-- 즉, Child타입의 Child객체 c1의 타입을 Parent로 변환해 만든 p3는 여전히 c1 객체라는것을 확인할 수 있다.
-- 타입을 변환한다고 객체가 바뀌는게 아니라, 객체는 보존되고 사용만 부모 객체처럼 한다.
-- 자동 타입 변환은 반드시 자식 클래스의 객체를 부모 타입으로 변환할 때 적용할 수 있다.
-- 1차 상속관계가 아니더라도 상위 계층의 타입으로 변환할 수 있다.
-- 하지만 같은 상위 계층을 가지고 있더라도, 타입 변환을 시도하려는 두 클래스 간의 상속 관계가 없다면 타입 변환은 불가능하다.
 
-## Ex2_class_casting
 ```java
-package test;
+package ch07.sec07.exam02;
 
-class Car{};
-class Bus extends Car{};
-class SchoolBus extends Bus{};
+public class Parent {
+	//메소드 선언
+	public void method1() {
+		System.out.println("Parent-method1()");
+	}
 
-class OpenCar extends Car{};
-class SportCar extends OpenCar{};
+	//메소드 선언
+	public void method2() {
+		System.out.println("Parent-method2()");
+	}
+}
 
-public class Test {
+package ch07.sec07.exam02;
+
+public class Child extends Parent {
+	//메소드 오버라이딩
+	@Override
+	public void method2() {
+		System.out.println("Child-method2()");
+	}
+
+	//메소드 선언
+	public void method3() {
+		System.out.println("Child-method3()");
+	}
+}
+
+package ch07.sec07.exam02;
+
+public class ChildExample {
 	public static void main(String[] args) {
-		Car c1 = new SchoolBus(); //1차 상속 관계가 아니더라도 자동 타입 변환 가능
-		Bus b1 = new Bus();
-		Bus b2 = new SchoolBus();
-		
-		Car c2 = new OpenCar();
-		OpenCar oc = new SportCar();
-		
-		//Bus b3 = new OpenCar(); 오류
-		//Bus b4 = new SportCar(); d오류
+		//자식 객체 생성
+		Child child = new Child();
+
+		//자동 타입 변환
+		Parent parent = child;
+
+		//메소드 호출
+		parent.method1();
+		parent.method2();
+		//parent.method3(); (호출 불가능)
 	}
 }
 ```
-- 타입을 부모 타입으로 변환한 객체는, 더 이상 자신의 클래스에 부모 클래스와 별개로 추가한 멤버들을 사용할 수 없다.
-- 부모 클래스에 선언된 멤버만 사용할 수 있다.
-- 단, 부모 클래스의 메서드를 오버라이딩 한 경우 메서드의 경우에는 자식 객체의 것을 호출할 수 있다.
 
 ### 자식 객체의 메서드가 호출되는 이유
 - 메서드가 실행 시점에서 성격이 결정되는 동적바인딩 때문이다.
@@ -96,78 +138,10 @@ public class Test {
     - 객체가 생성되고 메서드가 호출될 때, 실제로 실행될 메서드는 객체의 실제 타입에 따라 결정된다.
     - 메서드 호출시 객체의 클래스 타입을 기반으로 어떤 메서드를 호출할지 동적으로 결정된다.
   
-## Calendar클래스
-```java
-package test;
-
-public class Calendar {
-	String color;
-	int months;
-	
-	public Calendar(String color, int months) {
-		this.color = color;
-		this.months = months;
-	}
-	
-	public void info() {
-		System.out.println(color + " 달력은 " + months + "월까지 있습니다.");
-	}
-	
-	public void hanging() {
-		System.out.println(color +"달력을 벽에 걸 수 있습니다.");
-	}
-}
-```
-## DeskCalendar클래스
-```java
-package test;
-
-public class DeskCalendar extends Calendar {
-	String color;
-	int months;
-	public DeskCalendar(String color, int months) {
-		super(color,months);
-	}
-	
-	@Override
-	public void info() {
-		System.out.println(color+"달력을 벽에 걸기 위해 고리가 추가로 필요합니다.");
-	}
-	
-	public void onTheDesk() {
-		System.out.println(color+" 달력을 책상에 세울 수 있습니다.");
-	}
-}
-```
-
-## CalendarMain클래스
-```java
-package test;
-
-public class CalendarMain {
-
-	public static void main(String[] args) {
-		DeskCalendar dc = new DeskCalendar("보라색", 6);
-		dc.info();
-		dc.hanging();
-		dc.onTheDesk();
-		
-		System.out.println();
-		
-		Calendar c = new DeskCalendar("검은색", 12);
-		c.info();
-		c.hanging(); //오버라이드된 메서드가 호출된다.
-		//c.onTheDesk(); 에러
-	}
-}
-```
-- 타입 변환으로 생성된 c 객체는 Calendar타입을 가졌지만, DeskCalendar의 객체이기 때문에 DeskCalendar의 hanging()을 호출했다.
-- 클래스 타입 변환을 한 객체는, 더이상 자식 클래스만의 멤버들을 호출할 수 없다.
-- DeskCalendar객체임에도 Calendar타입을 가졌기 때문에, DeskCalendar의 멤버에는 접근할 수 없다.
 
 ## 클래스의 강제 타입변환
-- 위의 코드에서 객체 c처럼 자식 타입에서 부모 타입으로 타입 변환을 했지만 자식 클래스의 멤버에게 접근하고 싶을 때가 생길 수 있다.
-- 자바의 규약으로 자식 클래스의 멤버에 접근할 수 없으므로 이러한 경우 다시 DeskCalendar타입으로 변경해서 접근할 수 있도록 해야 한다.
+- 자식 타입에서 부모 타입으로 타입 변환을 했지만 자식 클래스의 멤버에게 접근하고 싶을 때가 생길 수 있다.
+- 자바의 규약으로 자식 클래스의 멤버에 접근할 수 없으므로 이러한 경우 다시 자식타입으로 변경해서 접근할 수 있도록 해야 한다.
 - 우리는 이를 '클래스의 강제 타입 변환'이라고 부른다.
 - 자식 객체가 부모 타입으로 자동 타입 변환을 한 후, 다시 자식 타입으로 변환하는 것을 말한다.
 
@@ -178,73 +152,64 @@ public class CalendarMain {
 자식클래스의 멤버에 접근이 여러번 필요한 경우
 객체명 = (자식클래스명)부모타입;
 ```
-### Bike클래스
-```java
-package test;
 
-public class Bike {
-	String riderName;
-	int wheel = 2;
-	
-	public Bike(String riderName) {
-		this.riderName = riderName;
+```java
+package ch07.sec07.exam03;
+
+public class Parent {
+	//필드 선언
+	public String field1;
+
+	//메소드 선언
+	public void method1() {
+		System.out.println("Parent-method1()");
 	}
-	
-	public void info() {
-		System.out.println(riderName + "의 자전거는 " + wheel +"발 자전거입니다.");
-	}
-	
-	public void ride() {
-		System.out.println("씽씽");
+
+	//메소드 선언
+	public void method2() {
+		System.out.println("Parent-method2()");
 	}
 }
 ```
 
-### FourWheelBike클래스
 ```java
-package test;
+package ch07.sec07.exam03;
 
-public class FourWheelBike extends Bike{
+public class Child extends Parent {
+	//필드 선언
+	public String field2;
 
-	public FourWheelBike(String riderName) {
-		super(riderName);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void info() {
-		// TODO Auto-generated method stub
-		super.info();
-	}
-	
-	public void addWheel() {
-		if(wheel == 2) {
-			wheel = 4;
-			System.out.println(riderName+"의 자전거에 보조 바퀴를 부착하였습니다.");
-		} else {
-			System.out.println(riderName+"의 자전거에 이미 보조 바퀴가 부착되어 있습니다.");
-		}
+	//메소드 선언
+	public void method3() {
+		System.out.println("Child-method3()");
 	}
 }
 ```
 
-### BikeMain클래스
-```java
-package test;
 
-public class BikeMain {
+```java
+package ch07.sec07.exam03;
+
+public class ChildExample {
 	public static void main(String[] args) {
-		Bike b = new FourWheelBike("윤기");
-		b.info();
-		b.ride();
-		//b.addWheel(); 부모 타입으로는 불가
+		//객체 생성 및 자동 타입 변환
+		Parent parent = new Child();
 		
-		System.out.println();
+		//Parent 타입으로 필드와 메소드 사용
+		parent.field1 = "data1";
+		parent.method1();
+		parent.method2();
+		/*
+		parent.field2 = "data2";      	//(불가능)
+		parent.method3();         		//(불가능)
+		*/
 		
-		FourWheelBike fwb = (FourWheelBike)b;
-		fwb.addWheel();
-		fwb.info();
-		fwb.ride();
+		//강제 타입 변환
+		Child child = (Child) parent;
+		
+		//Child 타입으로 필드와 메소드 사용
+		child.field2 = "data2";  		//(가능)
+		child.method3();     			//(가능)
 	}
 }
 ```
@@ -253,154 +218,152 @@ public class BikeMain {
 - 반드시 부모 타입으로 자동 타입 변환되었던 자식 객체를 다시 자식 타입으로 변환할 때만 강제 타입 변환을 사용할 수 있다.
 
 ## 다형성
-- 다형성은 객체 지향 프로그래밍의 대표적인 특징 중 하나로, 하나의 타입으로 다양한 객체를 사용할 수 있다는것을 의미한다.
+- 다형성은 사용 방법은 동일하지만 실행 결과가 다양하게 나오는 성질을 말한다.
+- 자동차의 부품을 교환하면 성능이 다르게 나오듯이 객체는 부품과 같아서, 프로그램을 구성하는 객체를 바꾸면 프로그램의 실행 성능이 다르게 나올 수 있다.
 - 자바에서는 앞에서 학습한 타입 변환을 통해, 부모 클래스의 타입 하나로 여러 가지 자식 객체들을 참조하여 사용함으로써 다형성을 구현할 수 있다.
 - 클래스의 타입 변환이 존재하는 이유는 다형성을 구현하기 위함이라고 할 수 있다.
 - 완벽한 다형성을 구현하기 위해서는 상속 + 메서드 오버라이딩 + 클래스 타입변환 이 세가지 개념을 합쳐야 한다.
-- 객체가 특정 클래스의 필드가 되면서, 하나의 부품처럼 사용될 수 있다.
-- 이때, 부품을 교체할 일이 생긴다면 우리는 다형성을 구현함으로써 코드 수정을 최소화할 수 있다.
 
-### Computer클래스
+
+### 필드 다형성
+- 필드 타입은 동일하지만(사용 방법은 동일하지만), 대입되는 객체가 달라져서 실행결과가 다양하게 나올 수 있는 것을 말한다.
+
 ```java
-package test;
+package ch07.sec08.exam01;
 
-public class Computer {
-	public void powerOn() {
-		System.out.println("삑- 컴퓨터가 켜졌습니다.");
-	}
-	
-	public void powerOff() {
-		System.out.println("컴퓨터가 종료됩니다.");
+public class Tire {
+	//메소드 선언
+	public void roll() {
+		System.out.println("회전합니다.");
 	}
 }
-```
 
-### Samsung클래스
-```java
-package test;
-
-public class Samsung extends Computer{
+package ch07.sec08.exam01;
+	
+public class HankookTire extends Tire {
+	//메소드 재정의(오버라이딩)
 	@Override
-	public void powerOn() {
-		super.powerOn();
-		System.out.println("아이 러브 삼송");
-	}
-	
-}
-```
-### ComputerRoom클래스
-```java
-package test;
-
-public class ComputerRoom {
-	Samsung com1;
-	Samsung com2;
-	
-	public void allPowerOn() {
-		com1.powerOn();
-		com2.powerOn();
-	}
-	
-	public void allPowerOff() {
-		com1.powerOff();
-		com2.powerOff();
+	public void roll() {
+		System.out.println("한국 타이어가 회전합니다.");
 	}
 }
-```
 
-### ComMain클래스
-```java
-package test;
+package ch07.sec08.exam01;
 
-public class ComMain {
-
-	public static void main(String[] args) {
-		ComputerRoom cr = new ComputerRoom();
-		cr.com1 = new Samsung();
-		cr.com2 = new Samsung();
-		
-		cr.allPowerOn();
-		cr.allPowerOff();
-		
-		System.out.println();
-
-	}
-}
-```
-- 지금까지는 사용하는데 아무런 불편함이 없다.
-- 하지만 컴퓨터실에 있는 컴퓨터 두대를 LZ컴퓨터로 바꾸고 싶다면 어떻게 해야할까??
-
-### LZ클래스
-```java
-package test;
-
-public class LZ extends Computer{
-	
+public class KumhoTire extends Tire {
+	//메소드 재정의(오버라이딩)
 	@Override
-	public void powerOn() {
-		super.powerOn();
-		System.out.println("사랑해요 LZ");
+	public void roll() {
+		System.out.println("금호 타이어가 회전합니다.");
 	}
 }
 ```
 
-### ComputerRoom 클래스 수정하기
 ```java
-package test;
+package ch07.sec08.exam01;
 
-public class ComputerRoom {
-	//Samsung com1;
-	//Samsung com2;
-	
-	//LZ com1;
-	//LZ com2;
+public class Car {
+	//필드 선언
+	public Tire tire;
 
-	//매번 다른 브랜드의 컴퓨터로 바꾸기 위해 코드를 수정하면 피곤해지기도 하고
-	//실수를 할 위험성도 커진다.
-
-	//클래스의 타입변환을 사용하면 보다 간결하게 해결할 수 있다.
-	Computer com1;
-	Computer com2;
-	
-	public void allPowerOn() {
-		com1.powerOn();
-		com2.powerOn();
-	}
-	
-	public void allPowerOff() {
-		com1.powerOff();
-		com2.powerOff();
+	//메소드 선언
+	public void run() {
+		//tire 필드에 대입된 객체의 roll() 메소드 호출
+		tire.roll();
 	}
 }
 
-```
-- 객체를 변경하기 위해 여러 가지 코드를 수정하는 것은 상당히 위험도가 높은 작업이다.
-- 실무에서의 프로그램은 코드의 양이 많아지고, 수 많은 객체거 서로 얽혀서 복잡한 로직으로 구현되어 있다.
-- 그렇기 때문에 수정을 최소화 하는것이 좋다.
+package ch07.sec08.exam01;
 
-### ComMain클래스 수정하기
-```java
-package test;
-
-public class ComMain {
-
+public class CarExample {
 	public static void main(String[] args) {
-		ComputerRoom cr = new ComputerRoom();
-		//cr.com1 = new Samsung();
-		//cr.com2 = new Samsung();
-		cr.com1 = new LZ();
-		cr.com2 = new LZ();
-		
-		cr.allPowerOn();
-		cr.allPowerOff();
-		
-		System.out.println();
+		//Car 객체 생성
+		Car myCar = new Car();
 
+		//Tire 객체 장착
+		myCar.tire = new Tire();
+		myCar.run();
+
+		//HankookTire 객체 장착
+		//HankookTire클래스가 Tire를 상속받기 때문에 가능
+		myCar.tire = new HankookTire();
+		myCar.run();
+
+		//KumhoTire 객체 장착
+		//KumhoTire클래스가 Tire를 상속받기 때문에 가능
+		myCar.tire = new KumhoTire();
+		myCar.run();
+	}
+}
+```
+- Car 클래스의 run() 메소드는 tire 필드에 대입된 객체의 roll()메소드를 호출한다.
+- 만약 HankookTire와 KumhoTire가 roll()메소드를 재정의하고 있다면, 재정의된 roll()메소드가 호출된다.
+
+### 매개변수 다형성
+- 다형성은 필드보다는 메소드를 호출할 때 많이 발생한다.
+- 메소드가 클래스 타입 매개변수를 가지고 있을 경우, 호출할 때 동일한 타입의 객체를 제공하는 것이 정석적이지만 자식 객체를 제공할 수도 있다.
+
+```java
+package ch07.sec08.exam02;
+
+public class Vehicle {
+	//메소드 선언
+	public void run() {
+		System.out.println("차량이 달립니다.");
+	}
+}
+
+package ch07.sec08.exam02;
+
+public class Bus extends Vehicle {
+	//메소드 재정의(오버라이딩)
+	@Override
+	public void run() {
+		System.out.println("버스가 달립니다.");
+	}
+}
+
+package ch07.sec08.exam02;
+
+public class Taxi extends Vehicle {
+	//메소드 재정의(오버라이딩)
+	@Override
+	public void run() {
+		System.out.println("택시가 달립니다.");
+	}
+}
+
+package ch07.sec08.exam02;
+
+public class Driver {
+	//메소드 선언(클래스 타입의 매개변수를 가지고 있음)
+	//drive()메소드 호출 시 매개 변수의 매개값으로 Vehicle의 자식 객체가 들어올 수 있다.
+	public void drive(Vehicle vehicle) {
+		vehicle.run();
+	}
+}
+
+package ch07.sec08.exam02;
+
+public class DriverExample {
+	public static void main(String[] args) {
+		//Driver 객체 생성
+		Driver driver = new Driver();
+
+		//매개값으로 Bus 객체를 제공하고 driver() 메소드 호출
+		Bus bus = new Bus();
+		driver.drive(bus);
+
+		//매개값으로 Taxi 객체를 제공하고 driver() 메소드 호출
+		Taxi taxi = new Taxi();
+		driver.drive(taxi);
 	}
 }
 ```
 
-## instancdof연산자
+### 객체 타입 확인
+
+#### instancdof연산자
 - 부모 타입으로 타입이 변환되어 저장된 변수는 안에 어떤 객체가 담겨 있는지 직접 확인하지 않는 이상 내부 객체를 알기 쉽지 않다.
 - 오버라이딩된 메서드가 있다면 확인이 쉽겠지만, 부모클래스를 같이 상속받고 있는 다른 클래스 또는 부모클래스와 구별할 수 있는 특정 멤버가 없다면 어떻게 구별해야 할까?
 - instanceof연산자의 특징
@@ -408,172 +371,155 @@ public class ComMain {
     -  맞으면 true, 아니면 false를 반환하며 만약 null을 가리키고 있으면 false를 반환한다.
 
 ### 객체 instanceof타입(클래스명)
-```
 - instanceof 기준으로 왼쪽 객체가 생성될 때 오른쪽 타입으로 생성되었는지 확인하는 연산자이다.
 - 맞으면 true, 아니면 false를 반환하며 만약 null을 가리키고 있으면 false를 반환한다.
-```
 
-## FarmTest클래스
 ```java
-package test;
+package ch07.sec09;
 
-class Animal{}
-class Pig extends Animal{}
-class Cow extends Animal{}
+public class InstanceofExample {
+	//main() 메소드에서 바로 호출하기 위해 정적 메소드 선언
+	public static void personInfo(Person person) {
+		System.out.println("name: " + person.name);
+		person.walk();
 
-class Farm{
-	public void sound(Animal animal) {
-		if(animal instanceof Pig) {
-			System.out.println("꿀꿀");
-		} else {
-			System.out.println("음메");
+		//매가값이 Student인 경우에만 강제 타입 변환해서 studentNo필드와 study()메소드 사용
+
+		//person이 참조하는 객체가 Student 타입인지 확인
+		/*if (person instanceof Student) {
+ 			//Student 객체일 경우 강제 타입 변환
+ 			Student student = (Student) person;
+ 			//Student 객체만 가지고 있는 필드 및 메소드 사용
+ 			System.out.println("studentNo: " + student.studentNo);
+ 			student.study();
+ 		}*/
+
+		//person이 참조하는 객체가 Student 타입일 경우
+		//student 변수에 대입(타입 변환 발생)
+		if(person instanceof Student student) {
+			System.out.println("studentNo: " + student.studentNo);
+			student.study();
 		}
 	}
+
+	public static void main(String[] args) {
+		//Person 객체를 매개값으로 제공하고 personInfo() 메소드 호출
+		Person p1 = new Person("홍길동");
+		personInfo(p1);
+		
+		System.out.println();
+
+		//Student 객체를 매개값으로 제공하고 personInfo() 메소드 호출
+		Person p2 = new Student("김길동", 10);
+		personInfo(p2);
+	}
 }
 
+package ch07.sec09;
 
-public class FarmTest {
-	public static void main(String[] args) {
-		Farm f = new Farm();
-		Pig p = new Pig();
-		Cow c = new Cow();
-		f.sound(p);
-		f.sound(c);
+public class Person {
+	//필드 선언
+	public String name;
+
+	//생성자 선언
+	public Person(String name) {
+		this.name = name;
+	}
+
+	//메소드 선언
+	public void walk() {
+		System.out.println("걷습니다.");
+	}
+}
+
+package ch07.sec09;
+
+public class Student extends Person {
+	//필드 선언
+	public int studentNo;
+
+	//생성자 선언
+	public Student(String name, int studentNo) {
+		super(name);
+		this.studentNo = studentNo;
+	}
+
+	//메소드 선언
+	public void study() {
+		System.out.println("공부를 합니다.");
 	}
 }
 ```
-### instanceof 연산자와 '=='연산자의 차이
-- A instanceof B : 객체변수 A가 객체의 타입 B로 생성된것인지 확인
-- C == D : 객체 변수 C와 객체 변수 D가 같은 객체를 참조하고 있는지 확인한다.
-
-### Instanceof클래스 생성하기
-```java
-package class_casting;
-
-class Animal{};
-class Pig extends Animal{};
-
-public class Instanceof {
-	public static void main(String[] args) {
-		Pig p1 = new Pig();
-		Pig p2 = new Pig();
-		
-		Animal a = p1;
-		
-		if( a instanceof  Pig) {
-			System.out.println("객체 변수 a는 Pig타입으로 생성된 객체이다.");
-		}
-		
-		if(a == p1) {
-			System.out.println("a와 p1은 같은 객체를 참조하고 있다.");
-		}
-		
-		if(a != p2) {
-			System.out.println("a와 p2는 같은 객체를 참조하고 있지 않다.");
-		}
-	}
-}
-```
-
-## 오버라이딩으로 해결하기
-- instanceof 연산자를 사용하지 않고도, 오버라이딩을 사용해 같은 문제를 해결할 수 있다.
-```java
-package test;
-
-class Animal{
-	public void cry() {};
-}
-class Pig extends Animal{
-	@Override
-	public void cry() {
-		System.out.println("꿀꿀");
-	}
-}
-class Cow extends Animal{
-	@Override
-	public void cry() {
-		System.out.println("꿀꿀");
-	}
-}
-
-class Farm{
-	public void sound(Animal animal) {
-		animal.cry();
-	}
-}
-
-
-public class FarmTest {
-	public static void main(String[] args) {
-		Farm f = new Farm();
-		Pig p = new Pig();
-		Cow c = new Cow();
-		f.sound(p);
-		f.sound(c);
-	}
-}
-```
-
-## 오버로딩과 오버라이딩
-- 객체 지향 프로그래밍에서 다형성을 얘기할 때 빼놓을 수 없는 것이 바로 오버로딩과 오버라이딩이다.
-- 비슷한 기능을 하고 중복되는 구현이 필요하지만 우리는 오버로딩과 오버라이딩을 적절히 사용할 수 있다면, 중복이 없는 최소한의 코드로 원하는 기능을 모두 구현해낼 수 있다.
-
-### 오버로딩
-- 자바는 매개변수의 자료형/개수/순서를 기반으로 메서드를 구별하므로 하나의 클래스 안에서 같은 이름의 메서드를 여러 개 구현하고 필요에 따라 메서드를 선택해 사용할 수 있다.
-### 오버라이딩
-- 부모 클래스에게 상속받은 메서드를 재정의하여 자식 클래스용 메서드를 구현하고 자식 객체를 통해 메서드를 호출하면 오버라이딩된 메서드가 호출된다.
-
-
-<br>
-
-**간단히 정리하자면 오버로딩은 새로운 메서드를 정의하는 것이며, 오버라이딩은 상속받은 기존의 메서드를 재정의하는 것을 말한다.**
-
-### InheritanceMethodTest클래스 생성하기
-```java
-package class_casting;
-
-class Parent{
-	public void display() {
-		System.out.println("부모 클래스의 display()메서드이다.");
-	}
-}
-
-class Child extends Parent{
-	
-	//오버라이딩 된 display()메서드
-	@Override
-	public void display() {
-		System.out.println("자식 클래스의 display() 메서드이다.");
-	}
-	
-	//오버로딩된 display()메서드
-	public void display(String str) {
-		System.out.println(str);
-	}
-}
-
-public class Inheritance {
-	public static void main(String[] args) {
-		Child ch = new Child();
-		ch.display();
-		ch.display("오버로딩된 display()메서드입니다.");
-	}
-}
-```
-# 추상화
+## 추상클래스
 - 공통성과 본질을 모아 추출하는것
-- 기존 클래스들의 공통적인 요소를 모아 상위 클래스를 만들어내는 기술
-- 공통적인 속성과 행위를 모아 정의하면, 반복적인 코드를 줄일수 있고, 보다 효과적인 클래스간의 관계를 설정하여 유지보수가 용이해진다.
+- 새, 공충, 물고기 등의 공통점은 동물이다.
+- 여기서 동물은 실체들의 공통되는 특성을 가지고 있는 추상적인 것이라고 볼 수 있다.
 
+### 추상클래스란?
+- 객체를 생성할 수 있는 클래스를 실체 클래스라고 한다면, 이 클래스들의 공통적인 필드나 메소드를 추출해서 선언한 클래스를 추상클래스라고 한다.
+
+### 추상 클래스 선언
+- 클래스 선언에 abstract 키워드를 붙이면 추상 클래스 선언이 된다.
+- 추상 클래스는 new 연산자를 이용해서 직접 객체를 만들지 못하고 상속을 통해 자식 클래스만 만들 수 있다.
+```java
+package ch07.sec10.exam01;
+
+
+public abstract class Phone {
+	//필드 선언
+	String owner;
+
+	//생성자 선언
+	Phone(String owner) {
+		this.owner = owner;
+	}
+
+	//메소드 선언
+	void turnOn() {
+		System.out.println("폰 전원을 켭니다.");
+	}
+	void turnOff() {
+		System.out.println("폰 전원을 끕니다.");
+	}
+}
 ```
-- 바로 전에 작성했던 FarmTest에서 메서드 오버라이딩을 이용하여 처리한 경우를 다시한번 살펴보자.
-- Animal클래스의 cry()메서드가 텅 비어있는 것을 확인할 수 있다.
-- Animal 객체를 통해 직접 cry()메서드를 호출할 일은 없지만,
-- Animal클래스를 상속받은 자식 클래스들이 cry()메서드를 오버라이딩 하여 재정의 하고
-- 타입변환을 통해서 그 메서드를 사용하기 위함이었다.
+- 추상클래스도 필드, 메소드를 선언할 수 있다.
+- 그리고 자식 객체가 생성될 때 super()로 추상 클래스의 생성자가 호출되기 때문에 생성자도 반드시 있어야 한다.
+
+```java
+package ch07.sec10.exam01;
+
+public class SmartPhone extends Phone {
+	//생성자 선언
+	SmartPhone(String owner) {
+		//Phone 생성자 호출
+		super(owner);
+	}
+
+	//메소드 선언
+	void internetSearch() {
+		System.out.println("인터넷 검색을 합니다.");
+	}
+}
+
+package ch07.sec10.exam01;
+
+public class PhoneExample {
+	public static void main(String[] args) {
+
+		//추상클래스의 객체는 직접 만들 수 없다.
+		//Phone phone = new Phone();
+
+		SmartPhone smartPhone = new SmartPhone("홍길동");
+
+		smartPhone.turnOn();
+		smartPhone.internetSearch();
+		smartPhone.turnOff();
+	}
+}
 ```
 
-## 추상메서드
+### 추상메서드와 재정의
 - 선번부만 작성하고 구현부는 작성하지 않고 남겨둔 미완성 메서드를 '추상 메서드'라고 한다.
 - 다형성을 위해 메서드의 선언은 통일해야 하지만, 실제로 구현하는 내용은 자식클래스마다 달라야 할 때
 - 부모 클래스의 메서드는 비워두고 자식 클래스에서 오버라이딩하여 구현을 할 수 있다.
@@ -584,176 +530,137 @@ public class Inheritance {
 [접근제한] abstract [반환형] [메서드명](파라미터1,파라미터2);
 abstract [접근제한] [반환형] [메서드명](파라미터1,파라미터2);
 ```
-## 추상 클래스(abstract class)
-- 추상메서드가 한 개 이상 정의되어 있는 클래스를 추상 클래스라고 한다.
-- 추상 메서드를 포함하고 있다는 것을 제외하고 일반 클래스와 다르지 않다.
-- 추상 클래스에도 생성자가 있으며, 멤버변수와 메서드도 가질 수 있다.
-- 추상 클래스 또한 abstract를 통해 자신이 추상클래스임을 명시해줘야 한다.
+- 추상메소드는 자식 클래스의 공통 메소드라는 것만 정의할 뿐, 실행 내용을 가지지 않는다.
+- 추상메소드는 자식 클래스에서 반드시 재정의해서 실행 내용을 채워야 한다.
+
 ```java
-[접근제한] abstract class [클래스명]{
+package ch07.sec10.exam02;
+
+public abstract class Animal {
+	//메소드 선언
+	public void breathe() {
+		System.out.println("숨을 쉽니다.");
+	}
+
+	//추상 메소드 선언
+	public abstract void sound();
+}
+
+
+package ch07.sec10.exam02;
+
+public class Dog extends Animal {
+	//추상 메소드 재정의
+	@Override
+	public void sound() {
+		System.out.println("멍멍");
+	}
+}
+
+package ch07.sec10.exam02;
+
+public class Cat extends Animal {
+	//추상 메소드 재정의
+	@Override
+	public void sound() {
+		System.out.println("야옹");
+	}
+}
+
+package ch07.sec10.exam02;
+
+public class AbstractMethodExample {
+	public static void main(String[] args) {
+		Dog dog = new Dog();
+		dog.sound();
+
+		Cat cat = new Cat();
+		cat.sound();
+
+		//매개변수의 다형성
+		animalSound(new Dog());
+		animalSound(new Cat());
+	}
+
+	public static void animalSound( Animal animal ) {
+		animal.sound();
+	}
+}
+```
+
+### 봉인된 클래스
+- 기본적으로 final 클래스를 제외한 모든 클래스는 부모 클래스가 될 수 있다.
+- 그러나 Java 15부터는 무분별한 자식 클래스의 생성을 방지하기 위해 봉인된(sealed)클래스가 도입되었다.
+- sealed 키워드를 사용하면 permits 키워드 뒤에 상속 가능한 자식 클래스를 지정해야 한다.
+
+```java
+package ch07.sec11;
+
+public sealed class Person permits Employee, Manager {
 	//필드
-	//생성자
-	//메서드(추상메서드 포함)
-}
-```
-### 추상 클래스의 특징
-- 일반 클래스 처럼 독립적으로 생성자를 호출해 객체를 생성할 수 없다.
-- 자식 클래스의 생성자에 super()를 총해 추상 클래스의 생성자를 호출하여 부모 객체를 생성한 후 자식 객체를 생성한다.
+	public String name;
 
-### Receipt클래스 만들기
-```java
-package abstrarct;
-
-public abstract class Receipt {
-	String chef;
-	
-	public Receipt(String chef) {
-		this.chef = chef;
-	}
-	
-	void info() {
-		System.out.println("이 레시피는 " + chef+"님의 레시피입니다.");
+	//메소드
+	public void work() {
+		System.out.println("하는 일이 결정되지 않았습니다.");
 	}
 }
 ```
-
-### PastaReceipt클래스 만들기
+- 봉인된 클래스를 상속하는 자식 클래스는 final 또는 non-sealed 키워드로 선언하거나, sealed키워드를 사용해서 또 다른 봉인 클래스로 선언해야 한다.
+- **final** : 더이상 상속 불가능
+- **non-sealed** : 봉인 해제
 ```java
-package abstrarct;
 
-public class PastaReceipt extends Receipt{
+package ch07.sec11;
 
-	public PastaReceipt(String chef) {
-		super(chef); //부모클래스의 생성차 호출
-	}
-	
-	void makeSource() {
-		System.out.println("파스타 소스를 직접 만듭니다.");
-	}
-}
-```
-
-### StakeReceipt클래스 만들기
-```java
-package abstrarct;
-
-public class StakeReceipt extends Receipt{
-
-	public StakeReceipt(String chef) {
-		super(chef);
-	}
-
-	void grillStake() {
-		System.out.println("스테이크를 맛있게 굽습니다.");
-	}
-	
-}
-```
-
-### ReceiptMain클래스 정의
-```java
-package abstrarct;
-
-public class ReceiptMain {
-	public static void main(String[] args) {
-		//Receipt r = new Receipt(); -> 추상클래스는 직접 객체를 생성할 수 없음
-		
-		PastaReceipt pr = new PastaReceipt("최연석");
-		pr.info(); //자식객체를 통해 추상 클래스의 메서드를 호출할 수 있음
-		pr.makeSource();
-		
-		StakeReceipt sr = new StakeReceipt("이현복");
-		sr.info();
-		sr.grillStake();
-	}
-}
-```
-- 추상클래스는 사실 일반 클래스와 크게 다를것은 없어보이지만, 직접 객체를 생성하지 못한다는 사실을 알 수 있다.
-
-### 추상클래스에 추상메서드는 언제 구현해야 할까??
-- 자식 클래스들이 반드시 구현해야 하는 메서드가 있다면, 우리는 추상 메서드로 해당 메서드를 부모 클래스(추상클래스)에 선언해 둘 수 있다.
-```
-추상 클래스를 상속받은 모든 자식 클래스는 반드시 추상 메서드를 오버라이딩 및 재정의하여 구현해야 한다.
-
-그렇지 않으면 컴파일 에러가 발생한다.
-```
-
-### Phone 클래스
-```java
-package test2;
-
-public abstract class Phone {
-	abstract public void openingLogo();
-	
-	public void powerOn() {
-		openingLogo();
-		System.out.println("핸드폰이 켜집니다.");
-	}
-	
-	public void powerOff() {
-		System.out.println("핸드폰이 꺼집니다.");
-	}
-}
-```
-
-### PineapplePhone클래스
-```java
-package test2;
-
-public class PineApplePhone extends Phone{
-
+public final class Employee extends Person {
 	@Override
-	public void openingLogo() {
-		System.out.println("@@@");
+	public void work() {
+		System.out.println("제품을 생산합니다.");
 	}
 }
-```
 
-### ThreeStarPhone클래스
-```java
-package test2;
+package ch07.sec11;
 
-public class ThreeStarPhone extends Phone{
-
+public non-sealed class Manager extends Person {
 	@Override
-	public void openingLogo() {
-		System.out.println("★★★");
+	public void work() {
+		System.out.println("생산 관리를 합니다.");
 	}
 }
-```
 
-### PhoneMain클래스
-```java
-package test2;
+package ch07.sec11;
 
-public class PhoneMain {
+public class Director extends Manager {
+	@Override
+	public void work() {
+		System.out.println("제품을 기획합니다.");
+	}
+}
+
+package ch07.sec11;
+
+public class SealedExample {
 	public static void main(String[] args) {
-		PineApplePhone pp = new PineApplePhone();
-		pp.powerOn();
-		pp.powerOff();
-		
-		System.out.println();
-		
-		ThreeStarPhone tp = new ThreeStarPhone();
-		
-		tp.powerOn();
-		tp.powerOff();
+		Person p = new Person();
+		Employee e = new Employee();
+		Manager m = new Manager();
+		Director d = new Director();
+
+		p.work();
+		e.work();
+		m.work();
+		d.work();
 	}
 }
 ```
-
-## 추상 클래스와 추상 메서드의 용도
-```
-- 자식 클래스 간의 공통적인 필드와 메서드 이름을 통일할 수 있다.
-- 반드시 구현해야 하는 메서드를 선언함으로써 공통 규격을 제공한다.
-```
-- 결과적으로 자식 클래스들의 규격과 내용을 통일하기 위함이며, 이는 곧 객체 지향 프로그래밍의 다형성을 구현하기 위한 탄탄한 기반이 된다.
 
 # 인터페이스
-- 모든 메서드가 추상 메서드인 일종의 추상 클래스를 '인터페이스'라고 부른다.
-- 인터페이스는 <b>추상 메서드와 상수</b> 로만 이루어져 있으며, 추상클래스와 마찬가지로 스스로 객체를 생성할 수 없다.
-- 언뜻 보면 인터페이스와 추상 클래스가 같은 역할을 하는 것처럼 느껴질 수 있지만, 취지는 완전히 다르다.
-- 추상 클래스는 자식클래스들의 공통적인 특징을 추출하고 제공하는것이 주된 역할이었다면
+
+## 인터페이스의 역할
+- 인터페이스는 사전적인 의미로 두 장치를 연결하는 접속기를 말한다.
+- 여기서 두 장치를 서로 다른 객체로 본다면, 인터페이스는 두 객체를 연결하는 역할을 한다.
+- 
 
 ![image](img/추상화.png)
 
@@ -762,7 +669,9 @@ public class PhoneMain {
 - 인터페이스는 그뿐 아니라 다른 클래스 코드들과의 중간 매개 역할을 하는 것을 중점으로 생각할 수 있다.
 
 
-## 인터페이스의 선언
+## 인터페이스와 구현 클래스 선언
+- 
+### 인터페이스 선언
 - 인터페이스는 클래스가 아니다.
 - 추상클래스는 스스로 객체를 생성할 수는 없지만, 자식 클래스의 생성자를 통해 객체를 생성해낼 수 있었다.
 - 하지만 인터페이스는 어떤 형태로도 객체를 만들 수 없기 때문에 클래스라고 부를 수 없다.
@@ -770,8 +679,13 @@ public class PhoneMain {
 
 ```java
 [접근제한자]interface 인터페이스명{
-	//상수
-	//추상메서드
+	//public 상수 필드
+	//public 추상 메소드
+	//public 디폴트 메소드
+	//public 정적 메소드
+	//private 메소드
+	//private 정적 메소드
+
 }
 ```
 - 인터페이스를 선언하는 방법은 클래스를 작성하는 방법과 동일하며 class키워드 대신 interface를 작성한다.
@@ -779,20 +693,13 @@ public class PhoneMain {
 - 따라서 항상 public으로 구현한다.
 - 만약 접근자를 default로 구현했다면 자동으로 public으로 인식한다.
 
-### Phone인터페이스
 ```java
-package test3;
+package ch08.sec02;
 
-public interface Phone {
-	
-	public static final int MAX_BATTERY_CAPACITY = 100;
-	
-	abstract void powerOn();
-	abstract void powerOff();
-	abstract boolean isOn();
-	abstract void watchUtube();
-	abstract void charge();
-}
+public interface RemoteControl {
+	//public 추상 메소드
+	public void turnOn();
+}	
 ```
 - 추상 클래스는 추상 메서드가 비어있기 때문에 객체 생성을 스스로 할 수 없다.
 - 대신 자식 클래스의 생성자의 힘을 빌려 객체 생성을 할 수 있었다.
@@ -800,27 +707,10 @@ public interface Phone {
 - 따라서 인터페이스도 자신이 가지고 있는 추상 메서드를 구현해줄 클래스를 작성해야만 한다.
 - 인터페이스를 구현해주는 클래스를 '구현 클래스'라고 한다.
 
+### 구현 클래스 선언
+- 구현 클래스는 인터페이스에 선언된 추상 메소드와 동일한 선언부를 가진 (재정의된)메소드를 가지고 있어야 한다.
 
-### 상수의 선언
-- 인터페이스에서는 필드 대신 상수를 선언할 수 있다.
-- 단, 상수이기 때문에 인터페이스는 고정된 값만 선언할 수 있어 충분한 고민을 통해 선언해야 한다.
-```java
-[접근제한자] interface 인터페이스 이름{
-	public static final 자료형 상수명 = 값;
-}
-
-public : 인터페이스는 다른 클래스들의 접근이 가능해야 하기 때문에 public으로 한다.
-static : 객체가 생성되지 않는 인터페이스이기 때문에, 내부 상수에 접근하려면 클래스 변수처럼 static으로 선언되어 메모리에 올라가있어야 한다.
-final : 상수를 뜻하는 키워드이다.
-```
-
-## 인터페이스 사용
-- 추상클래스는 추상메서드가 비어있기 때문에 객체를 스스로 생성할 수 없다.
-- 대신 자식 클래스의 생성자의 힘을 빌려 객체를 생성할 수 있었다.
-- 인터페치스 역시 추상 메서드가 비어있기 때문에 객체 ㅅ애성을 스스로 할 수 없다.
-- 인터페이스를 구현해주는 클래스를 '구현 클래스'라고 한다.
-
-### implements
+#### implements
 - 구현 클래스는 인터페이스를 사용해 구현하겠다는 선언을 해야 한다.
 - 구현한다는 의미를 가지고 있는 implements키워드를 사용하여 명시할 수 있다.
 ```java
@@ -831,69 +721,526 @@ final : 상수를 뜻하는 키워드이다.
 }
 ```
 
-
-### PineApplePhone클래스
 ```java
-package test3;
+package ch08.sec02;
 
-public class PineApplePhone implements Phone{
-	int batteryCapacity = 40;
-	boolean isOn = false;
-	
+public class Television implements RemoteControl {
 	@Override
-	public void powerOn() {
-		if(batteryCapacity > 30) {
-			System.out.println("@@@Power On!!@@@");
-			isOn = true;
-		} else {
-			System.out.println("Low Battery...");
-		}
+	public void turnOn() {
+		System.out.println("TV를 켭니다.");
+	}
+}
+```
+
+### 변수 선언과 구현 객체 대입
+- 인터페이스도 하나의 타입이므로 변수의 타입으로 사용할 수 있다.
+- 인터페이스는 참조 타입에 속하므로 인터페이스 변수에는 객체를 참조하고 있지 않다는 뜻으로 null을 대입할 수 있다.
+
+```java
+RemoteControl rc;
+RemoteControl rc = null;
+```
+- 인터페이스를 통해 구현 객체를 사용하면, 인터페이스 변수에 구현 객체를 대입해야 한다.
+
+```java
+package ch08.sec02;
+
+public class RemoteControlExample {
+	public static void main(String[] args) {
+		RemoteControl rc;
+
+		//rc 변수에 Television 객체를 대입
+		rc = new Television();
+		rc.turnOn();
+	}
+}
+```
+- rc 변수에는 RemoteControl을 구현한 어떠한 객체든 대입이 가능하다.
+- 만약 Audio 객체가 구현 객체라면 다음과 같이 Audio 객체로 교체해서 대입할 수도 있다.
+```java
+package ch08.sec02;
+
+public class Audio implements RemoteControl {
+	@Override
+	public void turnOn() {
+		System.out.println("Audio를 켭니다.");
+	}
+}
+```
+- 그리고 RemoteControlExample을 다음과 같이 수정하고 실행해보자.
+
+```java
+package ch08.sec02;
+
+public class RemoteControlExample {
+	public static void main(String[] args) {
+		RemoteControl rc;
+
+		//rc 변수에 Television 객체를 대입
+		rc = new Television();
+		rc.turnOn();
 		
+		//rc 변수에 Audio 객체를 대입(교체시킴)
+		rc = new Audio();
+		rc.turnOn();
+	}
+}
+```
+
+## 상수 필드
+- 인터페이스는 public static final 특성을 갖는 불변의 상수 필드를 멤버로 가질 수 있다.
+- 인터페이스에 선언된 필드는 모두 public static final 특성을 갖기 때문에 public static final을 생략하더라도 자동적으로 컴파일 과정에서 붙게 된다.
+- 상수명은 대문자로 작성하며, 서로 다른 단어로 구성되어 있을 경우에는 언더바(_)로 연결하는 것이 관례이다.
+```java
+package ch08.sec03;
+
+public interface RemoteControl {
+	int MAX_VOLUME = 10;
+	int MIN_VOLUME = 0;
+}
+```
+- 상수는 구현 객체와 관련 없는 인터페이스 소속 멤버이므로 다음과 같이 인터페이스로 바로 접근해서 상수값을 읽을 수 있다.
+```java
+package ch08.sec03;
+
+public class RemoteControlExample {
+	public static void main(String[] args) {
+		 System.out.println("리모콘 최대 볼륨: " + RemoteControl.MAX_VOLUME);
+		 System.out.println("리모콘 최저 볼륨: " + RemoteControl.MIN_VOLUME);
+	}
+}
+```
+
+## 추상메소드
+- 인터페이스는 구현 클래스가 재정의해야 하는 public 추상 메소드를 멤버로 가질 수 있다.
+- 추상 메소드는 리턴 타입, 메소드명, 매개변수만 기술되고 중괄호 { }를 붙이지 않는 메소드를 말한다.
+- public abstract를 생략하더라도 컴파일 과정에서 자동으로 붙게 된다.
+```java
+package ch08.sec04;
+
+public interface RemoteControl {
+	//상수 필드
+	int MAX_VOLUME = 10;
+	int MIN_VOLUME = 0;
+
+	//추상 메소드
+	void turnOn();
+	void turnOff();
+	void setVolume(int volume);
+}
+```
+```java
+package ch08.sec04;
+
+public class Television implements RemoteControl {
+	//필드
+	private int volume;
+
+	//turnOn() 추상 메소드 오버라이딩
+	@Override
+	public void turnOn() {
+		System.out.println("TV를 켭니다.");
 	}
 	
+	//turnOff() 추상 메소드 오버라이딩
 	@Override
-	public void powerOff() {
-		System.out.println("@@@Power Off!!@@@\n");
-		isOn = false;
+	public void turnOff() {
+		System.out.println("TV를 끕니다.");
+	}
+	
+	//setVolume() 추상 메소드 오버라이딩
+	//인터페이스 상수 필드를 이용해서 volume 필드의 값을 제한
+	@Override
+	public void setVolume(int volume) {
+		if(volume>RemoteControl.MAX_VOLUME) {
+			this.volume = RemoteControl.MAX_VOLUME;
+		} else if(volume<RemoteControl.MIN_VOLUME) {
+			this.volume = RemoteControl.MIN_VOLUME;
+		} else {
+			this.volume = volume;
+		}
+		System.out.println("현재 TV 볼륨: " + this.volume);
+	}
+}	
+```
+
+```java
+package ch08.sec04;
+
+public class Audio implements RemoteControl {
+	//필드
+	private int volume;
+	
+	//turnOn() 추상 메소드 오버라이딩
+	@Override
+	public void turnOn() {
+		System.out.println("Audio를 켭니다.");
+	}
+
+	//turnOff() 추상 메소드 오버라이딩
+	@Override
+	public void turnOff() {
+		System.out.println("Audio를 끕니다.");
+	}
+	
+	//setVolume() 추상 메소드 오버라이딩
+	@Override
+	public void setVolume(int volume) {
+		if(volume>RemoteControl.MAX_VOLUME) {
+			this.volume = RemoteControl.MAX_VOLUME;
+		} else if(volume<RemoteControl.MIN_VOLUME) {
+			this.volume = RemoteControl.MIN_VOLUME;
+		} else {
+			this.volume = volume;
+		}
+		System.out.println("현재 Audio 볼륨: " + volume);
+	}
+}
+```
+- 구현 클래스에서 추상 메소드를 재정의할 때 주의할 점은 인터페이스의 추상 메소드는 기본적으로 public 접근 제한을 갖기 때문에 public보다 더 낮은 접근 제한으로 재정의할 수 없다.
+- 그래서 재정의되는 메소드는 모두 public이 추가되어 있다.
+
+```java
+package ch08.sec04;
+
+public class RemoteControlExample {
+	public static void main(String[] args) {
+		//인터페이스 변수 선언
+		RemoteControl rc;
 		
+		//Television 객체를 생성하고 인터페이스 변수에 대입
+		rc = new Television();
+		rc.turnOn();
+		rc.setVolume(5);
+		rc.turnOff();
+
+		//Audio 객체를 생성하고 인터페이스 변수에 대입
+		rc = new Audio();
+		rc.turnOn();
+		rc.setVolume(5);
+		rc.turnOff();
 	}
-	
-	@Override
-	public boolean isOn() {
-		if(isOn) {
-			return true;
+}
+```
+
+## 디폴트 메소드
+- 인터페이스에는 완전한 실행 코드를 가진 디폴트 메서드를 선언할 수 있다.
+- 추상 메소드는 실행부가 없지만, 디폴트 메소드는 실행부가 있다.
+- 디폴트 메소드의 실행부에는 상수 필드를 읽거나 추상 메소드를 호출하는 코드를 작성할 수 있다.
+- RemoteControl 인터페이스에서 무음 처리 기능을 제공하는 setMute() 디폴트 메소드를 선언해보자.
+
+```java
+package ch08.sec05;
+
+public interface RemoteControl {
+	//상수 필드
+	int MAX_VOLUME = 10;
+	int MIN_VOLUME = 0;
+
+	//추상 메소드
+	void turnOn();
+	void turnOff();
+	void setVolume(int volume);
+
+	//디폴트 인스턴스 메소드
+	default void setMute(boolean mute) {
+		if(mute) {
+			System.out.println("무음 처리합니다.");
+			//추상 메소드 호출하면서 상수 필드 사용
+			setVolume(MIN_VOLUME);
 		} else {
-			return false;
+			System.out.println("무음 해제합니다.");
 		}
 	}
-	
+}
+```
+- 디폴트 메소드는 구현 객체가 필요한 메소드이다.
+- 따라서 RemoteControl의 setMute() 메소드를 호출하려면 구현 객체인 Television 객체를 다음과 같이 인터페이스 변수에 대입하고 나서 setMute()를 호출해야 한다.
+
+```java
+package ch08.sec05;
+
+import ch08.sec05.RemoteControl;
+
+public class Television implements RemoteControl {
+	//필드
+	private int volume;
+
+	//turnOn() 추상 메소드 오버라이딩
 	@Override
-	public void watchUtube() {
-		if(batteryCapacity > 10) {
-			System.out.println("--- watching Utube ---");
-			batteryCapacity -= 10;
-			System.out.println("battery is..." + batteryCapacity + "%\n");
+	public void turnOn() {
+		System.out.println("TV를 켭니다.");
+	}
+	
+	//turnOff() 추상 메소드 오버라이딩
+	@Override
+	public void turnOff() {
+		System.out.println("TV를 끕니다.");
+	}
+	
+	//setVolume() 추상 메소드 오버라이딩
+	@Override
+	public void setVolume(int volume) {
+		if(volume>RemoteControl.MAX_VOLUME) {
+			this.volume = RemoteControl.MAX_VOLUME;
+		} else if(volume<RemoteControl.MIN_VOLUME) {
+			this.volume = RemoteControl.MIN_VOLUME;
 		} else {
-			System.out.println("Low Battery...");
-			powerOff();
+			this.volume = volume;
 		}
+		System.out.println("현재 TV 볼륨: " + volume);
+	}
+}	
+
+-------------------------------------
+package ch08.sec05;
+
+public class RemoteControlExample {
+	public static void main(String[] args) {
+		//인터페이스 변수 선언
+		RemoteControl rc;
 		
-	}
-	
-	@Override
-	public void charge() {
-		if(batteryCapacity < Phone.MAX_BATTERY_CAPACITY - 20) {
-			System.out.println("--- charging ---");
-			batteryCapacity += 5;
-			System.out.println("Charged..." + batteryCapacity + "%\n");
-		} else {
-			System.out.println("You don't have to charge...");
-			System.out.println("It's enough... " + batteryCapacity + "%");
-		}
+		//Television 객체를 생성하고 인터페이스 변수에 대입
+		rc = new Television();
+		rc.turnOn();
+		rc.setVolume(5);
+
+		//디폴트 메소드 호출
+		rc.setMute(true);
+		rc.setMute(false);
 		
 	}
 }
 ```
+- 구현 클래스는 디폴트 메소드를 재정의해서 자신에게 맞게 수정할 수도 있다.
+- 재정의 시 주의할 점은 public 접근 제한자를 반드시 붙여야 하고, default 키워드를 생략해야 한다.
+
+```java
+package ch08.sec05;
+
+public class Audio implements RemoteControl {
+	//필드
+	private int volume;
+
+	//turnOn() 추상 메소드 오버라이딩
+	@Override
+	public void turnOn() {
+		System.out.println("Audio를 켭니다.");
+	}
+
+	//turnOff() 추상 메소드 오버라이딩
+	@Override
+	public void turnOff() {
+		System.out.println("Audio를 끕니다.");
+	}
+
+	//setVolume() 추상 메소드 오버라이딩
+	@Override
+	public void setVolume(int volume) {
+		if(volume>RemoteControl.MAX_VOLUME) {
+			this.volume = RemoteControl.MAX_VOLUME;
+		} else if(volume<RemoteControl.MIN_VOLUME) {
+			this.volume = RemoteControl.MIN_VOLUME;
+		} else {
+			this.volume = volume;
+		}
+		System.out.println("현재 Audio 볼륨: " + volume);
+	}
+////////////////////////////////추가된 내용///////////////
+	//필드
+	private int memoryVolume; //추가 필드 선언
+
+	//디폴트 메소드 재정의
+	@Override
+	public void setMute(boolean mute) {
+		if(mute) {
+			this.memoryVolume = this.volume;
+			System.out.println("무음 처리합니다.");
+			setVolume(RemoteControl.MIN_VOLUME);
+		} else {
+			System.out.println("무음 해제합니다.");
+			setVolume(this.memoryVolume);
+		}
+	}
+////////////////////////////////추가된 내용///////////////
+}
+```
+#### RemoteControlExample에 코드 추가하기
+```java
+package ch08.sec05;
+
+public class RemoteControlExample {
+	public static void main(String[] args) {
+
+		...
+		
+		//Audio 객체를 생성하고 인터페이스 변수에 대입
+		rc = new Audio();
+		rc.turnOn();
+		rc.setVolume(5);
+
+		//디폴트 메소드 호출
+		rc.setMute(true);
+		rc.setMute(false);				
+	}
+}
+
+```
+
+## 정적 메소드
+- 인터페이스에는 정적 메소드 선언이 가능하다.
+- 추상메소드와 디폴트 메소드는 구현 객체가 필요하지만, 정적 메소드는 구현 객체가 없어도 인터페이스만으로 호출할 수 있다.
+- 선언 방법은 클래스 정적 메소드와 완전 동일하다.
+- 단, public을 생략하더라도 자동으로 컴파일 과정에서 붙는 것이 차이점이다.
+
+```java
+package ch08.sec06;
+
+public interface RemoteControl {
+	//상수 필드
+	int MAX_VOLUME = 10;
+	int MIN_VOLUME = 0;
+
+	//추상 메소드
+	void turnOn();
+	void turnOff();
+	void setVolume(int volume);
+
+	//디폴트 메소드
+	default void setMute(boolean mute) {
+		//이전 예제와 동일한 코드이므로 생략
+	}
+
+	//정적 메소드
+	static void changeBattery() {
+		System.out.println("리모콘 건전지를 교환합니다.");
+	}
+}
+```
+- 인터페이스에 선언된 정적 메소드는 구현 객체 없이 인터페이스명으로 접근해서 호출할 수 있다.
+- 따라서 RemoteControl의 changeBattery()메소드는 RemoteControl.changeBattery()로 호출할 수 있다.
+
+```java
+package ch08.sec06;
+
+import ch08.sec06.RemoteControl;
+
+public class Television implements RemoteControl {
+	//필드
+	private int volume;
+
+	//turnOn() 추상 메소드 오버라이딩
+	@Override
+	public void turnOn() {
+		System.out.println("TV를 켭니다.");
+	}
+	
+	//turnOff() 추상 메소드 오버라이딩
+	@Override
+	public void turnOff() {
+		System.out.println("TV를 끕니다.");
+	}
+	
+	//setVolume() 추상 메소드 오버라이딩
+	@Override
+	public void setVolume(int volume) {
+		if(volume>RemoteControl.MAX_VOLUME) {
+			this.volume = RemoteControl.MAX_VOLUME;
+		} else if(volume<RemoteControl.MIN_VOLUME) {
+			this.volume = RemoteControl.MIN_VOLUME;
+		} else {
+			this.volume = volume;
+		}
+		System.out.println("현재 TV 볼륨: " + volume);
+	}
+}	
+
+-----------------------
+package ch08.sec06;
+
+import ch08.sec06.RemoteControl;
+
+public class Audio implements RemoteControl {
+	//필드
+	private int volume;
+
+	//turnOn() 추상 메소드 오버라이딩
+	@Override
+	public void turnOn() {
+		System.out.println("Audio를 켭니다.");
+	}
+
+	//turnOff() 추상 메소드 오버라이딩
+	@Override
+	public void turnOff() {
+		System.out.println("Audio를 끕니다.");
+	}
+
+	//setVolume() 추상 메소드 오버라이딩
+	@Override
+	public void setVolume(int volume) {
+		if(volume>RemoteControl.MAX_VOLUME) {
+			this.volume = RemoteControl.MAX_VOLUME;
+		} else if(volume<RemoteControl.MIN_VOLUME) {
+			this.volume = RemoteControl.MIN_VOLUME;
+		} else {
+			this.volume = volume;
+		}
+		System.out.println("현재 Audio 볼륨: " + volume);
+	}
+
+	//필드
+	private int memoryVolume;
+
+	//디폴트 메소드 재정의
+	@Override
+	public void setMute(boolean mute) {
+		if(mute) {
+			this.memoryVolume = this.volume;
+			System.out.println("무음 처리합니다.");
+			setVolume(RemoteControl.MIN_VOLUME);
+		} else {
+			System.out.println("무음 해제합니다.");
+			setVolume(this.memoryVolume);
+		}
+	}
+}
+package ch08.sec06;
+
+public class RemoteControlExample {
+	public static void main(String[] args) {
+ 		//인터페이스 변수 선언
+		RemoteControl rc;
+
+		//Television 객체를 생성하고 인터페이스 변수에 대입
+		rc = new Television();
+		rc.turnOn();
+		rc.setVolume(5);
+
+		//디폴트 메소드 호출
+		rc.setMute(true);
+		rc.setMute(false);
+
+		System.out.println();
+
+		//Audio 객체를 생성하고 인터페이스 변수에 대입
+		rc = new Audio();
+		rc.turnOn();
+		rc.setVolume(5);
+
+		//디폴트 메소드 호출
+		rc.setMute(true);
+		rc.setMute(false);
+		
+		System.out.println();
+
+		//정적 메소드 호출
+		RemoteControl.changeBattery();
+	}
+}
+```
+
+
 
 ### ThreeStarPhone클래스
 ```java

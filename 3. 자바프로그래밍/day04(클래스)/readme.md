@@ -1665,78 +1665,18 @@ public class C {
 
 # setter&getter
 - 지금까지 객체의 필드를 객체의 내부뿐만 아니라 객체 밖에서도 마음껏 사용할 수 있었고, 마음대로 값을 바꿀수도 있었다.
-- 하지만 이런 경우 객체의 무결성이 깨질 수 있다.
+- 하지만 이런 경우 <b style="color:red">객체의 무결성이 깨질 수 있다.</b>
 - 예를 들어 자동차의 속력은 음수가 될 수 없는데, 외부에서 음수로 변경하면 객체의 무결성이 깨진다.
 ```java
 Car myCar = new Car();
 myCar.speed = -100;
 ```
-- 이러한 문제점 때문에 객체지향 프로그래밍에서는 직접적인 외부에서의 필드 접근을 막고, 그 대신 메소드를 통해 필드에 접근하는 것을 선호한다.
-- 그 이유는 메소드가 데이터를 검증해서 유효한 값만 필드에 저장할 수 있기 때문이다.
+- 이러한 문제점 때문에 객체지향 프로그래밍에서는 직접적인 <b style="color:red">외부에서의 필드 접근을 막고</b>, 그 대신 <b style="color:red">메소드를 통해 필드에 접근하는 것을 선호한다.</b>
+- 그 이유는 <b style="color:red">메소드가 데이터를 검증해서 유효한 값만 필드에 저장</b>할 수 있기 때문이다.
 
-### setter
-- 외부에서 메서드를 통해 데이터에 접근하고 검증할 수 있도록 유도하는 메서드의 개념
-
-### Person클래스에 코드 추가하기
 ```java
-public void setAge(int num) {
-	if(num <= 0) {// 만약, age에 넣으려는 값이 0보다 작거나 같다면
-		System.out.println("잘못된 수를 입력하셨습니다. 1 이상의 값으로 설정하세요");
-		return; //메서드 종료
-	} else {
-		age = num; //age필드에 num을 저장
-	}
-}
-```
-- 일반적으로 setter메서드를 사용할 때는, 필드의 값을 객체 외부에서 직접 넣지 못하도록 필드에 접근을 제한한다.
-- 필드가 선언되어 있는 클래스에서만 접근이 가능하도록 private 접근제한자를 붙힌다.
-```java
-private int age;
-```
-- 필드를 private으로 선언함으로써 필드를 한층 더 보호할 수 있으나, 객체의 외부에서 그 필드에 대한 값을 불러오는 것 또한 불가능해졌다.
+private double speed;
 
-## getter
-- private 필드를 객체 외부에서 값을 불러오기 위해 구현하는 메서드를 getter라고한다.
-- private 필드는 객체 외부에서는 접근이 불가능하지만, 필드가 선언된 클래스에서는 어디서든 접근이 가능하다.
-- 따라서 메서드를 통해서 값을 전달해 줄 수 있다.
-
-### Person클래스에 코드 추가하기
-```java
-public int getAge() {
-	return age;
-}
-```
-
-### PersonMaim클래스 코드 수정하기
-```java
-package method;
-
-public class PersonMain {
-	public static void main(String[] args) {
-		Person hong = new Person();
-//		hong.introduce("홍길동", 20);
-//		hong.hello();
-		//hong.age = -30;
-		hong.setAge(-30);
-		hong.setAge(30);
-		System.out.println("hong의 나이는 " + hong.getAge()+"세입니다.");
-	}
-}
-```
-
-## setter&getter 실습
-```java
-package test3;
-
-public class Car {
-	//필드(인스턴스 변수, 객체 변수, 멤버 변수)
-	private int speed;
-	private boolean stop;
-	
-	public int getSpeed() {
-		return speed;
-	}
-	
 	public void setSpeed(int speed) {
 		if(speed < 0) {
 			this.speed = 0;
@@ -1746,39 +1686,184 @@ public class Car {
 		}
 		
 	}
+```
+- 외부에서 객체의 필드를 읽을 때도 메소드가 필요한 경우가 있다.
+- 필드값이 객체 외부에서 사용하기에 부적절한 경우, 메소드로 적절한 값으로 변환해서 리턴할 수 있기 때문이다.
+- 이러한 역할을 하는 메소드가 Getter이다.
+
+```java
+private double speed; //speed의 단위는 마일
+
+public double getSpeed(){
+	//마일을 km로 환산 하여 반환
+	double km = speed * 1.6; 
+	return km;
+}
+```
+- getter,setter메소드를 만들 때는 메소드의 이름 앞에 get,set접두사를 붙이는게 일반적이다.
+```java
+private 타입 fieldName;
+
+public 타입 getFieldName(){
+	return fieldName;
+}
+
+public void setFieldName(타입 fieldName){
+	this.fieldName = fieldName;
+}
+```
+- 필드의 타입이 boolean일 경우에 Getter는 get으로 시작하지 않고 is로 시작하는 것이 관례이다.
+
+```java
+private boolean stop;
+
+public boolean isStop(){
+	return stop;
+}
+```
+
+<br>
+
+```java
+package ch06.sec14;
+
+public class Car {
+	//필드 선언
+	private int speed;
+	private boolean stop;
 	
+	//speed 필드의 Getter/Setter 선언
+	public int getSpeed() {
+		return speed;
+	}
+	public void setSpeed(int speed) {
+		if(speed < 0) {
+			this.speed = 0;
+			return;
+		} else {
+			this.speed = speed;
+		}
+	}
+	//stop 필드의 Getter/Setter 선언
 	public boolean isStop() {
 		return stop;
 	}
-	
 	public void setStop(boolean stop) {
 		this.stop = stop;
-		this.speed = 0;
+		if(stop == true) this.speed = 0;
 	}
 }
-```
-```java
-package test3;
 
-public class CarTest {
+package ch06.sec14;
+
+public class CarExample {
 	public static void main(String[] args) {
+		//객체 생성
 		Car myCar = new Car();
-		
+
 		//잘못된 속도 변경
 		myCar.setSpeed(-50);
-		
-		System.out.println("현재 속도 : " + myCar.getSpeed());
-		
+		System.out.println("현재 속도: " + myCar.getSpeed());
+
 		//올바른 속도 변경
 		myCar.setSpeed(60);
+		System.out.println("현재 속도: " + myCar.getSpeed());
 		
 		//멈춤
 		if(!myCar.isStop()) {
 			myCar.setStop(true);
 		}
-		
-		System.out.println("현재 속도 : " + myCar.getSpeed());
+		System.out.println("현재 속도: " + myCar.getSpeed());
 	}
 }
-
 ```
+
+## 싱글톤 패턴
+- 하나의 프로그램에서 단 한 개의 객체만 생성해서 사용하고 싶다면 싱글톤 패턴을 적용할 수 있다.
+- 싱글톤 패턴의 핵심은 생성자를 private 접근 제한해 외부에서 new 연산자로 생성자를 호출할 수 없도록 막는것이다.
+
+```java
+private 클래스명() {}
+```
+
+![image](img/싱글톤.png)
+
+- 생성자를 호출할 수 없으니 외부에서 마음대로 객체를 생성하는 것이 불가능해진다.
+- 대신 싱글톤 패턴이 제공하는 정적 메소드를 통해 간접적으로 객체를 얻을 수 있다.
+
+```java
+public class 클래스{
+
+	//private 접근 권한을 갖는 정적 필드 선언과 초기화
+	private static 클래스 singleton = new 클래스명();
+
+	//private 접근 권한을 갖는 생성자 선언
+	private 클래스() {};
+
+	//public 접근 권한을 갖는 정적 메소드 선언
+	public static 클래스 getInstance(){
+		return singleton;
+	}
+
+
+}
+```
+
+- 외부에서 객체를 얻는 유일한 방법은 getInstance() 메소드를 호출하는것이다.
+- getInstance()메소드가 리턴하는 객체는 정적 필드가 참조하는 싱글톤 객체이다.
+```java
+클래스명 변수명1 = 클래스명.getInstance();
+클래스명 변수명2 = 클래스명.getInstance();
+```
+- 위 두 개의 변수가 참조하는 객체는 동일한 객체가 된다.
+- <b>아파트 단지 내 어느 집에서 관리실에 전화해도 같은 사무실로 전화가 간다.</b>
+
+```java
+package ch06.sec15;
+
+public class Singleton {
+	//private 접근 권한을 갖는 정적 필드 선언과 초기화
+	private static Singleton singleton = new Singleton();
+
+	//private 접근 권한을 갖는 생성자 선언
+	private Singleton() {
+	}
+
+	//public 접근 권한을 갖는 정적 메소드 선언
+	public static Singleton getInstance() {
+		return singleton;
+	}
+}
+```
+<br>
+
+```java
+package ch06.sec15;
+
+public class SingletonExample {
+	public static void main(String[] args) {
+		/*
+ 		Singleton obj1 = new Singleton(); //컴파일 에러
+ 		Singleton obj2 = new Singleton(); //컴파일 에러
+		 */
+		
+		//정적 메소드를 호출해서 싱글톤 객체 얻음
+		Singleton obj1 = Singleton.getInstance();
+		Singleton obj2 = Singleton.getInstance();
+
+		//동일한 객체를 참조하는지 확인
+		if(obj1 == obj2) {
+			System.out.println("같은 Singleton 객체입니다.");
+		} else {
+			System.out.println("다른 Singleton 객체입니다.");
+		}
+	}
+}
+```
+
+
+
+
+
+
+
